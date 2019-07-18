@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!--
+	<link rel="icon" href="images/favicon.png">
+	-->
+	<title>Home Care</title>
+	<link rel="stylesheet" href="css/materialize.css">
+	<link rel="stylesheet" href="css/loaders.css">
+	<link rel="stylesheet" href="css/lightbox.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+
+	<div class="app_page" page="splash">
+		<img src="images/custom/logo.png" />
+
+		<div class="row auth_buttons">
+			<div class="col s6">
+				<div class="contents center goto_signin">
+					<button class="button button-full z-depth-1">SIGN IN</button>
+				</div>
+			</div>
+			<div class="col s6">
+				<div class="contents center goto_signup">
+					<button class="button button-full z-depth-1">SIGN UP</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="app_page" page="signin">
+		<div class="navbar theme_bg">
+			<div class="container">
+				<div class="row">
+					<div class="col s12">
+						<div class="content-center">
+							<a href="javascript:;;"><h1></h1></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sign-in segments-page">
+			<div class="container">
+			<div class="signin-contents">
+				<img class="app_logo" src="images/custom/logo.png" />
+				<div class="pages-title">
+					<h3>Sign In</h3>
+					<div class="line"></div>
+				</div>
+				<form class="signin_form">
+					<input required class="signin_username" type="text" placeholder="Username">
+					<input required class="signin_password" type="password" placeholder="Password">
+					<div class="row">
+						<div class="col s12">
+							<div class="col s6">
+								<button type="button" class="goto_splash button button-full button-white z-depth-1"><i class="fa fa-arrow-left"></i> Back</button>
+							</div>
+							<div class="col s6">
+								<button type="submit" class="button-full"><i class="fa fa-check"></i> Sign In</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="social-login">
+						<h5>or</h5>
+						<div class="col s12">
+							<button type="button" class="goto_forgot button-full">Forgot Password</button>
+						</div>
+					</div>
+
+
+				</form>
+			</div>
+			</div>
+		</div>
+		<!-- end sign in -->
+	</div>
+
+	<div class="app_page" page="signup">
+		<div class="navbar theme_bg">
+			<div class="container">
+				<div class="row">
+					<div class="col s12">
+						<div class="content-center">
+							<a href="javascript:;;"><h1></h1></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sign-in segments-page">
+			<div class="container">
+			<div class="signin-contents">
+				<img class="app_logo" src="images/custom/logo.png" />
+				<div class="pages-title">
+					<h3>Create a new account!</h3>
+					<div class="line"></div>
+				</div>
+				<form class="signup_form">
+					<input class="signup_username" type="text" placeholder="Username">
+					<input class="signup_phone" type="number" placeholder="Phone number">
+					<div class="row">
+						<div class="col s6">
+							<button type="button" class="goto_splash button button-full button-white z-depth-1"><i class="fa fa-arrow-left"></i> Back</button>
+						</div>
+						<div class="col s6">
+							<button type="submit" class="button-full"><i class="fa fa-check"></i> Next</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			</div>
+		</div>
+		<!-- end sign in -->
+	</div>
+
+	<div class="app_page" page="sms_verification">
+		<div class="navbar theme_bg">
+			<div class="container">
+				<div class="row">
+					<div class="col s12">
+						<div class="content-center">
+							<a href="javascript:;;"><h1></h1></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sign-in segments-page">
+			<div class="container">
+			<div class="signin-contents">
+				<img class="app_logo" src="images/custom/logo.png" />
+				<div class="pages-title">
+					<h3 class="verificaton_help"></h3>
+					<div class="line"></div>
+				</div>
+				<form class="verification_form">
+					<input class="verification_code" type="number" placeholder="* * * * * *">
+					<div class="row">
+						<div class="col s6">
+							<button type="button" class="goto_signup button button-full button-white z-depth-1"><i class="fa fa-arrow-left"></i> Back</button>
+						</div>
+						<div class="col s6">
+							<button type="submit" class="button-full"><i class="fa fa-check"></i> Verify</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			</div>
+		</div>
+		<!-- end sign in -->
+	</div>
+
+	<div class="app_page" page="set_password">
+		<div class="navbar theme_bg">
+			<div class="container">
+				<div class="row">
+					<div class="col s12">
+						<div class="content-center">
+							<a href="javascript:;;"><h1></h1></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sign-in segments-page">
+			<div class="container">
+			<div class="signin-contents">
+				<img class="app_logo" src="images/custom/logo.png" />
+				<div class="pages-title">
+					<h3>Please enter your new password</h3>
+					<div class="line"></div>
+				</div>
+				<form class="set_password_form">
+					<input required class="new_password" type="password" placeholder="New Password">
+					<input required class="re_password" type="password" placeholder="Re Password">
+					<div class="row">
+						<div class="col s6">
+							<button type="button" class="goto_signup button button-full button-white z-depth-1"><i class="fa fa-arrow-left"></i> Back</button>
+						</div>
+						<div class="col s6">
+							<button type="submit" class="button-full"><i class="fa fa-check"></i> Next</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			</div>
+		</div>
+		<!-- end sign in -->
+	</div>
+
+	<div class="app_page" page="forgot">
+		<div class="navbar theme_bg">
+			<div class="container">
+				<div class="row">
+					<div class="col s12">
+						<div class="content-center">
+							<a href="javascript:;;"><h1></h1></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sign-in segments-page">
+			<div class="container">
+			<div class="signin-contents">
+				<img class="app_logo" src="images/custom/logo.png" />
+				<div class="pages-title">
+					<h3>Forgot Password</h3>
+					<div class="line"></div>
+				</div>
+				<form class="forgot_form">
+					<input value="923323137489" required class="forgot_phone" type="number" placeholder="Phone Number">
+					<div class="row">
+						<div class="col s12">
+							<div class="col s6">
+								<button type="button" class="goto_signin button button-full button-white z-depth-1"><i class="fa fa-arrow-left"></i> Back</button>
+							</div>
+							<div class="col s6">
+								<button type="submit" class="button-full"><i class="fa fa-check"></i> Next</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			</div>
+		</div>
+		<!-- end sign in -->
+	</div>
+
+	<div class="app_page" page="patient_dashboard">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a href="#slide-out" data-activates="slide-out" class="sidebar"><i class="fa fa-bars"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1>Home Care</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- sidebar -->
+		<div class="sidebar-panel">
+			<ul id="slide-out" class="collapsible side-nav">
+				<li>
+					<div class="user-view get_profile">
+						<div class="background">
+							<img src="images/bg-user.jpg" alt="">
+						</div>
+						<img class="circle responsive-img" src="images/custom/avatar.png" alt="">
+						<span class="white-text name login_name"></span>
+					</div>
+				</li>
+
+				<li class="get_appointments"><a href="javascript:;"><i class="fa fa-user-md"></i>Appointments</a></li>
+				<li class="get_documents"><a href="javascript:;"><i class="fa fa-file-o"></i>Documents</a></li>
+				<li class="btn_logout"><a href="javascript:;"><i class="fa fa-power-off"></i>Logout</a></li>
+
+
+			</ul>
+		</div>
+		<!-- end sidebar -->
+
+		<div class="services segments">
+			<div class="container">
+
+				<br />
+				<br />
+
+				<div class="emergency segments">
+					<div class="container">
+						<div class="section-title">
+							<h3><i class="fa fa-2x fa-wheelchair"></i><br/>Welcome, <span class="login_name"></span>!</h3>
+							<div class="line"></div>
+						</div>
+						<div class="content">
+							<p>You have <span class="app_count">0</span> scheduled appointments</p>
+						</div>
+
+					</div>
+				</div>
+
+				<br />
+
+				<div class="row">
+					<div class="col s6">
+						<div class="contents get_services">
+							<i class="fa fa-ambulance"></i>
+							<h4>Services</h4>
+							<p></p>
+						</div>
+					</div>
+					<div class="col s6">
+						<div class="contents get_specialities">
+							<i class="fa fa-stethoscope"></i>
+							<h4>Doctors</h4>
+							<p></p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="list segments-page appointment_up_next_box">
+			<div class="section-title">
+				<h3>Your Next Appointment</h3>
+				<div class="line"></div>
+			</div>
+			<div class="container appointment_up_next">
+				<div class="table-contents z-depth-1">
+					<table>
+						<tbody>
+							<tr>
+								<th colspan="2" class="appointment_with text-center"></th>
+							</tr>
+							<tr>
+								<td colspan="2" class="appointment_when text-center"></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="row">
+						<!--<div class="col s12">
+								<button class="button button-full z-depth-1 appointment_chat"><i class="fa fa-envelope"></i> Chat</button>
+						</div>
+						<br />
+						-->
+						<div class="col s12">
+
+							<button class="get_appointments button button-full button-white">View all appointments</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<Br/><Br/><Br/>
+
+	</div>
+
+	<div class="app_page" page="doctor_dashboard">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a href="#slide-out-2" data-activates="slide-out-2" class="sidebar"><i class="fa fa-bars"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1>Home Care</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- sidebar -->
+		<div class="sidebar-panel">
+			<ul id="slide-out-2" class="collapsible side-nav">
+				<li>
+					<div class="user-view get_profile">
+						<div class="background">
+							<img src="images/bg-user.jpg" alt="">
+						</div>
+						<img class="circle responsive-img" src="images/custom/avatar.png" alt="">
+						<span class="white-text name login_name"></span>
+					</div>
+				</li>
+
+				<li class="get_appointments"><a href="javascript:;"><i class="fa fa-user-md"></i>Appointments</a></li>
+				<li class="btn_logout"><a href="javascript:;"><i class="fa fa-power-off"></i>Logout</a></li>
+
+
+			</ul>
+		</div>
+		<!-- end sidebar -->
+
+		<div class="services segments">
+			<div class="container">
+
+				<br />
+				<br />
+
+				<div class="emergency segments">
+					<div class="container">
+						<div class="section-title">
+							<h3><i class="fa fa-2x fa-user-md"></i><br/>Welcome, <span class="login_name"></span>!</h3>
+							<div class="line"></div>
+						</div>
+						<div class="content">
+							<p>You have <span class="app_count">0</span> scheduled appointments</p>
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+				<div class="list segments-page appointment_up_next_box">
+					<div class="section-title">
+						<h3>Your Next Appointment</h3>
+						<div class="line"></div>
+					</div>
+					<div class="container appointment_up_next">
+						<div class="table-contents z-depth-1">
+							<table>
+								<tbody>
+									<tr>
+										<th colspan="2" class="appointment_with text-center"></th>
+									</tr>
+									<tr>
+										<td colspan="2" class="appointment_when text-center"></td>
+									</tr>
+								</tbody>
+							</table>
+
+							<div class="row">
+								<!--
+								<div class="col s12">
+										<button class="button button-full z-depth-1 appointment_chat"><i class="fa fa-envelope"></i> Chat</button>
+								</div>
+								-->
+								<div class="col s12">
+									<button class="get_appointments button button-full button-white">View all appointments</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<Br />
+				<Br />
+
+			</div>
+		</div>
+	</div>
+
+	<div class="app_page" page="services">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="patient_dashboard" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1>Services</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		..
+		<div class="services segments">
+			<div class="container">
+
+				<br />
+				<br />
+
+				<div class="section-title">
+					<h3 class="services_count"></h3>
+					<div class="line"></div>
+				</div>
+				<div class="row services_here">
+
+				</div>
+			</div>
+		</div>
+
+		<br/><br/>
+
+
+
+
+	</div>
+
+	<div class="app_page" page="specialities">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="patient_dashboard" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1>Doctor Specialities</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="services segments">
+			<div class="container">
+
+				<br />
+				<br />
+
+				<div class="section-title">
+					<h3 class="speciality_count"></h3>
+					<div class="line"></div>
+				</div>
+				<div class="row speciality_here">
+
+				</div>
+			</div>
+		</div>
+
+		<br/><br/>
+
+	</div>
+
+	<div class="app_page" page="doctors">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="specialities" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1>Doctors</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="list segments-page">
+			<div class="section-title">
+				<h3 class="doctor_count"></h3>
+				<div class="line"></div>
+			</div>
+
+			<div class="container doctors_here">
+
+			</div>
+		</div>
+
+		<br/><br/>
+
+	</div>
+
+	<div class="app_page" page="schedule">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="doctors" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1>Book Appointment</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="services segments">
+			<div class="container">
+				<form class="appointment_form">
+
+					<br />
+					<br />
+
+					<div class="section-title">
+						<h3 class="booking_doc"></h3>
+						<div class="line"></div>
+					</div>
+					<div class="row pricing">
+						<div price="1" class="col s4">
+							<div sc_id="" class="contents">
+								<h4>Rs. 1000</h4>
+								<p class="text-center">20 Mins</p>
+							</div>
+						</div>
+						<div price="2" class="col s4">
+							<div sc_id="" class="contents">
+								<h4>Rs. 1500</h4>
+								<p class="text-center">40 Mins</p>
+							</div>
+						</div>
+						<div price="3" class="col s4">
+							<div sc_id="" class="contents">
+								<h4>Rs. 2500</h4>
+								<p class="text-center">60 Mins</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="section-title">
+						<div class="line"></div>
+					</div>
+
+					<div class="row schedule_here"></div>
+
+					<div class="section-title">
+						<div class="line"></div>
+					</div>
+
+					<input class="booking_date" type="date" />
+
+					<div class="section-title">
+						<div class="line"></div>
+					</div>
+
+					<textarea class="booking_reason" placeholder="Appointment description here .. (optional)"></textarea>
+
+					<button class="button button-full z-depth-1">Book Now</button>
+				</form>
+			</div>
+		</div>
+
+		<Br /><Br />
+
+	</div>
+
+	<div class="app_page" page="terms_and_contitions">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="schedule" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1>Terms & Condition</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div class="blog-single segments-page">
+			<div class="container">
+				<div class="contents">
+
+					<div class="section-title">
+						<h3>Invoice</h3>
+						<div class="line"></div>
+					</div>
+
+					<table>
+						<tr>
+							<th>Token No:</th><td class="token_no"></td>
+						</tr>
+						<tr>
+							<th>Patient Name:</th><td class="patient_name"></td>
+						</tr>
+						<tr>
+							<th>Doctor Name:</th><td class="booking_doc"></td>
+						</tr>
+						<tr>
+							<th>Appointment Date:</th><td class="app_date_show"></td>
+						</tr>
+						<tr>
+							<th>Date|Time:</th><td class="app_date_time"></td>
+						</tr>
+						<tr>
+							<th>Booking Status:</th><td>Pending</td>
+						</tr>
+						<tr>
+							<th>Payment Status:</th><td>Pending</td>
+						</tr>
+					</table>
+
+					<div class="section-title">
+						<h3>Our Terms & Condition</h3>
+						<div class="line"></div>
+					</div>
+
+					<div class="terms_and_contitions_text text">
+
+									<p> <b>Home Care App</b> built the MomoHR app as a Free app. This SERVICE is provided by
+                    <b>Home Care App</b> at no cost and is intended for use as is.
+                  </p> <p>This page is used to inform visitors regarding our policies with the collection, use, and disclosure
+                    of Personal Information if anyone decided to use our Service.
+                  </p> <p>If you choose to use our Service, then you agree to the collection and use of information in
+                    relation to this policy. The Personal Information that we collect is used for providing and improving
+                    the Service. We will not use or share your information with anyone except as described
+                    in this Privacy Policy.
+                  </p> <p>The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is
+                    accessible at MomoHR unless otherwise defined in this Privacy Policy.
+                  </p> <p><strong>Information Collection and Use</strong></p> <p>For a better experience, while using our Service, we may require you to provide us with certain
+                    personally identifiable information, including but not limited to Internet Access, Notification, Call Log, Location, Network Information, Battery Status, Contacts, Sim Info, Vibration, Background Services, SMS-Read, File Transfer, Firebase, Location Accuracy, Screen Orientation, Storage, Media, Device Motion and In-App-Browser. The information that we request will be retained by us and used as described in this privacy policy.
+                  </p> <p>The app does use third party services that may collect information used to identify you.</p> <div><p>Link to privacy policy of third party service providers used by the app</p> <ul><li><a href="https://www.google.com/policies/privacy/" target="_blank">Google Play Services</a></li><!----><!----><!----><!----><!----><!----><!----></ul></div> <p><strong>Log Data</strong></p> <p> We want to inform you that whenever you use our Service, in a case of
+                    an error in the app we collect data and information (through third party products) on your phone
+                    called Log Data. This Log Data may include information such as your device Internet Protocol (“IP”) address,
+                    device name, operating system version, the configuration of the app when utilizing our Service,
+                    the time and date of your use of the Service, and other statistics.
+                  </p> <p><strong>Cookies</strong></p> <p>Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers.
+                    These are sent to your browser from the websites that you visit and are stored on your device's internal
+                    memory.
+                  </p> <p>This Service does not use these “cookies” explicitly. However, the app may use third party code and
+                    libraries that use “cookies” to collect information and improve their services. You have the option to
+                    either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose
+                    to refuse our cookies, you may not be able to use some portions of this Service.
+                  </p> <p><strong>Service Providers</strong></p> <p> We may employ third-party companies and individuals due to the following reasons:</p> <ul><li>To facilitate our Service;</li> <li>To provide the Service on our behalf;</li> <li>To perform Service-related services; or</li> <li>To assist us in analyzing how our Service is used.</li></ul> <p> We want to inform users of this Service that these third parties have access to
+                    your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However,
+                    they are obligated not to disclose or use the information for any other purpose.
+                  </p> <p><strong>Security</strong></p> <p> We value your trust in providing us your Personal Information, thus we are striving
+                    to use commercially acceptable means of protecting it. But remember that no method of transmission over
+                    the internet, or method of electronic storage is 100% secure and reliable, and we cannot guarantee
+                    its absolute security.
+                  </p> <p><strong>Links to Other Sites</strong></p> <p>This Service may contain links to other sites. If you click on a third-party link, you will be directed
+                    to that site. Note that these external sites are not operated by us. Therefore, we strongly
+                    advise you to review the Privacy Policy of these websites. We have no control over
+                    and assume no responsibility for the content, privacy policies, or practices of any third-party sites
+                    or services.
+                  </p> <p><strong>Children’s Privacy</strong></p> <p>These Services do not address anyone under the age of 13. We do not knowingly collect
+                    personally identifiable information from children under 13. In the case we discover that a child
+                    under 13 has provided us with personal information, we immediately delete this from
+                    our servers. If you are a parent or guardian and you are aware that your child has provided us with personal
+                    information, please contact us so that we will be able to do necessary actions.
+                  </p> <p><strong>Changes to This Privacy Policy</strong></p> <p> We may update our Privacy Policy from time to time. Thus, you are advised to review
+                    this page periodically for any changes. We will notify you of any changes by posting
+                    the new Privacy Policy on this page. These changes are effective immediately after they are posted on
+                    this page.
+                  </p> <p><strong>Contact Us</strong></p> <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact
+                    us.
+                  </p>
+					</div>
+				</div>
+
+				<button class="accept_and_book button button-full z-depth-1">I Accept</button>
+
+
+			</div>
+		</div>
+
+
+
+
+
+		<Br /><Br />
+
+	</div>
+
+	<div class="app_page" page="appointments">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="patient_dashboard" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1>My Appointments</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="list segments-page">
+			<!--
+			<div class="section-title">
+				<h3></h3>
+				<div class="line"></div>
+			</div>
+			-->
+			<div class="container appointments_here">
+
+			</div>
+		</div>
+
+		<Br />
+		<Br />
+
+	</div>
+
+	<div class="app_page" page="appointment_details">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="appointments" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1>Appointments</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="segments-page">
+			<div class="container">
+				<div class="table-contents z-depth-1">
+					<table>
+						<tbody>
+							<tr>
+								<th>Doctor:</th>
+								<td class="app_doctor_name"></td>
+							</tr>
+							<tr>
+								<th>Doctor Speciality:</th>
+								<td class="app_doctor_speciality"></td>
+							</tr>
+							<tr>
+								<th>Patient:</th>
+								<td class="app_patient_name"></td>
+							</tr>
+							<tr>
+								<th>Date:</th>
+								<td class="app_date"></td>
+							</tr>
+							<tr>
+								<th>Time:</th>
+								<td class="app_time"></td>
+							</tr>
+							<tr>
+								<th>Reason:</th>
+								<td class="app_reason"></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="row">
+						<div class="col s6">
+							<div class="contents center appointment_cancel">
+								<button class="button  button-full button-white"><i class="fa fa-times"></i>Cancel</button>
+							</div>
+						</div>
+						<div class="col s6">
+							<div class="contents center appointment_reschedule">
+								<button class="button button-full button-white"><i class="fa fa-clock-o"></i>Reschedule</button>
+							</div>
+						</div>
+
+						<Br/>	<Br/>
+
+						<div class="col s12">
+							<div class="contents center appointment_chat">
+								<button class="button button-full z-depth-1"><i class="fa fa-envelope"></i> Chat</button>
+							</div>
+						</div>
+
+						<div class="col s12">
+							<div class="contents center">
+								<button class="button button-full z-depth-1 btn_patient_examination"><i class="fa fa-pencil"></i> Patient Examination</button>
+							</div>
+						</div>
+
+						<div class="col s12">
+							<br />
+							<div class="contents center">
+								<button class="button button-full button-black btn_patient_doc"><i class="fa fa-file-o"></i> Patient Documents</button>
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+
+		<Br/>	<Br/>
+
+
+	</div>
+
+
+
+	<div class="app_page" page="patient_documents">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="appointments" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1>Documents</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="portfolio segments-page">
+		<div class="container">
+			<div class="section-title">
+				<h3>Documents</h3>
+				<div class="line"></div>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					<div class="contents">
+						<a href="images/doc/1.jpg" data-lightbox="portfolio">
+							<img src="images/doc/1.jpg" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col s6">
+					<div class="contents">
+						<a href="images/doc/2.jpg" data-lightbox="portfolio">
+							<img src="images/doc/2.jpg" alt="">
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					<div class="contents">
+						<a href="images/doc/3.jpg" data-lightbox="portfolio">
+							<img src="images/doc/3.jpg" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col s6">
+					<div class="contents">
+						<a href="images/doc/4.jpg" data-lightbox="portfolio">
+							<img src="images/doc/4.jpg" alt="">
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					<div class="contents">
+						<a href="images/doc/5.jpg" data-lightbox="portfolio">
+							<img src="images/doc/5.jpg" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col s6">
+					<div class="contents">
+						<a href="images/doc/6.jpg" data-lightbox="portfolio">
+							<img src="images/doc/6.jpg" alt="">
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+		<Br/>	<Br/>
+
+
+	</div>
+
+
+
+
+	<div class="app_page" page="chat">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="appointments" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1 class="chat_with">Chat</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+
+						<div class="content-right chat_more">
+							<a href="javascript:;"><i class="fa fa-bars"></i> </a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="chat_here">
+
+		</div>
+
+		<div class="chat_foot">
+			<input type="file" class="chat_attachments" />
+			<form class="chat_form">
+				<div class="row">
+					<div class="col s2">
+						<button type="button" class="chat_btns btn_attach button button-full button-white"><i class="fa fa-upload"></i></button>
+					</div>
+					<div class="col s8">
+						<input class="chat_message" type="text" placeholder="Type a message .."/>
+					</div>
+					<div class="col s2">
+						<button type="submit" class="chat_btns button button-full button-white"><i class="fa fa-paper-plane"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</div>
+
+	<div class="app_page" page="chat_more">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="chat" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1>Quick Replies ..</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+			<div class="list segments-page">
+				<div class="section-title">
+					<h3>Tap to send quick reply!</h3>
+					<div class="line"></div>
+				</div>
+				<div class="container quick_replies">
+
+				</div>
+			</div>
+
+			<div class="list segments-page" style="padding-top:0 !important;">
+				<div class="section-title">
+					<h3>Filter Chat by Appointments!</h3>
+					<div class="line"></div>
+				</div>
+				<div class="container appointments_filter">
+
+
+
+				</div>
+			</div>
+
+	</div>
+
+	<div class="app_page" page="profile">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="patient_dashboard" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1 class="login_name">Profile</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="list segments-page">
+
+			<div class="container">
+
+				<form class="profile_form">
+					<label>Name:</label>
+					<input required name="name" type="text" />
+
+					<label>Gender:</label>
+					<select required name="gender">
+						<option value="male">Male</option>
+						<option value="female">Female</option>
+					</select>
+
+					<label>Marital Status:</label>
+					<select name="marital">
+						<option value="single">Single</option>
+						<option value="married">Married</option>
+					</select>
+
+					<label>So/Do/Wo:</label>
+					<input name="sodowo" type="text" placeholder="" />
+
+					<label>Address Line 1:</label>
+					<input name="address1" type="text" placeholder="" />
+
+					<label>Address Line 2:</label>
+					<input name="address2" type="text" placeholder="" />
+
+					<label>City:</label>
+					<input name="city" type="text" placeholder="" />
+
+					<label>PTCL:</label>
+					<input name="ptcl" type="number" placeholder="" />
+
+					<label>Mobile Number 1:</label>
+					<input required name="cell1" type="number" placeholder="" />
+
+					<label>Mobile Number 2:</label>
+					<input name="cell2" type="number" placeholder="" />
+
+					<label>Age:</label>
+					<input name="age" type="number" placeholder="" />
+
+					<label>Date of Birth:</label>
+					<input name="dob" type="date" placeholder="" />
+
+					<label>Place of birth:</label>
+					<input name="placeofbirth" type="text" placeholder="" />
+
+					<label>Occupation:</label>
+					<input name="occupation" type="text" placeholder="" />
+
+					<label>Height:</label>
+					<input name="height" type="number" placeholder="" />
+
+					<label>Weight:</label>
+					<input name="weight" type="number" placeholder="" />
+
+					<label>BSA:</label>
+					<input readonly name="bsa" type="number" placeholder="" />
+
+					<label>CNIC:</label>
+					<input name="cnic" type="number" placeholder="" />
+
+					<label>Passport:</label>
+					<input name="passport" type="text" placeholder="" />
+
+					<button type="submit" class="button button-full z-depth-1"><i class="fa fa-send"></i>Update Profile</button>
+				</form>
+
+
+				<br /><br />
+			</div>
+		</div>
+	</div>
+
+	<div class="app_page" page="update_profile">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="profile" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a class="login_name" href="javascript:;"><h1>Profile</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="list segments-page">
+			<div class="section-title">
+				<h3>Profile</h3>
+				<div class="line"></div>
+			</div>
+			<div class="container">
+
+				<form class="profile_form">
+					<label>Name:</label>
+					<input required name="name" type="text" />
+
+					<label>Gender:</label>
+					<select required name="gender">
+						<option value="male">Male</option>
+						<option value="female">Female</option>
+					</select>
+
+					<label>Marital Status:</label>
+					<select required name="marital">
+						<option value="single">Single</option>
+						<option value="married">Married</option>
+					</select>
+
+					<label>So/Do/Wo:</label>
+					<input required name="sodowo" type="text" placeholder="" />
+
+					<label>Address Line 1:</label>
+					<input name="address1" type="text" placeholder="" />
+
+					<label>Address Line 2:</label>
+					<input name="address2" type="text" placeholder="" />
+
+					<label>City:</label>
+					<input name="city" type="text" placeholder="" />
+
+					<label>PTCL:</label>
+					<input name="ptcl" type="number" placeholder="" />
+
+					<label>Mobile Number 1:</label>
+					<input required name="cell1" type="number" placeholder="" />
+
+					<label>Mobile Number 2:</label>
+					<input name="cell2" type="number" placeholder="" />
+
+					<label>Age:</label>
+					<input name="age" type="number" placeholder="" />
+
+					<label>Date of Birth:</label>
+					<input required name="dob" type="date" placeholder="" />
+
+					<label>Place of birth:</label>
+					<input name="placeofbirth" type="text" placeholder="" />
+
+					<label>Occupation:</label>
+					<input name="occupation" type="text" placeholder="" />
+
+					<label>Height:</label>
+					<input name="height" type="number" placeholder="" />
+
+					<label>Weight:</label>
+					<input name="weight" type="number" placeholder="" />
+
+					<label>BSA:</label>
+					<input readonly name="bsa" type="number" placeholder="" />
+
+					<label>CNIC:</label>
+					<input required name="cnic" type="number" placeholder="" />
+
+					<label>Passport:</label>
+					<input name="passport" type="text" placeholder="" />
+
+					<button type="submit" class="button button-full z-depth-1"><i class="fa fa-send"></i>Update Profile</button>
+				</form>
+
+
+				<br /><br />
+			</div>
+		</div>
+	</div>
+
+	<div class="navbar-bottom">
+		<div class="container">
+			<div class="row main_navbar">
+				<div class="col-active col s4 text-center goto_home">
+					<div class="content-right">
+						<a href="javascript:;"><i class="fa fa-home"></i><span>Home</span></a>
+					</div>
+				</div>
+				<div class="col s4 text-center get_appointments">
+					<div class="content-right">
+						<a href="javascript:;"><i class="fa fa-user-md"></i><span>Appointments</span></a>
+					</div>
+				</div>
+				<div class="col s4 text-center get_profile">
+					<div class="content-right">
+						<a href="javascript:;"><i class="fa fa-user"></i><span>Profile</span></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="row doctor_chat_navbar">
+				<div class="col-active col s4 text-center back_to" page="chat">
+					<div class="content-right">
+						<a href="javascript:;"><i class="fa fa-envelope"></i><span>Chat</span></a>
+					</div>
+				</div>
+				<div class="col s4 text-center back_to" page="patient_examination">
+					<div class="content-right">
+						<a href="javascript:;"><i class="fa fa-user-md"></i><span>Examination</span></a>
+					</div>
+				</div>
+				<div class="col s4 text-center back_to" page="video">
+					<div class="content-right">
+						<a href="javascript:;"><i class="fa fa-user"></i><span>Video</span></a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div class="app_page" page="patient_examination">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="appointment_details" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1 class="chat_with">Patient Examination</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="list segments-page">
+
+			<div class="container">
+
+				<div class="pages-title">
+					<h3>Patient Examination</h3>
+					<div class="line"></div>
+				</div>
+
+				<form class="examination_form">
+
+					<ul class="collapsible" data-collapsible="accordion">
+						<li class="active">
+							<div class="collapsible-header text-bold active">
+								<i class="fa fa-comments"></i>1. Presenting Complain
+							</div>
+							<div class="collapsible-body" style="padding-top: 30px; margin-top: 0px; padding-bottom: 30px; margin-bottom: 0px; display: block;">
+								<textarea class="patient_examination" name="data2" placeholder="Write report here.."></textarea>
+							</div>
+						</li>
+						<li>
+							<div class="collapsible-header text-bold">
+								<i class="fa fa-history"></i>2. History of Presenting Complains
+							</div>
+							<div class="collapsible-body">
+								<textarea class="patient_examination" name="data3" placeholder="Write report here.."></textarea>
+							</div>
+						</li>
+						<li>
+							<div class="collapsible-header text-bold">
+								<i class="fa fa-heartbeat"></i>3. Past Medical/Surgical History
+							</div>
+							<div class="collapsible-body">
+								<textarea class="patient_examination" name="data4" placeholder="Write report here.."></textarea>
+							</div>
+						</li>
+						<li>
+							<div class="collapsible-header text-bold">
+								<i class="fa fa-history"></i>4. Social History
+							</div>
+							<div class="collapsible-body">
+								<textarea class="patient_examination" name="data5" placeholder="Write report here.."></textarea>
+							</div>
+						</li>
+						<li>
+							<div class="collapsible-header text-bold">
+								<i class="fa fa-user-md"></i>5. Systematic Review
+							</div>
+							<div class="collapsible-body">
+								<label>1. Constitutional </label>
+								<textarea class="patient_examination" name="data6_1" placeholder="Write report here.."></textarea>
+
+								<label>2. CVS </label>
+								<textarea class="patient_examination" name="data6_2" placeholder="Write report here.."></textarea>
+
+								<label>3. Gastrointestinal </label>
+								<textarea class="patient_examination" name="data6_3" placeholder="Write report here.."></textarea>
+
+								<label>4. CNS </label>
+								<textarea class="patient_examination" name="data6_4" placeholder="Write report here.."></textarea>
+
+								<label>5. Respiratory </label>
+								<textarea class="patient_examination" name="data6_5" placeholder="Write report here.."></textarea>
+
+								<label>6. Genitourinary </label>
+								<textarea class="patient_examination" name="data6_6" placeholder="Write report here.."></textarea>
+
+							</div>
+						</li>
+						<li>
+							<div class="collapsible-header text-bold">
+								<i class="fa fa-male"></i>6. Phycial Examination
+							</div>
+							<div class="collapsible-body">
+								<label>1. Head and Neck Examination </label>
+								<textarea class="patient_examination" name="data7_1" placeholder="Write report here.."></textarea>
+
+								<label>2. Chest Examination </label>
+								<textarea class="patient_examination" name="data7_2" placeholder="Write report here.."></textarea>
+
+								<label>3. Heart Examination </label>
+								<textarea class="patient_examination" name="data7_3" placeholder="Write report here.."></textarea>
+
+								<label>4. Abdominal Examination </label>
+								<textarea class="patient_examination" name="data7_4" placeholder="Write report here.."></textarea>
+
+								<label>5. Genitourinary System Examination </label>
+								<textarea class="patient_examination" name="data7_5" placeholder="Write report here.."></textarea>
+
+								<label>6. Extremity Examination </label>
+								<textarea class="patient_examination" name="data7_6" placeholder="Write report here.."></textarea>
+
+							</div>
+						</li>
+						<li>
+							<div class="collapsible-header text-bold">
+								<i class="fa fa-medkit"></i>7. Labs
+							</div>
+							<div class="collapsible-body">
+								<textarea class="patient_examination" name="data8" placeholder="Write report here.."></textarea>
+							</div>
+						</li>
+						<li>
+							<div class="collapsible-header text-bold">
+								<i class="fa fa-heart"></i>8. Histopathology
+							</div>
+							<div class="collapsible-body">
+								<textarea class="patient_examination" name="data9" placeholder="Write report here.."></textarea>
+							</div>
+						</li>
+						<li>
+							<div class="collapsible-header text-bold">
+								<i class="fa fa-dot-circle-o"></i>9. Radiology
+							</div>
+							<div class="collapsible-body">
+								<textarea class="patient_examination" name="data10" placeholder="Write report here.."></textarea>
+							</div>
+						</li>
+						<li>
+							<div class="collapsible-header text-bold">
+								<i class="fa fa-database"></i>10. TNM Staging
+							</div>
+							<div class="collapsible-body">
+								<label>1. Tumor (T)/Value </label>
+								<select class="patient_examination" name="data11_1">
+									<option value="">Select Value</option>
+									<option value="TX">TX</option>
+									<option value="T0">T0</option>
+									<option value="T1">T1</option>
+									<option value="T2">T2</option>
+									<option value="T3">T3</option>
+									<option value="T4">T4</option>
+								</select>
+
+								<label>2. Lymph Node (N) </label>
+								<select class="patient_examination" name="data11_2">
+									<option value="">Select Value</option>
+									<option value="NX">NX</option>
+									<option value="N0">N0</option>
+									<option value="N1">N1</option>
+									<option value="N2">N2</option>
+									<option value="N3">N3</option>
+								</select>
+
+								<label>3. Metastatis (M) </label>
+								<select class="patient_examination" name="data11_3">
+									<option value="">Select Value</option>
+									<option value="MX">MX</option>
+									<option value="M0">M0</option>
+									<option value="M1">M1</option>
+								</select>
+
+								<label>4. IPI Scoring </label>
+								<textarea class="patient_examination" name="data11_4" placeholder="Write report here.."></textarea>
+
+								<label>5. Histologic Grade </label>
+								<select class="patient_examination" name="data11_5">
+									<option value="">Select Value</option>
+									<option value="0">0</option>
+									<option value="I">I</option>
+									<option value="II">II</option>
+									<option value="III">III</option>
+									<option value="IV">IV</option>
+								</select>
+
+								<label>6. Stage </label>
+								<select class="patient_examination" name="data11_6">
+									<option value="">Select Value</option>
+									<option value="X">X</option>
+									<option value="I">I</option>
+									<option value="II">II</option>
+									<option value="III">III</option>
+									<option value="IV">IV</option>
+								</select>
+
+							</div>
+						</li>
+					</ul>
+
+					<div class="row">
+						<div class="container">
+							<div class="col s6">
+								<button type="button" class="button button-full button-white"><i class="fa fa-pdf"></i>Report</button>
+
+							</div>
+							<div class="col s6">
+								<button type="submit" class="button button-full z-depth-1"><i class="fa fa-send"></i>Save</button>
+							</div>
+						</div>
+					</div>
+
+
+
+
+
+
+				</form>
+
+
+				<br /><br />
+			</div>
+		</div>
+	</div>
+
+	<div class="app_page" page="video">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="chat" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1 class="chat_with"></h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="segments-page">
+			<img src="images/custom/dialing.gif" class="dialing"/>
+		</div>
+
+
+	</div>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/materialize.js"></script>
+	<script src="js/numscroller.js"></script>
+	<script src="js/lightbox.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/sweetalert.min.js"></script>
+	<script src="js/custom.js"></script>
+
+	<script src="cordova.js"></script>
+
+</body>
+</html>
