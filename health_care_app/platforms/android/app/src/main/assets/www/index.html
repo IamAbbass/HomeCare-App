@@ -17,7 +17,7 @@
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/custom.css">
 </head>
-<body>
+<body onload="onLoad()">
 
 	<div class="app_page" page="splash">
 		<img src="images/custom/logo.png" />
@@ -25,12 +25,12 @@
 		<div class="row auth_buttons">
 			<div class="col s6">
 				<div class="contents center goto_signin">
-					<button class="button button-full z-depth-1">SIGN IN</button>
+					<button class="button button-full z-depth-1" style="background: #2ab7a9;"><i class="fa fa-lock"></i>SIGN IN</button>
 				</div>
 			</div>
 			<div class="col s6">
 				<div class="contents center goto_signup">
-					<button class="button button-full z-depth-1">SIGN UP</button>
+					<button class="button button-full z-depth-1"><i class="fa fa-plus"></i>SIGN UP</button>
 				</div>
 			</div>
 		</div>
@@ -493,12 +493,11 @@
 
 
 
-		..
 		<div class="services segments">
 			<div class="container">
 
 				<br />
-				<br />
+				<input class="search services_search" placeholder="Search here.." type="search" />
 
 				<div class="section-title">
 					<h3 class="services_count"></h3>
@@ -527,14 +526,9 @@
 							<a class="back_to" page="patient_dashboard" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
 						</div>
 					</div>
-					<div class="col s8">
+					<div class="col s11">
 						<div class="content-center">
 							<a href="javascript:;"><h1>Doctor Specialities</h1></a>
-						</div>
-					</div>
-					<div class="col s3">
-						<div class="content-right">
-							<a href="javascript:;"></a>
 						</div>
 					</div>
 				</div>
@@ -545,7 +539,7 @@
 			<div class="container">
 
 				<br />
-				<br />
+				<input type="search" class="search specialities_search" placeholder="Search here.." />
 
 				<div class="section-title">
 					<h3 class="speciality_count"></h3>
@@ -978,7 +972,7 @@
 					</div>
 					<div class="col s3">
 						<div class="content-right">
-							<a href="javascript:;"></a>
+							<a class="new_document" href="javascript:;"><i class="fa fa-plus"></i></a>
 						</div>
 					</div>
 				</div>
@@ -988,59 +982,17 @@
 		<div class="portfolio segments-page">
 		<div class="container">
 			<div class="section-title">
-				<h3>Documents</h3>
+				<h3>The documents you upload will appear below!</h3>
 				<div class="line"></div>
 			</div>
-			<div class="row">
-				<div class="col s6">
-					<div class="contents">
-						<a href="images/doc/1.jpg" data-lightbox="portfolio">
-							<img src="images/doc/1.jpg" alt="">
-						</a>
-					</div>
-				</div>
-				<div class="col s6">
-					<div class="contents">
-						<a href="images/doc/2.jpg" data-lightbox="portfolio">
-							<img src="images/doc/2.jpg" alt="">
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col s6">
-					<div class="contents">
-						<a href="images/doc/3.jpg" data-lightbox="portfolio">
-							<img src="images/doc/3.jpg" alt="">
-						</a>
-					</div>
-				</div>
-				<div class="col s6">
-					<div class="contents">
-						<a href="images/doc/4.jpg" data-lightbox="portfolio">
-							<img src="images/doc/4.jpg" alt="">
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col s6">
-					<div class="contents">
-						<a href="images/doc/5.jpg" data-lightbox="portfolio">
-							<img src="images/doc/5.jpg" alt="">
-						</a>
-					</div>
-				</div>
-				<div class="col s6">
-					<div class="contents">
-						<a href="images/doc/6.jpg" data-lightbox="portfolio">
-							<img src="images/doc/6.jpg" alt="">
-						</a>
-					</div>
-				</div>
+			<div class="row documents_here">
+
 			</div>
 		</div>
 	</div>
+
+
+
 
 
 		<Br/>	<Br/>
@@ -1085,10 +1037,12 @@
 			<input type="file" class="chat_attachments" />
 			<form class="chat_form">
 				<div class="row">
+					<!--
 					<div class="col s2">
 						<button type="button" class="chat_btns btn_attach button button-full button-white"><i class="fa fa-upload"></i></button>
 					</div>
-					<div class="col s8">
+					-->
+					<div class="col s10">
 						<input class="chat_message" type="text" placeholder="Type a message .."/>
 					</div>
 					<div class="col s2">
@@ -1231,7 +1185,7 @@
 					<label>Weight:</label>
 					<input name="weight" type="number" placeholder="" />
 
-					<label>BSA:</label>
+					<label>BSA (weight/height):</label>
 					<input readonly name="bsa" type="number" placeholder="" />
 
 					<label>CNIC:</label>
@@ -1407,16 +1361,12 @@
 							<a class="back_to" page="appointment_details" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
 						</div>
 					</div>
-					<div class="col s8">
+					<div class="col s11">
 						<div class="content-center">
 							<a href="javascript:;"><h1 class="chat_with">Patient Examination</h1></a>
 						</div>
 					</div>
-					<div class="col s3">
-						<div class="content-right">
-							<a href="javascript:;"></a>
-						</div>
-					</div>
+
 				</div>
 			</div>
 		</div>
@@ -1425,10 +1375,12 @@
 
 			<div class="container">
 
+				<!--
 				<div class="pages-title">
 					<h3>Patient Examination</h3>
 					<div class="line"></div>
 				</div>
+				-->
 
 				<form class="examination_form">
 
@@ -1602,11 +1554,13 @@
 
 					<div class="row">
 						<div class="container">
+							<!--
 							<div class="col s6">
 								<button type="button" class="button button-full button-white"><i class="fa fa-pdf"></i>Report</button>
 
 							</div>
-							<div class="col s6">
+							-->
+							<div class="col s12">
 								<button type="submit" class="button button-full z-depth-1"><i class="fa fa-send"></i>Save</button>
 							</div>
 						</div>
@@ -1650,9 +1604,75 @@
 		</div>
 
 		<div class="segments-page">
+			//<canvas id="canvas"></canvas>
 			<img src="images/custom/dialing.gif" class="dialing"/>
 		</div>
 
+
+	</div>
+
+	<div class="app_page" page="new_document">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="appointments" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1>New Document</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="portfolio segments-page">
+		<div class="container">
+			<div class="section-title">
+				<h3>Upload New Document</h3>
+				<div class="line"></div>
+			</div>
+			<div class="row">
+
+				<form class="document_form" enctype="multipart/form-data" method="POST">
+					<input required placeholder="Document Name" />
+					<select required>
+						<option>Select Category</option>
+						<option value="Pathalogy">Pathalogy</option>
+						<option value="Radiology">Radiology</option>
+						<option value="Prescription">Prescription</option>
+					</select>
+
+					<div class="row">
+						<div class="col s12">
+							<img class="document_preview" src="" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s12">
+							<div class="contents center capture_document">
+								<button type="button" class="button button-white z-depth-1"><i class="fa fa-camera"></i> Open Camera</button>
+							</div>
+						</div>
+					</div>
+
+					<button type="submit" class="button button-full z-depth-1"><i class="fa fa-check"></i> Upload</button>
+
+
+				</form>
+
+			</div>
+		</div>
 
 	</div>
 

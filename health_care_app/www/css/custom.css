@@ -1,6 +1,13 @@
+body, p, h1, h2, h3, h4, h5, h6, a{
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */
+}
+
 .app_page{
   display:none;
-} 
+}
 .app_page[page='splash']{
   background: url(../images/custom/bg.jpg);
   position: fixed;
@@ -19,7 +26,7 @@
   background-repeat: no-repeat;
 }
 .app_page[page='splash'] img{
-    width: 50%;
+    width: 60%;
     margin: 60% auto;
     padding: 10px 0px 20px 0px;
     background: #fff;
@@ -137,8 +144,8 @@ select{
   display:none;
 }
 .auth_buttons button{
-  padding:10px;
-  font-size: 16px;
+  padding:12px 6px !important;
+  font-size: 18px !important;
 }
 .pages-title h3{
   text-transform: none !important;
@@ -156,11 +163,11 @@ select{
 .navbar .content-center h1{
   font-weight: normal !important;
   color: #42a5f5;
-  font-size: 18px;
+  font-size: 20px !important;
 }
 .navbar a, .navbar i{
   color: #42a5f5 !important;
-  font-size: 12px;
+  font-size: 16px !important;
 }
 .navbar .content-center{
   text-align:left !important;
@@ -224,7 +231,10 @@ select{
 .chat_message{
   margin: 0;
     border: none !important;
-    font-size: 16px !important;
+    font-size: 18px !important;
+}
+.chat_message:focus{
+  border:none !important;
 }
 .chat_foot{
   border-top: 1px solid #eee;
@@ -257,4 +267,19 @@ select{
   width: 50%;
     display: block;
     margin: 20% auto;
+}
+
+.document_preview{
+  width:80%;
+  display:block;
+  margin:0 auto;
+}
+.my_document{
+  display:block;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.search{
+  font-size: 18px !important;
 }
