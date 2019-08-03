@@ -2,6 +2,7 @@ function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
+onDeviceReady();
 
 function onDeviceReady() {
   document.addEventListener('backbutton', function (evt) {
