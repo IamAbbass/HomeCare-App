@@ -4,7 +4,12 @@ body, p, h1, h2, h3, h4, h5, h6, a{
   -ms-user-select: none;      /* IE 10+ */
   user-select: none;          /* Likely future */
 }
-
+.attention{
+  color: #dd5246 !important;
+}
+.chart input{
+  text-transform: capitalize;
+}
 .app_page{
   display:none;
 }
@@ -98,8 +103,19 @@ p{
 .navbar-bottom .col span, .navbar-bottom .col i{
   display:block;
 }
+.my_table{
+  border-collapse: collapse;
+  margin: 0px 0 20px 0;
+  background: #fff;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+}
+.my_table td, .my_table th{
+    border: 1px solid #f9f9f9;
+    padding: 7px;
+}
 .navbar-bottom .col-active a, .navbar-bottom .col-active i{
-  color: #42a5f5 !important;
+  color: #42a5f5;
 }
 .schedule_here .col-active, .schedule_here .col-active .contents {
   background: #42a5f5;
@@ -243,8 +259,11 @@ select{
   display:none;
 }
 .btn_patient_examination{
-  margin-top:10px;
   display:none;
+}
+.btn_text_left{
+  text-align: left;
+  margin-bottom:2px;
 }
 .collapsible-body{
   padding:0px !important;

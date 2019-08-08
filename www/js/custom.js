@@ -69,6 +69,8 @@ function onDeviceReady() {
       change_page("chat");
     }else if(current_page == "new_document"){
       change_page("patient_documents");
+    }else if(current_page == "chart"){
+      change_page("appointment_details");
     }else{
       //ignore
     }
@@ -77,20 +79,20 @@ function onDeviceReady() {
 
     if(new_page == "signin" || new_page == "signup"){
       $(".auth_buttons").hide();
-      $(".app_page").slideUp();
-      $(".app_page[page='"+new_page+"']").slideDown();
-      return false;
+
+      $(".app_page").hide();
+      $(".app_page[page='"+new_page+"']").show();
+      //return false;
     }else if(new_page == "splash"){
-      $(".auth_buttons").fadeIn();$(".app_page").slideUp();
-      $(".app_page[page='"+new_page+"']").slideDown();
-      return false;
+      $(".auth_buttons").fadeIn();
+
+      $(".app_page").hide();
+      $(".app_page[page='"+new_page+"']").show();
+      //return false;
     }else if(new_page == "chat" || new_page == "patient_examination" || new_page == "video"){
       setTimeout(function(){
         $(".chat_here").scrollTop($(".chat_here")[0].scrollHeight);
       },100);
-    }else if(new_page == "patient_dashboard"){
-      $(".navbar-bottom .col").removeClass("col-active");
-      $(".navbar-bottom .goto_home").addClass("col-active");
     }else if(new_page == "appointments"){
       $(".navbar-bottom .col").removeClass("col-active");
       $(".navbar-bottom .get_appointments").addClass("col-active");
@@ -103,6 +105,8 @@ function onDeviceReady() {
       }else if(user_data['type'] == "doctor"){
         new_page = 'doctor_dashboard';
       }
+      $(".navbar-bottom .col").removeClass("col-active");
+      $(".navbar-bottom .goto_home").addClass("col-active");
     }else if(new_page == "terms_and_contitions"){
       $(".token_no").text(Math.floor((Math.random() * 100000) + 100));
       $(".patient_name").text(user_data['name']);
@@ -133,7 +137,7 @@ function onDeviceReady() {
 
     //transition
     $(".app_page").hide();
-    $(".app_page[page='"+new_page+"']").fadeIn();
+    $(".app_page[page='"+new_page+"']").show();
 
     $(".drag-target").click();
 
@@ -141,9 +145,11 @@ function onDeviceReady() {
 
   var base_url  = "https://pahs.com.pk/app/?";
   var user_data = [];
-  var chat_id   = null; //cache
+  var chat_id_pat   = null; //cache
+  var chat_id_doc   = null;
   var chat_name = null;
-  var recent_chat_time = 0;
+  var chart_csrf = null;
+  var last_msg_id = 0;
 
   var chatting_with = null;
 
@@ -154,6 +160,10 @@ function onDeviceReady() {
   var quick_replies_text  = ['I am currently unavailable','Thank you so much :)','I am waiting for your reply','Can not talk, I am driving'];
 
   var current_pid = null;
+
+  //using
+  var current_appointment_id  = null;
+  var current_pat_master_id   = null;
 
   $(document).ready(function(){
 
@@ -802,9 +812,19 @@ function onDeviceReady() {
               $(".app_count").html((response.data).length);
 
               $(response.data).each(function(i,e){
+                if(user_data['type'] == "patient"){
+                  var display_name = e.doctor_name+' - '+e.doctor_speciality;
+                }else{
+                  var display_name = e.patient_name;
+                }
+
+                if(display_name == null){
+                  display_name = "";
+                }
+
                 $(".appointments_here").append('<div a_id="'+(e.id)+'" class="contents">'+
         					'<div class="list-text">'+
-        						'<h6>'+(e.doctor_name+' - '+e.doctor_speciality)+'</h6>'+
+        						'<h6>'+(display_name)+'</h6>'+
         						'<p>'+(e.reason)+'</p>'+
                     '<p><i class="fa fa-calendar"></i> '+(e.date+' '+e.time)+'</p>'+
                     '<p>'+
@@ -823,17 +843,14 @@ function onDeviceReady() {
                   '</div>'+
         				'</div>');
 
-
+                chat_id_doc   = e.doc_id;
+                chat_id_pat   = e.PID;
 
                 if(user_data['type'] == "patient"){
-                  chat_id   = e.doc_id;
                   chat_name = e.doctor_name;
                 }else if(user_data['type'] == "doctor"){
-                  chat_id   = e.pat_id;
                   chat_name = e.patient_name;
                 }
-                //
-
 
                 if(user_data['type'] == "patient"){
                   $(".appointment_up_next_box .appointment_with").text(e.doctor_name+' - '+e.doctor_speciality);
@@ -844,9 +861,11 @@ function onDeviceReady() {
                 setTimeout(function(){
                   $(".appointment_up_next_box").slideDown(1000);
                 },250);
+
+
               });
             }else{
-              swal({icon: "warning", text: response.msg, dangerMode: true,button:false, timer: 3000});
+              //swal({icon: "warning", text: response.msg, dangerMode: true,button:false, timer: 3000});
             }
         	}, error:function(){
             swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
@@ -867,6 +886,8 @@ function onDeviceReady() {
     $(document).delegate(".get_appointment_detail","click",function(){
       change_page("appointment_details");
       var id = $(this).attr("id");
+
+      current_appointment_id = id;
 
       $.ajax({
       	url:   base_url,
@@ -894,18 +915,19 @@ function onDeviceReady() {
               $(".app_time").text(e.time);
               $(".app_reason").text(e.reason);
 
+              current_pat_master_id = e.PID; //for documents
+
+              chat_id_doc   = e.doc_id;
+              chat_id_pat   = e.PID;
+
               if(user_data['type'] == "patient"){
-                chat_id   = e.doc_id;
                 chat_name = e.doctor_name;
               }else if(user_data['type'] == "doctor"){
-                chat_id   = e.pat_id;
                 chat_name = e.patient_name;
+                chart_csrf = e.CSRFToken;
               }
-
               //for examination
-             $(".btn_patient_examination").attr("p_id",e.pat_id);
-
-
+              $(".btn_patient_examination").attr("p_id",e.pat_id);
             });
 
 
@@ -974,14 +996,15 @@ function onDeviceReady() {
       swal({icon: "images/custom/load.gif",button:false,});
     });
 
-    function show_msgs(chat_id){
+    function show_msgs(){
       $.ajax({
         url:   base_url,
         data: {
-          action:  "show_msg",
-          my_chat:  user_data['UserID'],
-          with:     chat_id,
-          date_time:recent_chat_time,
+          action      : "show_msg",
+          chat_id_doc : chat_id_doc,
+          chat_id_pat : chat_id_pat,
+          sender      : user_data['type'],
+          last_msg_id : last_msg_id,
         },
         type: 'GET',
         dataType: 'html',
@@ -997,21 +1020,43 @@ function onDeviceReady() {
           $.each(response.data, function(i, e) {
             if(e.msg == "" || e.msg == "undefined"){
             }else{
-              if(e.from_id == user_data['UserID']){
-                bubble_class = "my_msg";
-              }else{
-                bubble_class = "there_msg";
+
+              /*
+              msg: "I am DOC",
+              date: "2019-08-07",
+              time: " 03:08:57",
+              doc_id: "1",
+              pat_id: "17252",
+              senderid: "17252"
+              */
+
+              if(user_data['type'] == "patient"){
+                if(e.senderid == e.pat_id){
+                  bubble_class = "my_msg";
+                }else{
+                  bubble_class = "there_msg";
+                }
+              }else if(user_data['type'] == "doctor"){
+                if(e.senderid == e.doc_id){
+                  bubble_class = "my_msg";
+                }else{
+                  bubble_class = "there_msg";
+                }
               }
 
+              if(old_date != e.date){
+                //$(".chat_here").append("<p class='date_seperator'>"+(e.date)+"</p>");
+                old_date = e.date;
+              }
+
+              $(".temp_msg").remove();
+              $(".chat_here").append("<p class='"+bubble_class+"'>"+(e.msg)+"<br/><span class='pull-right msg_date'>"+(e.date+" "+e.time)+"</span></p>");
 
 
-
+              /*
               if(e.from_id == user_data['UserID']){
                 if(recent_chat_time == 0){
-                  if(old_date != e.date){
-                    $(".chat_here").append("<p class='date_seperator'>"+(e.date)+"</p>");
-                    old_date = e.date;
-                  }
+
                   $(".chat_here").append("<p class='"+bubble_class+"'>"+(e.msg)+"<br/><span class='pull-right msg_date'>"+(e.time)+"</span></p>");
                 }
               }else{
@@ -1021,6 +1066,7 @@ function onDeviceReady() {
                 }
                 $(".chat_here").append("<p class='"+bubble_class+"'>"+(e.msg)+"<br/><span class='pull-right msg_date'>"+(e.time)+"</span></p>");
               }
+              */
 
             }
           });
@@ -1031,11 +1077,11 @@ function onDeviceReady() {
             console.log((response.data).length);
           }
 
-          recent_chat_time = response.new_timestamp;
+          last_msg_id = response.last_msg_id;
 
 
           setTimeout(function(){
-            show_msgs(chat_id);
+            show_msgs();
           },2000);
 
         }, error:function(){
@@ -1045,17 +1091,20 @@ function onDeviceReady() {
     }
     $(".appointment_chat").click(function(){
 
-      if(chatting_with != chat_id){
-        recent_chat_time = 0;
-        $(".chat_here").empty();
 
-        chatting_with = chat_id;
-      }
+
+      //if(chatting_with != chat_id){
+        //recent_chat_time = 0;
+        //$(".chat_here").empty();
+        //chatting_with = chat_id;
+      //}
 
       change_page("chat");
       $(".chat_with").html(chat_name);
-      patient_examination(chat_id);
-      show_msgs(chat_id);
+      patient_examination(chat_id_pat);
+
+      show_msgs();
+
     });
 
     $(".btn_attach").click(function(){
@@ -1077,21 +1126,29 @@ function onDeviceReady() {
 
       var msg = $(".chat_message").val();
 
+      if(user_data['type'] == "patient"){
+        var recipientid = chat_id_doc;
+        var senderid    = chat_id_pat;
+      }else if(user_data['type'] == "doctor"){
+        var recipientid = chat_id_pat;
+        var senderid    = chat_id_doc;
+      }
+
       if(msg.length > 0){
         $.ajax({
           url:   base_url,
           data: {
-            action:  "send_msg",
-            from_id:  user_data['UserID'],
-            to_id:    chat_id,
-            date_time:recent_chat_time,
-            msg : msg,
-            msg_type: "text",
+            action:       "send_msg",
+            senderid:     senderid,
+            recipientid:  recipientid,
+            sender:       user_data['type'],
+            msg :         msg,
           },
           type: 'GET',
           dataType: 'html',
           beforeSend: function(xhr){
-            $(".chat_here").append("<p class='my_msg'>"+msg+"<br/><span class='pull-right msg_date'>just now</span></p>");
+            $(".chat_message").val("");
+            $(".chat_here").append("<p class='temp_msg my_msg'>"+msg+"<br/><span class='pull-right msg_date'>just now</span></p>");
             $(".chat_here").scrollTop($(".chat_here")[0].scrollHeight);
           },
           success: function(response){
@@ -1119,13 +1176,75 @@ function onDeviceReady() {
 
       cordova.plugins.notification.local.schedule({
           id: 1,
-          title: "Message Title",
-          message: "Message Text",
+          title: "Reminder set successfully!",
+          message: "You will get a notification like this.",
           foreground: true
       });
 
 
     });
+
+    function fetch_profile(token,chart){
+      $.ajax({
+        url:   base_url,
+        data: {
+          action:  "profile",
+          token:   token,
+        },
+        type: 'GET',
+        dataType: 'html',
+        beforeSend: function(xhr){
+          //swal({icon: "images/custom/load.gif",button:false,});
+        },
+        success: function(response){
+          var response = $.parseJSON(response);
+          console.log(response,"response");
+          if(response.success == true){
+
+
+            //try{swal.close();}catch(e){}
+
+            if(chart == false){
+              $(".profile_required").children("i").removeClass("fa-exclamation-triangle attention").addClass("fa-user");
+              try{
+                if(response.msg_title || response.msg_text){
+                  swal({title:response.msg_title, text:response.msg_text, icon:"info",button: false}).then(function(e){
+                    $(".navbar-bottom .col").removeClass("col-active");
+                    $(".navbar-bottom .get_profile").addClass("col-active");
+
+                    change_page("profile");
+                  });
+                  $(".profile_required").children("i").removeClass("fa-user").addClass("fa-exclamation-triangle attention");
+
+                }
+              }catch(e){}
+            }
+
+            $.each(response.data, function(i, array) {
+              $.each(array, function(key, value) {
+                if(chart == false){
+                  $(".profile_form input[name='"+(key)+"']").val(value);
+                  $(".profile_form select[name='"+(key)+"']").val(value);
+
+                  if(key == "name"){
+                    $(".login_name").text(value);
+                  }
+                }else{
+                  $(".chart").children("input."+key).val(value);
+                }
+
+              });
+            });
+          }else{
+            if(chart == false){
+              swal({icon: "warning", text: response.msg, dangerMode: true,button:false, timer: 3000});
+            }
+          }
+        }, error:function(){
+          swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
+        }
+      });
+    }
 
     $(".get_profile").click(function(){
       if(user_data['type'] == "patient"){
@@ -1134,44 +1253,9 @@ function onDeviceReady() {
       $(".navbar-bottom .get_profile").addClass("col-active");
 
       change_page("profile");
-
-      $.ajax({
-        url:   base_url,
-        data: {
-          action:  "profile",
-          token:   user_data['token'],
-        },
-        type: 'GET',
-        dataType: 'html',
-        beforeSend: function(xhr){
-          swal({icon: "images/custom/load.gif",button:false,});
-        },
-        success: function(response){
-          var response = $.parseJSON(response);
-          console.log(response,"response");
-          if(response.success == true){
-            try{swal.close();}catch(e){}
-            $.each(response.data, function(i, array) {
-              $.each(array, function(key, value) {
-                $(".profile_form input[name='"+(key)+"']").val(value);
-
-                if(key == "name"){
-                  $(".login_name").text(value);
-                }
-
-
-
-              });
-            });
-          }else{
-            swal({icon: "warning", text: response.msg, dangerMode: true,button:false, timer: 3000});
-          }
-        }, error:function(){
-          swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
-        }
-      });
+      fetch_profile(user_data['token'],false);
     }else{
-      swal({icon: "info", title:"Sorry, but..", text: "you can use our Web Panel to update your profile!", dangerMode: false,button:true});
+      swal({icon: "info", text: "You can use our Web Panel to update your profile!", dangerMode: false,button:true});
     }
     });
 
@@ -1194,6 +1278,8 @@ function onDeviceReady() {
           console.log(response,"response");
           if(response.success == true){
             swal({icon: "success",button:false, timer: 3000});
+            $(".profile_required").children("i").removeClass("fa-exclamation-triangle attention").addClass("fa-user");
+
           }else{
             swal({icon: "warning", text: response.msg, dangerMode: true,button:false, timer: 3000});
           }
@@ -1223,17 +1309,25 @@ function onDeviceReady() {
       $(".app_page").hide();
       if(user_data['type'] == "patient"){
         $(".app_page[page='patient_dashboard']").fadeIn(1000);
-        $(".btn_patient_examination, .btn_patient_doc").hide();
+        $(".btn_patient_examination, .btn_patient_doc, .btn_chart").hide();
         //$(".profile_nav_bar").show();
       }else if(user_data['type'] == "doctor"){
         $(".app_page[page='doctor_dashboard']").fadeIn(1000);
-        $(".btn_patient_examination, .btn_patient_doc").show();
+        $(".btn_patient_examination, .btn_patient_doc, .btn_chart").show();
         //$(".profile_nav_bar").hide();
       }
 
       get_appointments();
 
+      if(user_data['type'] == "patient"){
+        setTimeout(function(){
+          fetch_profile(user_data['token'],false);
+        },1000);
+      }
+
       //get docs from cache
+
+      /*
       var my_docs = localStorage.getItem("documents_"+user_data['token']);
       if(my_docs != null){
         my_docs = $.parseJSON(my_docs);
@@ -1247,6 +1341,7 @@ function onDeviceReady() {
          '</div>');
         })
       }
+      */
 
 
       /*
@@ -1405,11 +1500,76 @@ function onDeviceReady() {
       current_pid = p_id;
 
       patient_examination(p_id);
-      show_msgs(p_id);
+
+      show_msgs();
+
     });
 
     $(".btn_patient_doc, .get_documents").click(function(){
       change_page("patient_documents");
+      $.ajax({
+      	url:   base_url,
+      	data: {
+      		action:  "show_doc",
+          p_id:     current_pat_master_id,
+          app_id:   current_appointment_id,
+      	},
+      	type: 'GET',
+      	dataType: 'html',
+      	beforeSend: function(xhr){
+          swal({icon: "images/custom/load.gif",button:false,});
+          $(".documents_here").empty();
+      	},
+      	success: function(response){
+          var response = $.parseJSON(response);
+          console.log(response,"response");
+          if(response.success == true){
+            try{swal.close();}catch(e){}
+
+            var ClearLine = 0;
+
+            $(response.data).each(function(i,e){
+              ClearLine++;
+
+              /*
+              "DOCID": "14530",
+              "PID": "3052",
+              "DocDateTime": "2019-06-01 23:12:25.373",
+              "DocFullPath": "3052-POC-1-6-2019-23-12-.png",
+              "DocImage": null,
+              "category": "Pathology",
+              "TitleName": "POC",
+              "ReservationID": "9386",
+              */
+              var DocFullPath = "https://pahs.com.pk/doc_uploads/"+e.DocFullPath;
+
+              $(".documents_here").append('<div class="col s6">'+
+               '<div class="contents">'+
+                 '<a href="'+(DocFullPath)+'" data-lightbox="portfolio">'+
+                   '<img class="my_document" src="'+(DocFullPath)+'" alt="">'+
+                 '</a>'+
+               '</div>'+
+             '</div>');
+
+             if(ClearLine == 2){
+              $(".documents_here").append("<div class='col s12'></div>");
+               ClearLine = 0;
+             }
+
+            });
+          }else{
+            swal({icon: "warning", text: response.msg, dangerMode: true,button:false, timer: 3000});
+          }
+      	}, error:function(){
+          swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
+      	}
+      });
+
+    });
+
+    $(".btn_chart").click(function(){
+      fetch_profile(chart_csrf);
+      change_page("chart");
     });
 
     $(".attach_document").click(function(){
@@ -1438,7 +1598,7 @@ function onDeviceReady() {
           }
        }
        function onError(error) {
-          navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+          //navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
        }
     });
 
@@ -1470,9 +1630,39 @@ function onDeviceReady() {
 
 
 
-       change_page("patient_documents");
+       //change_page("patient_documents");
 
-       swal({text:"Document Uploaded!", icon: "success",dangerMode: false,button:false,timer:2000,});
+
+       $.ajax({
+       	url:   base_url,
+       	data: {
+       		 action:   "add_doc",
+           p_id:     current_pat_master_id,
+           path:     "[app-test]",
+           title:    $(".new_doc_title").val(),
+           category: $(".new_doc_category").val(),
+           app_id:   current_appointment_id,
+         },
+       	type: 'GET',
+       	dataType: 'html',
+       	beforeSend: function(xhr){
+           swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
+       	},
+       	success: function(response){
+           var response = $.parseJSON(response);
+           console.log(response,"response");
+
+           if(response.success == true){
+             swal({text:"Document Uploaded!", icon: "success",dangerMode: false,button:false,timer:2000,});
+           }else{
+             swal({text:"Please try later!", icon: "warning",dangerMode: false,button:false,timer:2000,});
+           }
+
+       	}, error:function(){
+           swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
+       	}
+       });
+
 
     })
 

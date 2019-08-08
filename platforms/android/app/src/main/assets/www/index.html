@@ -57,7 +57,7 @@
 					<div class="line"></div>
 				</div>
 				<form class="signin_form">
-					<input required class="signin_username" type="text" placeholder="Username">
+					<input required class="signin_username" type="text" placeholder="Username or Phone">
 					<input required class="signin_password" type="password" placeholder="Password">
 					<div class="row">
 						<div class="col s12">
@@ -219,7 +219,7 @@
 					<div class="line"></div>
 				</div>
 				<form class="forgot_form">
-					<input value="923323137489" required class="forgot_phone" type="number" placeholder="Phone Number">
+					<input required class="forgot_phone" type="number" placeholder="Phone Number">
 					<div class="row">
 						<div class="col s12">
 							<div class="col s6">
@@ -878,8 +878,8 @@
 
 		<div class="segments-page">
 			<div class="container">
-				<div class="table-contents z-depth-1">
-					<table>
+				<div class="">
+					<table class="my_table">
 						<tbody>
 							<tr>
 								<th>Doctor:</th>
@@ -909,37 +909,43 @@
 					</table>
 
 					<div class="row">
-						<div class="col s6">
-							<div class="contents center appointment_cancel">
-								<button class="button  button-full button-white"><i class="fa fa-times"></i>Cancel</button>
-							</div>
-						</div>
-						<div class="col s6">
-							<div class="contents center appointment_reschedule">
-								<button class="button button-full button-white"><i class="fa fa-clock-o"></i>Reschedule</button>
-							</div>
-						</div>
 
-						<Br/>	<Br/>
+
 
 						<div class="col s12">
 							<div class="contents center appointment_chat">
-								<button class="button button-full z-depth-1"><i class="fa fa-envelope"></i> Chat</button>
+								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-comment"></i> Chat / Video Call</button>
+							</div>
+						</div>
+						<div class="col s12">
+							<div class="contents center btn_patient_examination">
+								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-user-md"></i> Patient Examination</button>
 							</div>
 						</div>
 
 						<div class="col s12">
-							<div class="contents center">
-								<button class="button button-full z-depth-1 btn_patient_examination"><i class="fa fa-pencil"></i> Patient Examination</button>
+							<div class="contents center btn_patient_doc">
+								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-files-o"></i> Patient Documents</button>
 							</div>
 						</div>
 
 						<div class="col s12">
-							<br />
-							<div class="contents center">
-								<button class="button button-full button-black btn_patient_doc"><i class="fa fa-file-o"></i> Patient Documents</button>
+							<div class="contents center btn_chart">
+								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-list"></i> Patient Chart</button>
 							</div>
 						</div>
+						<div class="col s12">
+							<div class="contents center appointment_reschedule">
+								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-clock-o"></i> Reschedule Appointment</button>
+							</div>
+						</div>
+						<div class="col s12">
+							<div class="contents center appointment_cancel">
+								<button class="button  button-full z-depth-1 btn_text_left"><i class="fa fa-trash"></i> Cancel Appointment</button>
+							</div>
+						</div>
+
+
 					</div>
 
 
@@ -998,10 +1004,7 @@
 		<Br/>	<Br/>
 
 
-	</div>
-
-
-
+	</div>		
 
 	<div class="app_page" page="chat">
 		<!-- navbar -->
@@ -1136,12 +1139,14 @@
 
 					<label>Gender:</label>
 					<select required name="gender">
+						<option value="">Select</option>
 						<option value="male">Male</option>
 						<option value="female">Female</option>
 					</select>
 
 					<label>Marital Status:</label>
-					<select name="marital">
+					<select required name="marital">
+						<option value="">Select</option>
 						<option value="single">Single</option>
 						<option value="married">Married</option>
 					</select>
@@ -1150,13 +1155,13 @@
 					<input name="sodowo" type="text" placeholder="" />
 
 					<label>Address Line 1:</label>
-					<input name="address1" type="text" placeholder="" />
+					<input required name="address1" type="text" placeholder="" />
 
 					<label>Address Line 2:</label>
 					<input name="address2" type="text" placeholder="" />
 
 					<label>City:</label>
-					<input name="city" type="text" placeholder="" />
+					<input required name="city" type="text" placeholder="" />
 
 					<label>PTCL:</label>
 					<input name="ptcl" type="number" placeholder="" />
@@ -1168,7 +1173,7 @@
 					<input name="cell2" type="number" placeholder="" />
 
 					<label>Age:</label>
-					<input name="age" type="number" placeholder="" />
+					<input required name="age" type="number" placeholder="" />
 
 					<label>Date of Birth:</label>
 					<input name="dob" type="date" placeholder="" />
@@ -1180,10 +1185,10 @@
 					<input name="occupation" type="text" placeholder="" />
 
 					<label>Height:</label>
-					<input name="height" type="number" placeholder="" />
+					<input required name="height" type="number" placeholder="" />
 
 					<label>Weight:</label>
-					<input name="weight" type="number" placeholder="" />
+					<input required name="weight" type="number" placeholder="" />
 
 					<label>BSA (weight/height):</label>
 					<input readonly name="bsa" type="number" placeholder="" />
@@ -1203,19 +1208,19 @@
 		</div>
 	</div>
 
-	<div class="app_page" page="update_profile">
+	<div class="app_page" page="chart">
 		<!-- navbar -->
 		<div class="navbar">
 			<div class="container">
 				<div class="row">
 					<div class="col s1">
 						<div class="content-left">
-							<a class="back_to" page="profile" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+							<a class="back_to" page="appointment_details" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
 						</div>
 					</div>
 					<div class="col s8">
 						<div class="content-center">
-							<a class="login_name" href="javascript:;"><h1>Profile</h1></a>
+							<a href="javascript:;"><h1>Patient Chart</h1></a>
 						</div>
 					</div>
 					<div class="col s3">
@@ -1227,42 +1232,31 @@
 			</div>
 		</div>
 
-
-
 		<div class="list segments-page">
-			<div class="section-title">
-				<h3>Profile</h3>
-				<div class="line"></div>
-			</div>
-			<div class="container">
 
-				<form class="profile_form">
+			<div class="container chart"> <!-- .chart jquery loop -->
+
 					<label>Name:</label>
-					<input required name="name" type="text" />
+					<input readonly class="name" type="text" />
 
 					<label>Gender:</label>
-					<select required name="gender">
-						<option value="male">Male</option>
-						<option value="female">Female</option>
-					</select>
+					<input readonly class="gender" type="text" />
 
 					<label>Marital Status:</label>
-					<select required name="marital">
-						<option value="single">Single</option>
-						<option value="married">Married</option>
-					</select>
+					<input readonly class="marital" type="text" />
 
 					<label>So/Do/Wo:</label>
-					<input required name="sodowo" type="text" placeholder="" />
+					<input readonly class="sodowo" type="text" />
 
+					<!--
 					<label>Address Line 1:</label>
-					<input name="address1" type="text" placeholder="" />
+					<input required name="address1" type="text" placeholder="" />
 
 					<label>Address Line 2:</label>
 					<input name="address2" type="text" placeholder="" />
 
 					<label>City:</label>
-					<input name="city" type="text" placeholder="" />
+					<input required name="city" type="text" placeholder="" />
 
 					<label>PTCL:</label>
 					<input name="ptcl" type="number" placeholder="" />
@@ -1272,36 +1266,37 @@
 
 					<label>Mobile Number 2:</label>
 					<input name="cell2" type="number" placeholder="" />
+					-->
 
 					<label>Age:</label>
-					<input name="age" type="number" placeholder="" />
+					<input readonly class="age" />
 
 					<label>Date of Birth:</label>
-					<input required name="dob" type="date" placeholder="" />
+					<input readonly="dob" class="date"/>
 
 					<label>Place of birth:</label>
-					<input name="placeofbirth" type="text" placeholder="" />
+					<input readonly class="placeofbirth" type="text" placeholder="" />
 
 					<label>Occupation:</label>
-					<input name="occupation" type="text" placeholder="" />
+					<input readonly class="occupation" type="text" placeholder="" />
 
 					<label>Height:</label>
-					<input name="height" type="number" placeholder="" />
+					<input readonly class="height" type="number" placeholder="" />
 
 					<label>Weight:</label>
-					<input name="weight" type="number" placeholder="" />
+					<input readonly class="weight" type="number" placeholder="" />
 
-					<label>BSA:</label>
-					<input readonly name="bsa" type="number" placeholder="" />
+					<label>BSA (weight/height):</label>
+					<input readonly class="bsa" type="number" placeholder="" />
 
+					<!--
 					<label>CNIC:</label>
-					<input required name="cnic" type="number" placeholder="" />
+					<input name="cnic" type="number" placeholder="" />
 
 					<label>Passport:</label>
 					<input name="passport" type="text" placeholder="" />
+					-->
 
-					<button type="submit" class="button button-full z-depth-1"><i class="fa fa-send"></i>Update Profile</button>
-				</form>
 
 
 				<br /><br />
@@ -1324,7 +1319,7 @@
 				</div>
 				<div class="col s4 text-center get_profile">
 					<div class="content-right">
-						<a href="javascript:;"><i class="fa fa-user"></i><span>Profile</span></a>
+						<a class="profile_required" href="javascript:;"><i class="fa fa-user"></i><span>Profile</span></a>
 					</div>
 				</div>
 			</div>
