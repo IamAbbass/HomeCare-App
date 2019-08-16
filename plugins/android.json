@@ -26,10 +26,13 @@
     "cordova-plugin-appminimize": {
       "PACKAGE_NAME": "com.zed.homecareapp"
     },
-    "com.virtuoworks.cordova-plugin-canvascamera": {
+    "cordova-plugin-local-notifications-mm": {
       "PACKAGE_NAME": "com.zed.homecareapp"
     },
-    "cordova-plugin-local-notifications-mm": {
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "com.zed.homecareapp"
+    },
+    "com.virtuoworks.cordova-plugin-canvascamera": {
       "PACKAGE_NAME": "com.zed.homecareapp"
     }
   },

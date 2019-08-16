@@ -58,7 +58,7 @@
   "com.virtuoworks.cordova-plugin-canvascamera": {
     "source": {
       "type": "registry",
-      "id": "com.virtuoworks.cordova-plugin-canvascamera"
+      "id": "com.virtuoworks.cordova-plugin-canvascamera@^1.1.9"
     },
     "is_top_level": true,
     "variables": {}
@@ -101,6 +101,14 @@
       "id": "cordova-plugin-app-event"
     },
     "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-file-transfer": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-file-transfer"
+    },
+    "is_top_level": true,
     "variables": {}
   }
 }

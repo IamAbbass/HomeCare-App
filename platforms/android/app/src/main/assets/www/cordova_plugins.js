@@ -298,15 +298,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "com.virtuoworks.cordova-plugin-canvascamera.CanvasCamera",
-      "file": "plugins/com.virtuoworks.cordova-plugin-canvascamera/www/CanvasCamera.js",
-      "pluginId": "com.virtuoworks.cordova-plugin-canvascamera",
-      "clobbers": [
-        "plugin.CanvasCamera",
-        "CanvasCamera"
-      ]
-    },
-    {
       "id": "cordova-plugin-device.device",
       "file": "plugins/cordova-plugin-device/www/device.js",
       "pluginId": "cordova-plugin-device",
@@ -340,6 +331,31 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
         "cordova.plugins.notification.local.core",
         "plugin.notification.local.core"
       ]
+    },
+    {
+      "id": "cordova-plugin-file-transfer.FileTransferError",
+      "file": "plugins/cordova-plugin-file-transfer/www/FileTransferError.js",
+      "pluginId": "cordova-plugin-file-transfer",
+      "clobbers": [
+        "window.FileTransferError"
+      ]
+    },
+    {
+      "id": "cordova-plugin-file-transfer.FileTransfer",
+      "file": "plugins/cordova-plugin-file-transfer/www/FileTransfer.js",
+      "pluginId": "cordova-plugin-file-transfer",
+      "clobbers": [
+        "window.FileTransfer"
+      ]
+    },
+    {
+      "id": "com.virtuoworks.cordova-plugin-canvascamera.CanvasCamera",
+      "file": "plugins/com.virtuoworks.cordova-plugin-canvascamera/www/CanvasCamera.js",
+      "pluginId": "com.virtuoworks.cordova-plugin-canvascamera",
+      "clobbers": [
+        "plugin.CanvasCamera",
+        "CanvasCamera"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -350,9 +366,10 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-media-capture": "3.0.3",
     "cordova-plugin-appminimize": "1.0.1",
-    "com.virtuoworks.cordova-plugin-canvascamera": "1.1.9",
     "cordova-plugin-device": "2.0.3",
     "cordova-plugin-app-event": "1.2.1",
-    "cordova-plugin-local-notifications-mm": "1.0.13"
+    "cordova-plugin-local-notifications-mm": "1.0.13",
+    "cordova-plugin-file-transfer": "1.7.1",
+    "com.virtuoworks.cordova-plugin-canvascamera": "1.1.9"
   };
 });

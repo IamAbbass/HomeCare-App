@@ -41,15 +41,19 @@
               "count": 1
             },
             {
-              "xml": "<feature name=\"CanvasCamera\"><param name=\"android-package\" value=\"com.virtuoworks.cordova.plugin.canvascamera.CanvasCamera\" /><param name=\"onload\" value=\"true\" /></feature>",
-              "count": 1
-            },
-            {
               "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
               "count": 1
             },
             {
               "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"CanvasCamera\"><param name=\"android-package\" value=\"com.virtuoworks.cordova.plugin.canvascamera.CanvasCamera\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
             }
           ]
@@ -64,7 +68,7 @@
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-              "count": 3
+              "count": 4
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
@@ -87,6 +91,10 @@
           ],
           "/manifest": [
             {
+              "xml": "<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\" />",
+              "count": 1
+            },
+            {
               "xml": "<uses-feature android:name=\"android.hardware.camera\" />",
               "count": 1
             },
@@ -100,18 +108,10 @@
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-              "count": 2
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\" />",
               "count": 1
             }
           ],
           "/manifest/application": [
-            {
-              "xml": "<activity android:label=\"@string/app_name\" android:name=\"com.virtuoworks.cordova.plugin.canvascamera.CanvasCamera\" android:theme=\"@android:style/Theme.Black.NoTitleBar\"></activity>",
-              "count": 1
-            },
             {
               "xml": "<receiver android:exported=\"false\" android:name=\"de.appplant.cordova.plugin.localnotification.TriggerReceiver\" />",
               "count": 1
@@ -138,6 +138,10 @@
             },
             {
               "xml": "<activity android:exported=\"false\" android:launchMode=\"singleInstance\" android:name=\"de.appplant.cordova.plugin.notification.ClickActivity\" android:theme=\"@android:style/Theme.Translucent\" />",
+              "count": 1
+            },
+            {
+              "xml": "<activity android:label=\"@string/app_name\" android:name=\"com.virtuoworks.cordova.plugin.canvascamera.CanvasCamera\" android:theme=\"@android:style/Theme.Black.NoTitleBar\"></activity>",
               "count": 1
             }
           ]
@@ -168,9 +172,6 @@
     "cordova-plugin-appminimize": {
       "PACKAGE_NAME": "com.zed.homecareapp"
     },
-    "com.virtuoworks.cordova-plugin-canvascamera": {
-      "PACKAGE_NAME": "com.zed.homecareapp"
-    },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "com.zed.homecareapp"
     },
@@ -178,6 +179,12 @@
       "PACKAGE_NAME": "com.zed.homecareapp"
     },
     "cordova-plugin-local-notifications-mm": {
+      "PACKAGE_NAME": "com.zed.homecareapp"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "com.zed.homecareapp"
+    },
+    "com.virtuoworks.cordova-plugin-canvascamera": {
       "PACKAGE_NAME": "com.zed.homecareapp"
     }
   },
@@ -481,15 +488,6 @@
       ]
     },
     {
-      "id": "com.virtuoworks.cordova-plugin-canvascamera.CanvasCamera",
-      "file": "plugins/com.virtuoworks.cordova-plugin-canvascamera/www/CanvasCamera.js",
-      "pluginId": "com.virtuoworks.cordova-plugin-canvascamera",
-      "clobbers": [
-        "plugin.CanvasCamera",
-        "CanvasCamera"
-      ]
-    },
-    {
       "id": "cordova-plugin-device.device",
       "file": "plugins/cordova-plugin-device/www/device.js",
       "pluginId": "cordova-plugin-device",
@@ -523,6 +521,31 @@
         "cordova.plugins.notification.local.core",
         "plugin.notification.local.core"
       ]
+    },
+    {
+      "id": "cordova-plugin-file-transfer.FileTransferError",
+      "file": "plugins/cordova-plugin-file-transfer/www/FileTransferError.js",
+      "pluginId": "cordova-plugin-file-transfer",
+      "clobbers": [
+        "window.FileTransferError"
+      ]
+    },
+    {
+      "id": "cordova-plugin-file-transfer.FileTransfer",
+      "file": "plugins/cordova-plugin-file-transfer/www/FileTransfer.js",
+      "pluginId": "cordova-plugin-file-transfer",
+      "clobbers": [
+        "window.FileTransfer"
+      ]
+    },
+    {
+      "id": "com.virtuoworks.cordova-plugin-canvascamera.CanvasCamera",
+      "file": "plugins/com.virtuoworks.cordova-plugin-canvascamera/www/CanvasCamera.js",
+      "pluginId": "com.virtuoworks.cordova-plugin-canvascamera",
+      "clobbers": [
+        "plugin.CanvasCamera",
+        "CanvasCamera"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -533,9 +556,10 @@
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-media-capture": "3.0.3",
     "cordova-plugin-appminimize": "1.0.1",
-    "com.virtuoworks.cordova-plugin-canvascamera": "1.1.9",
     "cordova-plugin-device": "2.0.3",
     "cordova-plugin-app-event": "1.2.1",
-    "cordova-plugin-local-notifications-mm": "1.0.13"
+    "cordova-plugin-local-notifications-mm": "1.0.13",
+    "cordova-plugin-file-transfer": "1.7.1",
+    "com.virtuoworks.cordova-plugin-canvascamera": "1.1.9"
   }
 }

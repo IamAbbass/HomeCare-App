@@ -275,7 +275,6 @@
 				</li>
 
 				<li class="get_appointments"><a href="javascript:;"><i class="fa fa-user-md"></i>Appointments</a></li>
-				<li class="get_documents"><a href="javascript:;"><i class="fa fa-file-o"></i>Documents</a></li>
 				<li class="btn_logout"><a href="javascript:;"><i class="fa fa-power-off"></i>Logout</a></li>
 
 
@@ -912,38 +911,43 @@
 
 
 
-						<div class="col s12">
-							<div class="contents center appointment_chat">
+						<div class="col s12 appointment_chat">
+							<div class="contents center">
 								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-comment"></i> Chat / Video Call</button>
 							</div>
 						</div>
-						<div class="col s12">
-							<div class="contents center btn_patient_examination">
+						<div class="col s12 get_documents">
+							<div class="contents center">
+								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-file-o"></i> Documents</button>
+							</div>
+						</div>
+						<div class="col s12 btn_patient_examination">
+							<div class="contents center">
 								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-user-md"></i> Patient Examination</button>
 							</div>
 						</div>
-
-						<div class="col s12">
-							<div class="contents center btn_patient_doc">
+						<div class="col s12 btn_patient_doc">
+							<div class="contents center">
 								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-files-o"></i> Patient Documents</button>
 							</div>
 						</div>
-
-						<div class="col s12">
-							<div class="contents center btn_chart">
+						<div class="col s12 btn_chart">
+							<div class="contents center">
 								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-list"></i> Patient Chart</button>
 							</div>
 						</div>
-						<div class="col s12">
-							<div class="contents center appointment_reschedule">
+						<div class="col s12 appointment_reschedule">
+							<div class="contents center">
 								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-clock-o"></i> Reschedule Appointment</button>
 							</div>
 						</div>
-						<div class="col s12">
-							<div class="contents center appointment_cancel">
+						<div class="col s12 appointment_cancel">
+							<div class="contents center">
 								<button class="button  button-full z-depth-1 btn_text_left"><i class="fa fa-trash"></i> Cancel Appointment</button>
 							</div>
 						</div>
+
+
 
 
 					</div>
@@ -968,7 +972,7 @@
 				<div class="row">
 					<div class="col s1">
 						<div class="content-left">
-							<a class="back_to" page="appointments" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+							<a class="back_to" page="appointment_details" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
 						</div>
 					</div>
 					<div class="col s8">
@@ -1004,7 +1008,7 @@
 		<Br/>	<Br/>
 
 
-	</div>		
+	</div>
 
 	<div class="app_page" page="chat">
 		<!-- navbar -->
@@ -1599,7 +1603,7 @@
 		</div>
 
 		<div class="segments-page">
-			//<canvas id="canvas"></canvas>
+			<canvas id="canvas"></canvas>
 			<img src="images/custom/dialing.gif" class="dialing"/>
 		</div>
 
@@ -1613,7 +1617,7 @@
 				<div class="row">
 					<div class="col s1">
 						<div class="content-left">
-							<a class="back_to" page="appointments" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+							<a class="back_to" page="patient_documents" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
 						</div>
 					</div>
 					<div class="col s8">
@@ -1639,8 +1643,8 @@
 			<div class="row">
 
 				<form class="document_form" enctype="multipart/form-data" method="POST">
-					<input required placeholder="Document Name" />
-					<select required>
+					<input class="new_doc_title" required placeholder="Document Name" />
+					<select class="new_doc_category" required>
 						<option>Select Category</option>
 						<option value="Pathalogy">Pathalogy</option>
 						<option value="Radiology">Radiology</option>

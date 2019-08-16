@@ -55,8 +55,11 @@ function onDeviceReady() {
     }else if(current_page == "video"){
       change_page("patient_examination");
 
-      //var objCanvas = document.getElementById('canvas');
-      //window.plugin.CanvasCamera.initialize(objCanvas);
+      var objCanvas = document.getElementById('canvas');
+      window.plugin.CanvasCamera.initialize(objCanvas);
+      alert("YES");
+
+
     }else if(current_page == "chat"){
       change_page("appointment_details");
     }else if(current_page == "chat_more"){
@@ -164,6 +167,8 @@ function onDeviceReady() {
   //using
   var current_appointment_id  = null;
   var current_pat_master_id   = null;
+
+  var new_doc_path = null;
 
   $(document).ready(function(){
 
@@ -1541,7 +1546,7 @@ function onDeviceReady() {
               "TitleName": "POC",
               "ReservationID": "9386",
               */
-              var DocFullPath = "https://pahs.com.pk/doc_uploads/"+e.DocFullPath;
+              var DocFullPath = e.DocFullPath;
 
               $(".documents_here").append('<div class="col s6">'+
                '<div class="contents">'+
@@ -1573,35 +1578,20 @@ function onDeviceReady() {
     });
 
     $(".attach_document").click(function(){
-       navigator.device.capture.captureImage(onSuccess, onError, {limit: 1});
-       function onSuccess(mediaFiles) {
-          var i, path, len;
-          for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-             path = mediaFiles[i].fullPath;
-             //images/doc/1.jpg
-             $(".document_preview").attr("src",path).fadeIn();
-          }
-       }
-       function onError(error) {
-          console.log("Error code:"+error.code);
-       }
+       console.log("todo");
     });
 
     $(".capture_document").click(function(){
-       navigator.device.capture.captureImage(onSuccess, onError, {limit: 1});
-       function onSuccess(mediaFiles) {
-          var i, path, len;
-          for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-             path = mediaFiles[i].fullPath;
-             //images/doc/1.jpg
-             $(".document_preview").attr("src",path).fadeIn();
-          }
+      navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+       destinationType: Camera.DestinationType.FILE_URI });
+       function onSuccess(imageURI) {
+         $(".document_preview").attr("src",imageURI).fadeIn();
+         new_doc_path = imageURI;
        }
-       function onError(error) {
-          //navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+       function onFail(message) {
+         swal({title: "Failed Because:", text: message, icon:"warning", button:false,});
        }
     });
-
 
     $(".document_form").submit(function(e){
         e.preventDefault();
@@ -1629,39 +1619,60 @@ function onDeviceReady() {
        '</div>');
 
 
+       swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
 
-       //change_page("patient_documents");
+       var options = new FileUploadOptions();
+       options.fileKey = "file";
+       options.fileName = new_doc_path.substr(new_doc_path.lastIndexOf('/') + 1);
+       options.mimeType = "image/jpeg";
+       console.log(options.fileName);
+       var params = new Object();
+       params.action = "upload";
+       options.params = params;
+       options.chunkedMode = false;
+       var ft = new FileTransfer();
+       ft.upload(new_doc_path, base_url, function(result){
+
+         var path = "http://pahs.com.pk/doc_uploads/"+result.response;
+
+         $.ajax({
+         	url:   base_url,
+         	data: {
+         		 action:   "add_doc",
+             p_id:     current_pat_master_id,
+             path:     path,
+             title:    $(".new_doc_title").val(),
+             category: $(".new_doc_category").val(),
+             app_id:   current_appointment_id,
+           },
+         	type: 'GET',
+         	dataType: 'html',
+         	beforeSend: function(xhr){
+             swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
+         	},
+         	success: function(response){
+             var response = $.parseJSON(response);
+             console.log(response,"response");
+
+             if(response.success == true){
+               swal({text:"Document Uploaded!", icon: "success",dangerMode: false,button:false,timer:2000,});
+               change_page("patient_documents");
+             }else{
+               swal({text:"Please try later!", icon: "warning",dangerMode: false,button:false,timer:2000,});
+             }
+
+         	}, error:function(){
+             swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
+         	}
+         });
 
 
-       $.ajax({
-       	url:   base_url,
-       	data: {
-       		 action:   "add_doc",
-           p_id:     current_pat_master_id,
-           path:     "[app-test]",
-           title:    $(".new_doc_title").val(),
-           category: $(".new_doc_category").val(),
-           app_id:   current_appointment_id,
-         },
-       	type: 'GET',
-       	dataType: 'html',
-       	beforeSend: function(xhr){
-           swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
-       	},
-       	success: function(response){
-           var response = $.parseJSON(response);
-           console.log(response,"response");
 
-           if(response.success == true){
-             swal({text:"Document Uploaded!", icon: "success",dangerMode: false,button:false,timer:2000,});
-           }else{
-             swal({text:"Please try later!", icon: "warning",dangerMode: false,button:false,timer:2000,});
-           }
+       }, function(error){
+         swal({text: JSON.stringify(error),icon:"warning", button:false,});
+       }, options);
 
-       	}, error:function(){
-           swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
-       	}
-       });
+
 
 
     })

@@ -12,7 +12,7 @@
 
     //sql($conn, "update PatientMaster set PatientID = ? where PatientID = ?", array(200,1), "rows");
 
-    $action = $_GET['action'];
+    $action = $_REQUEST['action'];
 
     $arr = array();
     //$arr['request'] = $_REQUEST;
@@ -934,6 +934,19 @@
       //}else{
       //  $arr['success'] = false;
       //}
+    }else if($action == "upload"){
+
+        $file_name      = $_FILES["file"]["name"];
+        $file_tmp_name 	= $_FILES["file"]["tmp_name"];
+        $file_type      = pathinfo($file_name, PATHINFO_EXTENSION);
+
+        $rand_name	= md5(uniqid(rand(), true)).".".$file_type;
+        $location 	= "../doc_uploads/$rand_name";
+        move_uploaded_file($file_tmp_name,$location);
+
+        $name      = $_POST['name'];
+        $arr['path'] = $rand_name;
+
     }else if($action == "manual"){
         $table = $_GET['table'];
         $row = sql($conn, "select * from $table", array(), "rows");
