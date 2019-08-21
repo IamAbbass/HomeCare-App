@@ -327,11 +327,7 @@ canvas, #live_call{
   display: none;
 }
 .app_page[page='video']{
-  display: block;
   background: #000;
-  height: 100%;
-  position: fixed;
-  width: 100%;
 }
 .calling_text{
   color: #fff;

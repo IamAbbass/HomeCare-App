@@ -221,14 +221,14 @@ function onDeviceReady() {
     $(".app_page[page='splash']").show();
 
 
-
-
-
     $( window ).resize(function() {
       setTimeout(function(){
         $(".chat_here").height($(window).height()-155);
+        $(".app_page[page='video']").height($(window).height());
       },250);
     });
+
+    $(".app_page[page='video']").height($(window).height());
 
     setTimeout(function(){
       $(".app_page[page='splash'] img").animate({
