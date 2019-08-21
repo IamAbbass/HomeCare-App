@@ -294,7 +294,7 @@ select{
     border-top: 1px solid #eee;
 }
 .dialing{
-  width: 50%;
+  width: 35px;
     display: block;
     margin: 20% auto;
 }
@@ -318,4 +318,24 @@ select{
 }
 .text-success{
   color: #34a853 !important;
+}
+
+canvas, #live_call{
+  width: 150px;
+  height: 150px;
+  border: 1px solid #333;
+  display: none;
+}
+.app_page[page='video']{
+  display: block;
+  background: #000;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+}
+.calling_text{
+  color: #fff;
+    text-align: center;
+    font-size: 18px;
+    font-family: inherit;
 }

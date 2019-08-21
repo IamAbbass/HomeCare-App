@@ -9,6 +9,15 @@ function onDeviceReady() {
     evt.preventDefault();
     go_back();
   }, false);
+  /*
+  var objCanvas = document.getElementById('canvas');
+  window.plugin.CanvasCamera.initialize(objCanvas);
+  var imageElement = document.getElementById('live_call');
+  cordova.plugins.CameraStream.capture = function(data){
+      //imageElement.src = data;
+  }
+  cordova.plugins.CameraStream.startCapture('front'); //back
+  */
 
 
   function go_back(){
@@ -57,12 +66,6 @@ function onDeviceReady() {
       }
     }else if(current_page == "video"){
       change_page("patient_examination");
-
-      var objCanvas = document.getElementById('canvas');
-      window.plugin.CanvasCamera.initialize(objCanvas);
-      alert("YES");
-
-
     }else if(current_page == "chat"){
       change_page("appointment_details");
     }else if(current_page == "chat_more"){
@@ -149,6 +152,27 @@ function onDeviceReady() {
     }else{
       $(".doctor_chat_navbar").slideUp();
       $(".main_navbar").slideDown();
+    }
+
+    if(new_page == "video"){
+      $(".app_calling").html("Calling");
+
+      $(".dialing").fadeIn();
+      setTimeout(function(){
+        $(".app_calling").html("Creating secure connection with ");
+      },5000);
+      setTimeout(function(){
+        $(".app_calling").html("Receiving Credentials of ");
+      },10000);
+      setTimeout(function(){
+        $(".app_calling").html("Connecting to ");
+      },15000);
+      setTimeout(function(){
+        swal({text:chat_name+" is offline !", icon: "info",button:false,});
+        $(".app_calling").html("Can not connect with ");
+      },21000);
+
+      //yahan
     }
 
     //transition
@@ -238,7 +262,7 @@ function onDeviceReady() {
       	},
       	success: function(response){
           var response = $.parseJSON(response);
-          console.log(response,"response");
+          //console.log(response,"response");
           if(response.success == true){
             swal({icon: "success", text: "Welcome "+response.name+" !", button:false, timer:3000});
             window.localStorage.setItem("active_settion",JSON.stringify(response).toString());
@@ -277,7 +301,7 @@ function onDeviceReady() {
         	},
         	success: function(response){
             var response = $.parseJSON(response);
-            console.log(response,"response");
+            //console.log(response,"response");
             if(response.success == true){
               swal({icon: "success", title: response.title, text: response.msg, button:false, timer:3000});
               user_data['token'] = response.token;
@@ -318,7 +342,7 @@ function onDeviceReady() {
           },
           success: function(response){
             var response = $.parseJSON(response);
-            console.log(response,"response");
+            //console.log(response,"response");
             if(response.success == true){
               swal({icon: "success", text: response.msg, button:false, timer:3000});
               user_data['token'] = response.token;
@@ -351,7 +375,7 @@ function onDeviceReady() {
       	},
       	success: function(response){
           var response = $.parseJSON(response);
-          console.log(response,"response");
+          //console.log(response,"response");
           if(response.success == true){
             swal({icon: "success", text: response.msg, button:false, timer:3000});
             user_data['token'] = response.token;
@@ -390,7 +414,7 @@ function onDeviceReady() {
           	},
           	success: function(response){
               var response = $.parseJSON(response);
-              console.log(response,"response");
+              //console.log(response,"response");
               if(response.success == true){
                 swal({icon: "success", text: response.msg, button:false, timer:3000});
                 user_data['token'] = response.token;
@@ -463,7 +487,7 @@ function onDeviceReady() {
       	},
       	success: function(response){
           var response = $.parseJSON(response);
-          console.log(response,"response");
+          //console.log(response,"response");
           if(response.success == true){
             try{swal.close();}catch(e){}
             change_page("services");
@@ -483,7 +507,7 @@ function onDeviceReady() {
               if((i+1)%3 == 0){
                 $(".services_here").append('<div class="col s12"></div>');
               }
-              //console.log((i+1)%3);
+              ////console.log((i+1)%3);
             });
           }else{
             swal({icon: "warning", text: response.msg, dangerMode: true,button:false, timer: 3000});
@@ -524,7 +548,7 @@ function onDeviceReady() {
       	},
       	success: function(response){
           var response = $.parseJSON(response);
-          console.log(response,"response");
+          //console.log(response,"response");
           if(response.success == true){
             try{swal.close();}catch(e){}
             change_page("specialities");
@@ -541,7 +565,7 @@ function onDeviceReady() {
                 '</div>'+
               '</div>');
 
-              //console.log((i+1)%3);
+              ////console.log((i+1)%3);
             });
           }else{
             swal({icon: "warning", text: response.msg, dangerMode: true,button:false, timer: 3000});
@@ -586,7 +610,7 @@ function onDeviceReady() {
       	},
       	success: function(response){
           var response = $.parseJSON(response);
-          console.log(response,"response");
+          //console.log(response,"response");
           if(response.success == true){
             try{swal.close();}catch(e){}
             change_page("doctors");
@@ -663,7 +687,7 @@ function onDeviceReady() {
       	},
       	success: function(response){
           var response = $.parseJSON(response);
-          console.log(response,"response");
+          //console.log(response,"response");
           if(response.success == true){
             try{swal.close();}catch(e){}
             change_page("schedule");
@@ -728,7 +752,7 @@ function onDeviceReady() {
                 },
                 success: function(response){
                   var response = $.parseJSON(response);
-                  console.log(response,"response");
+                  //console.log(response,"response");
                   if(response.success == true && response.avilablible == true){
                     try{swal.close();}catch(e){}
                     change_page("terms_and_contitions");
@@ -781,7 +805,7 @@ function onDeviceReady() {
             	},
             	success: function(response){
                 var response = $.parseJSON(response);
-                console.log(response,"response");
+                //console.log(response,"response");
                 if(response.success == true && response.avilablible == true){
                   swal({icon: "success", text: response.msg, button:false, timer: 3000}).then((value) => {
                     $(".get_appointments").click();
@@ -823,7 +847,7 @@ function onDeviceReady() {
         	},
         	success: function(response){
             var response = $.parseJSON(response);
-            console.log(response,"response");
+            //console.log(response,"response");
             if(response.success == true){
               try{swal.close();}catch(e){}
 
@@ -929,7 +953,7 @@ function onDeviceReady() {
             swal.close();
 
             var response = $.parseJSON(response);
-            console.log(response,"response");
+            //console.log(response,"response");
             if(response.success == true){
               try{swal.close();}catch(e){}
 
@@ -1002,7 +1026,7 @@ function onDeviceReady() {
       	},
       	success: function(response){
           var response = $.parseJSON(response);
-          console.log(response,"response");
+          //console.log(response,"response");
           if(response.success == true){
             try{swal.close();}catch(e){}
 
@@ -1055,7 +1079,7 @@ function onDeviceReady() {
  							});
 					   },
 					   success: function(data){
-							 console.log(data);
+							 //console.log(data);
 
 							 $("input[name='image[]'], textarea[name='contact_comment']").val("");
 
@@ -1112,7 +1136,7 @@ function onDeviceReady() {
         },
         success: function(response){
           var response = $.parseJSON(response);
-          console.log(response,"response");
+          //console.log(response,"response");
           try{swal.close();}catch(e){}
 
           var old_date = null;
@@ -1177,7 +1201,7 @@ function onDeviceReady() {
           if((response.data).length > 0){
             $(".chat_here").scrollTop($(".chat_here")[0].scrollHeight);
           }else{
-            console.log((response.data).length);
+            //console.log((response.data).length);
           }
 
           last_msg_id = response.last_msg_id;
@@ -1256,7 +1280,7 @@ function onDeviceReady() {
           },
           success: function(response){
             var response = $.parseJSON(response);
-            console.log(response,"response");
+            //console.log(response,"response");
 
 
 
@@ -1301,7 +1325,7 @@ function onDeviceReady() {
         },
         success: function(response){
           var response = $.parseJSON(response);
-          console.log(response,"response");
+          //console.log(response,"response");
           if(response.success == true){
 
 
@@ -1378,7 +1402,7 @@ function onDeviceReady() {
         },
         success: function(response){
           var response = $.parseJSON(response);
-          console.log(response,"response");
+          //console.log(response,"response");
           if(response.success == true){
             swal({icon: "success",button:false, timer: 3000});
             $(".profile_required").children("i").removeClass("fa-exclamation-triangle attention").addClass("fa-user");
@@ -1398,10 +1422,10 @@ function onDeviceReady() {
     function user_login(){
       user_data = $.parseJSON(window.localStorage.getItem("active_settion"));
 
-      console.log(user_data['token']);
-      console.log(user_data['UserID']);
-      console.log(user_data['type']);
-      console.log(user_data['name']);
+      //console.log(user_data['token']);
+      //console.log(user_data['UserID']);
+      //console.log(user_data['type']);
+      //console.log(user_data['name']);
 
       $(".login_name").text(user_data['name']);
 
@@ -1451,7 +1475,7 @@ function onDeviceReady() {
       Fingerprint.isAvailable(isAvailableSuccess, isAvailableError);
 
       function isAvailableSuccess(result) {
-        console.log("Fingerprint is available");
+        //console.log("Fingerprint is available");
 
         Fingerprint.show({
           clientId: "Fingerprint-Demo",
@@ -1467,7 +1491,7 @@ function onDeviceReady() {
         }
       }
       function isAvailableError(message) {
-        console.log(message);
+        //console.log(message);
       }
       */
 
@@ -1560,7 +1584,7 @@ function onDeviceReady() {
       	},
       	success: function(response){
           var response = $.parseJSON(response);
-          console.log(response,"response");
+          //console.log(response,"response");
 
           try{swal.close();}catch(e){}
 
@@ -1625,7 +1649,7 @@ function onDeviceReady() {
       	},
       	success: function(response){
           var response = $.parseJSON(response);
-          console.log(response,"response");
+          //console.log(response,"response");
           if(response.success == true){
             try{swal.close();}catch(e){}
 
@@ -1677,7 +1701,7 @@ function onDeviceReady() {
     });
 
     $(".attach_document").click(function(){
-       console.log("todo");
+       //console.log("todo");
     });
 
     $(".capture_document").click(function(){
@@ -1726,7 +1750,7 @@ function onDeviceReady() {
        options.fileKey = "file";
        options.fileName = new_doc_path.substr(new_doc_path.lastIndexOf('/') + 1);
        options.mimeType = "image/jpeg";
-       console.log(options.fileName);
+       //console.log(options.fileName);
        var params = new Object();
        params.action = "upload";
        options.params = params;
@@ -1753,7 +1777,7 @@ function onDeviceReady() {
          	},
          	success: function(response){
              var response = $.parseJSON(response);
-             console.log(response,"response");
+             //console.log(response,"response");
 
              if(response.success == true){
                swal({text:"Document Uploaded!", icon: "success",dangerMode: false,button:false,timer:2000,});
@@ -1808,7 +1832,7 @@ function onDeviceReady() {
       	},
       	success: function(response){
           var response = $.parseJSON(response);
-          console.log(response,"response");
+          //console.log(response,"response");
           swal({text:"Saved", icon: "success",dangerMode: true,button:false,});
       	}, error:function(){
           swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
