@@ -2,7 +2,7 @@ function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
-onDeviceReady();
+//onDeviceReady();
 
 function onDeviceReady() {
   document.addEventListener('backbutton', function (evt) {
@@ -1546,7 +1546,8 @@ function onDeviceReady() {
               "TitleName": "POC",
               "ReservationID": "9386",
               */
-              var DocFullPath = e.DocFullPath;
+              var DocFullPath = (e.DocFullPath).replace("http:", "https:");
+              
 
               $(".documents_here").append('<div class="col s6">'+
                '<div class="contents">'+
@@ -1582,15 +1583,17 @@ function onDeviceReady() {
     });
 
     $(".capture_document").click(function(){
-      navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
-       destinationType: Camera.DestinationType.FILE_URI });
-       function onSuccess(imageURI) {
-         $(".document_preview").attr("src",imageURI).fadeIn();
-         new_doc_path = imageURI;
-       }
-       function onFail(message) {
-         swal({title: "Failed Because:", text: message, icon:"warning", button:false,});
-       }
+      navigator.camera.getPicture(function onSuccess(imageURI) {
+        $(".document_preview").attr("src",imageURI).fadeIn();
+        new_doc_path = imageURI;
+      }, function onFail(message) {
+        swal({title: "Failed Because:", text: message, icon:"warning", button:false,});
+      },{
+        quality: 50,
+        destinationType: Camera.DestinationType.FILE_URI
+     });
+
+
     });
 
     $(".document_form").submit(function(e){
@@ -1633,7 +1636,7 @@ function onDeviceReady() {
        var ft = new FileTransfer();
        ft.upload(new_doc_path, base_url, function(result){
 
-         var path = "http://pahs.com.pk/doc_uploads/"+result.response;
+         var path = "https://pahs.com.pk/doc_uploads/"+result.response;
 
          $.ajax({
          	url:   base_url,

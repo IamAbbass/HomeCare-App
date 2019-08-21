@@ -945,7 +945,7 @@
         move_uploaded_file($file_tmp_name,$location);
 
         $name      = $_POST['name'];
-        $arr['path'] = $rand_name;
+        die($rand_name);
 
     }else if($action == "manual"){
         $table = $_GET['table'];
