@@ -164,7 +164,7 @@ CanvasCamera.prototype.createRenderer = (function (element, canvasCamera) {
             this.context = this.element.getContext('2d');
 
             this.image = new Image();
-            this.image.crossOrigin = "Anonymous";
+            this.image.crossOrigin = 'Anonymous';
 
             this.image.addEventListener('load', function(event) {
 

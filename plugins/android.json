@@ -8,43 +8,11 @@
   },
   "installed_plugins": {
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.zed.healthcareapp"
-    },
-    "cordova-plugin-fingerprint-aio": {
-      "PACKAGE_NAME": "com.zed.homecareapp"
-    },
-    "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "com.zed.homecareapp"
-    },
-    "cordova-plugin-camera": {
-      "ANDROID_SUPPORT_V4_VERSION": "27.+",
-      "PACKAGE_NAME": "com.zed.homecareapp"
-    },
-    "cordova-plugin-media-capture": {
-      "PACKAGE_NAME": "com.zed.homecareapp"
-    },
-    "cordova-plugin-appminimize": {
-      "PACKAGE_NAME": "com.zed.homecareapp"
-    },
-    "cordova-plugin-local-notifications-mm": {
-      "PACKAGE_NAME": "com.zed.homecareapp"
-    },
-    "cordova-plugin-file-transfer": {
       "PACKAGE_NAME": "com.zed.homecareapp"
     },
     "com.virtuoworks.cordova-plugin-canvascamera": {
       "PACKAGE_NAME": "com.zed.homecareapp"
     }
   },
-  "dependent_plugins": {
-    "cordova-plugin-file": {
-      "PACKAGE_NAME": "com.zed.homecareapp"
-    },
-    "cordova-plugin-device": {
-      "PACKAGE_NAME": "com.zed.homecareapp"
-    },
-    "cordova-plugin-app-event": {
-      "PACKAGE_NAME": "com.zed.homecareapp"
-    }
-  }
+  "dependent_plugins": {}
 }

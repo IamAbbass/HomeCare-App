@@ -388,6 +388,13 @@
             $my_appointments[$i]['doc_id']              = $D_ID;
             $my_appointments[$i]['pat_id']              = $P_ID;
 
+            $time_stamp = strtotime("$Date $row_schedule_time");
+            if(time() > $time_stamp){
+              $my_appointments[$i]['status']              = "OLD";
+            }else{
+              $my_appointments[$i]['status']              = "NEW";
+            }
+
             $row_11        = sql($conn, "select PID from PatientMaster where PatientID = ?",
             array($P_ID), "rows");
             $my_appointments[$i]['PID']          = $row_11[0]['PID'];
@@ -405,7 +412,89 @@
             $arr['data']        = $my_appointments;
         }
     }
-    else if($action == "get_appointment_detail"){
+    else if($action == "get_invoices"){
+      $token          = $_GET['token'];
+      $doc_id         = $_GET['doc_id'];
+
+      if(strlen($token) > 0){
+          $row2 = sql($conn, "select UserID from Users where CSRFToken = ?", array($token), "rows");
+          $PatientID = $row2[0][0];
+          $row = sql($conn, "select * from tbl_Appointments_reservation where PatientID = ?", array($PatientID), "rows");
+      }else if (strlen($doc_id) > 0){
+          $row = sql($conn, "select * from tbl_Appointments_reservation where DoctorID = ?", array($doc_id), "rows");
+      }
+
+      //die(json_encode($PatientID));
+      $my_appointments = array();
+      $i = 0;
+
+      //$row = sql($conn, "select * from tbl_Appointments_reservation", array(), "rows");
+      foreach($row as $r){
+
+          $A_ID   = $r[0];
+          $R_ID   = $r['ReservationID'];
+          $S_ID   = $r['doc_schedule_detail_id'];
+          $D_ID   = $r['DoctorID'];
+          $P_ID   = $r['PatientID'];
+          $Date   = $r['Date'];
+          $Remarks= $r['Remarks'];
+
+          if(strlen($D_ID) == 0 || strlen($P_ID) == 0){
+              continue;
+          }
+
+          //tbl doctor
+          $row_doctor = sql($conn, "select * from Doctors where DoctorID = ?", array($D_ID), "rows");
+          $row_doctor_name = $row_doctor[0]['DoctorName'];
+          $row_doctor_spec = $row_doctor[0]['Speciality'];
+
+          //tbl schedule
+          $row_schedule = sql($conn, "select * from tbl_doc_schedule_detail where doc_schedule_detail_id = ?", array($S_ID), "rows");
+          $row_schedule_time = $row_schedule[0]['Time'];
+
+          if($Remarks == null || $Remarks == "null"){
+              $Remarks = "";
+          }
+
+          //tbl users
+          $row_patient = sql($conn, "select * from Users where UserID = ?", array($P_ID), "rows");
+          $row_patient_name = $row_patient[0]['UserName'];
+
+          $my_appointments[$i]['id']                  = $A_ID;
+          $my_appointments[$i]['doctor_name']         = $row_doctor_name;
+          $my_appointments[$i]['patient_name']        = $row_patient_name;
+          $my_appointments[$i]['doctor_speciality']   = $row_doctor_spec;
+          $my_appointments[$i]['date']                = $Date;
+          $my_appointments[$i]['time']                = $row_schedule_time;
+          $my_appointments[$i]['reason']              = $Remarks;
+          $my_appointments[$i]['doc_id']              = $D_ID;
+          $my_appointments[$i]['pat_id']              = $P_ID;
+
+          $time_stamp = strtotime("$Date $row_schedule_time");
+          if(time() > $time_stamp){
+            $my_appointments[$i]['status']              = "OLD";
+          }else{
+            $my_appointments[$i]['status']              = "NEW";
+          }
+
+          $row_11        = sql($conn, "select PID from PatientMaster where PatientID = ?",
+          array($P_ID), "rows");
+          $my_appointments[$i]['PID']          = $row_11[0]['PID'];
+
+
+          $i++;
+
+      }
+
+      if($i == 0){
+          $arr['success']     = false;
+          $arr['msg']         = "No appointments to show!";
+      }else{
+          $arr['success']     = true;
+          $arr['data']        = $my_appointments;
+      }
+
+    }else if($action == "get_appointment_detail"){
         //$token      = $_GET['token'];
         $id         = $_GET['id'];
         $row        = sql($conn, "select * from tbl_Appointments_reservation where ReservationID = ?", array($id), "rows");
@@ -750,6 +839,7 @@
 
         foreach($row_1 as $row){
 
+            $msgs[$i]['id']        = $row['pkid'];
             $msgs[$i]['msg']        = $row['msg'];
             $msgs[$i]['date']       = substr($row['chat_time'],0,10);
             $msgs[$i]['time']       = substr($row['chat_time'],10,9);

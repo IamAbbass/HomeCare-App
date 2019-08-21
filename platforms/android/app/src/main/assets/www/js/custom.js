@@ -10,6 +10,7 @@ function onDeviceReady() {
     go_back();
   }, false);
 
+
   function go_back(){
     var current_page = $(".app_page:visible").attr("page");
     if(current_page == "splash"){
@@ -29,6 +30,8 @@ function onDeviceReady() {
     }else if(current_page == "doctor_dashboard"){
       //ignore
     }else if(current_page == "services"){
+      change_page("patient_dashboard");
+    }else if(current_page == "invoices"){
       change_page("patient_dashboard");
     }else if(current_page == "specialities"){
       change_page("patient_dashboard");
@@ -92,10 +95,14 @@ function onDeviceReady() {
       $(".app_page").hide();
       $(".app_page[page='"+new_page+"']").show();
       //return false;
-    }else if(new_page == "chat" || new_page == "patient_examination" || new_page == "video"){
+    }else if(new_page == "chat"){
       setTimeout(function(){
         $(".chat_here").scrollTop($(".chat_here")[0].scrollHeight);
       },100);
+
+      setTimeout(function(){
+        $(".chat_here").height($(window).height()-155);
+      },250);
     }else if(new_page == "appointments"){
       $(".navbar-bottom .col").removeClass("col-active");
       $(".navbar-bottom .get_appointments").addClass("col-active");
@@ -119,6 +126,12 @@ function onDeviceReady() {
       setTimeout(function(){
         $(".terms_and_contitions_text").slideDown();
       },500);
+    }
+
+    if(new_page == "chat" || new_page == "patient_examination" || new_page == "video"){
+      setTimeout(function(){
+        $(".chat_here").scrollTop($(".chat_here")[0].scrollHeight);
+      },100);
     }
 
     //navbar
@@ -170,6 +183,7 @@ function onDeviceReady() {
 
   var new_doc_path = null;
 
+
   $(document).ready(function(){
 
 
@@ -182,11 +196,13 @@ function onDeviceReady() {
 
     $(".app_page[page='splash']").show();
 
-    $(".chat_here").height($(document).height()-155);
+
+
+
 
     $( window ).resize(function() {
       setTimeout(function(){
-        $(".chat_here").height($(document).height()-155);
+        $(".chat_here").height($(window).height()-155);
       },250);
     });
 
@@ -610,16 +626,15 @@ function onDeviceReady() {
       }
     });
 
-
     $(".booking_date").change(function(){
       $(".app_date_show").text($(this).val());
     });
 
-
-
     $(document).delegate(".pricing .col","click",function(){
       $(".pricing .col-active").removeClass("col-active");
       $(this).addClass("col-active");
+      var price = $(this).find("h4").text();
+      $(".appointment_price").text(price);
     });
 
 
@@ -827,15 +842,25 @@ function onDeviceReady() {
                   display_name = "";
                 }
 
+                var remind_btn = "";
+                var color_class = "";
+                if(e.status == "NEW"){
+                  remind_btn = '<button id="'+(e.id)+'" type="button" class="pull-right button z-depth-1 set_appointment_reminder"><i class="fa fa-bell"></i> Reminer</button>';
+                  color_class = "text-success";
+                }else{
+                  color_class = "text-danger";
+                }
+
+
+
                 $(".appointments_here").append('<div a_id="'+(e.id)+'" class="contents">'+
         					'<div class="list-text">'+
         						'<h6>'+(display_name)+'</h6>'+
         						'<p>'+(e.reason)+'</p>'+
-                    '<p><i class="fa fa-calendar"></i> '+(e.date+' '+e.time)+'</p>'+
+                    '<p class="'+color_class+'"><i class="fa fa-calendar"></i> '+(e.date+' '+e.time)+'</p>'+
                     '<p>'+
                     '<button id="'+(e.id)+'" type="button" class="pull-left button z-depth-1 get_appointment_detail"><i class="fa fa-eye"></i> View</button>'+
-                    '<button id="'+(e.id)+'" type="button" class="pull-right button z-depth-1 set_appointment_reminder"><i class="fa fa-bell"></i> Reminer</button>'+
-
+                    remind_btn+
                     '</p>'+
                   '</div>'+
         				'</div>');
@@ -877,7 +902,6 @@ function onDeviceReady() {
         	}
         });
     }
-
     $(".get_appointments").click(function(){
       $(".navbar-bottom .col").removeClass("col-active");
       $(".navbar-bottom .get_appointments").addClass("col-active");
@@ -885,6 +909,76 @@ function onDeviceReady() {
       change_page("appointments");
 
       get_appointments();
+    });
+
+
+    function get_invoices(){
+
+      $.ajax({
+        	url:   base_url,
+        	data: {
+        		action:  "get_invoices",
+            token: user_data['token']
+        	},
+        	type: 'GET',
+        	dataType: 'html',
+        	beforeSend: function(xhr){
+            swal({icon: "images/custom/load.gif",button:false,});
+        	},
+        	success: function(response){
+            swal.close();
+
+            var response = $.parseJSON(response);
+            console.log(response,"response");
+            if(response.success == true){
+              try{swal.close();}catch(e){}
+
+              $(".invoices_here, .invoices_here_filter").empty();
+
+              $(".invoices_here_count").html((response.data).length);
+
+              $(response.data).each(function(i,e){
+                if(user_data['type'] == "patient"){
+                  var display_name = e.doctor_name+' - '+e.doctor_speciality;
+                }else{
+                  var display_name = e.patient_name;
+                }
+
+                if(display_name == null){
+                  display_name = "";
+                }
+
+                var status = "";
+                if(e.status == "OLD"){
+                  status = "<i class='fa fa-check'></i> Processed";
+                }else{
+                  status = "<i class='fa fa-check'></i> New Invoice";
+                }
+
+
+                $(".invoices_here").append('<div id="'+(e.id)+'" class="get_appointment_detail contents">'+
+        					'<div class="list-text">'+
+        						'<h6>'+(display_name)+'</h6>'+
+        						'<p><i class="fa fa-money"></i> Rs. 1000</p>'+
+                    '<p>'+status+'</p>'+
+                  '</div>'+
+        				'</div>');
+
+
+
+
+              });
+            }else{
+              //swal({icon: "warning", text: response.msg, dangerMode: true,button:false, timer: 3000});
+            }
+        	}, error:function(){
+            swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
+        	}
+        });
+    }
+    $(".get_invoices").click(function(){
+      change_page("invoices");
+      get_invoices();
     });
 
 
@@ -1027,6 +1121,7 @@ function onDeviceReady() {
             }else{
 
               /*
+              id: "1",
               msg: "I am DOC",
               date: "2019-08-07",
               time: " 03:08:57",
@@ -1055,8 +1150,11 @@ function onDeviceReady() {
               }
 
               $(".temp_msg").remove();
-              $(".chat_here").append("<p class='"+bubble_class+"'>"+(e.msg)+"<br/><span class='pull-right msg_date'>"+(e.date+" "+e.time)+"</span></p>");
 
+              var already_exists = $(".chat_here #"+e.id).length;
+              if(already_exists == 0){
+                $(".chat_here").append("<p id='"+e.id+"' class='"+bubble_class+"'>"+(e.msg)+"<br/><span class='pull-right msg_date'>"+(e.date+" "+e.time)+"</span></p>");
+              }
 
               /*
               if(e.from_id == user_data['UserID']){
@@ -1315,7 +1413,7 @@ function onDeviceReady() {
       if(user_data['type'] == "patient"){
         $(".app_page[page='patient_dashboard']").fadeIn(1000);
         $(".btn_patient_examination, .btn_patient_doc, .btn_chart").hide();
-        //$(".profile_nav_bar").show();
+        $(".get_invoices").show();
       }else if(user_data['type'] == "doctor"){
         $(".app_page[page='doctor_dashboard']").fadeIn(1000);
         $(".btn_patient_examination, .btn_patient_doc, .btn_chart").show();
@@ -1409,11 +1507,11 @@ function onDeviceReady() {
 
 
     $(".chat_message").focus(function(){
-      $(".navbar-bottom").hide();
+      //$(".navbar-bottom").hide();
     });
 
     $(".chat_message").blur(function(){
-      $(".navbar-bottom").show();
+      //$(".navbar-bottom").show();
     });
 
     $(".back_to").click(function(){
@@ -1547,7 +1645,7 @@ function onDeviceReady() {
               "ReservationID": "9386",
               */
               var DocFullPath = (e.DocFullPath).replace("http:", "https:");
-              
+
 
               $(".documents_here").append('<div class="col s6">'+
                '<div class="contents">'+

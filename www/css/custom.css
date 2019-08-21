@@ -7,6 +7,9 @@ body, p, h1, h2, h3, h4, h5, h6, a{
 .attention{
   color: #dd5246 !important;
 }
+.get_invoices{
+  display:none;
+}
 .chart input{
   text-transform: capitalize;
 }
@@ -208,8 +211,8 @@ select{
   padding-top: 0;
 }
 .chat_here{
-  padding: 50px 10px 10px 10px;
-    overflow: scroll;
+  padding: 60px 10px 10px 10px;
+  overflow: scroll;
 }
 .chat_here p{
   padding: 5px;
@@ -236,7 +239,15 @@ select{
   opacity: 0.5;
 }
 .chat_form .col{
-  padding: 0 !important;
+    padding:0 !important;
+}
+.chat_form{
+  position: fixed;
+    width: 100%;
+    bottom: 53px;
+    height: 44px;
+    border-top: 1px solid#42a5f5;
+    background: #fff;
 }
 .chat_btns, .chat_btns:focus{
   padding: 8px !important;
@@ -245,9 +256,9 @@ select{
   background:none !important;
 }
 .chat_message{
-  margin: 0;
-    border: none !important;
-    font-size: 18px !important;
+  margin: 0 !important;
+  border: none !important;
+  font-size: 18px !important;
 }
 .chat_message:focus{
   border:none !important;
@@ -301,4 +312,10 @@ select{
 
 .search{
   font-size: 18px !important;
+}
+.text-danger{
+  color: #ea4335 !important;
+}
+.text-success{
+  color: #34a853 !important;
 }
