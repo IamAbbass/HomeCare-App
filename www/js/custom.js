@@ -2,7 +2,7 @@ function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
-//onDeviceReady();
+onDeviceReady();
 
 function onDeviceReady() {
   document.addEventListener('backbutton', function (evt) {
@@ -1038,6 +1038,8 @@ function onDeviceReady() {
               $(".app_time").text(e.time);
               $(".app_reason").text(e.reason);
 
+
+
               current_pat_master_id = e.PID; //for documents
 
               chat_id_doc   = e.doc_id;
@@ -1262,6 +1264,10 @@ function onDeviceReady() {
       }
 
       if(msg.length > 0){
+
+        //test
+        //appointment_id: "3",
+
         $.ajax({
           url:   base_url,
           data: {
@@ -1270,6 +1276,7 @@ function onDeviceReady() {
             recipientid:  recipientid,
             sender:       user_data['type'],
             msg :         msg,
+            appointment_id: "3",
           },
           type: 'GET',
           dataType: 'html',
@@ -1746,36 +1753,77 @@ function onDeviceReady() {
 
        swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
 
-       var options = new FileUploadOptions();
-       options.fileKey = "file";
-       options.fileName = new_doc_path.substr(new_doc_path.lastIndexOf('/') + 1);
-       options.mimeType = "image/jpeg";
-       //console.log(options.fileName);
-       var params = new Object();
-       params.action = "upload";
-       options.params = params;
-       options.chunkedMode = false;
-       var ft = new FileTransfer();
-       ft.upload(new_doc_path, base_url, function(result){
+       try{
+         var options = new FileUploadOptions();
+         options.fileKey = "file";
+         options.fileName = new_doc_path.substr(new_doc_path.lastIndexOf('/') + 1);
+         options.mimeType = "image/jpeg";
+         //console.log(options.fileName);
+         var params = new Object();
+         params.action = "upload";
+         options.params = params;
+         options.chunkedMode = false;
+         var ft = new FileTransfer();
+         ft.upload(new_doc_path, base_url, function(result){
 
-         var path = "https://pahs.com.pk/doc_uploads/"+result.response;
+           var path = "https://pahs.com.pk/doc_uploads/"+result.response;
+
+           $.ajax({
+           	url:   base_url,
+           	data: {
+           		 action:   "add_doc",
+               p_id:     current_pat_master_id,
+               path:     path,
+               title:    $(".new_doc_title").val(),
+               category: $(".new_doc_category").val(),
+               app_id:   current_appointment_id,
+             },
+           	type: 'GET',
+           	dataType: 'html',
+           	beforeSend: function(xhr){
+               swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
+           	},
+           	success: function(response){
+               var response = $.parseJSON(response);
+               //console.log(response,"response");
+
+               if(response.success == true){
+                 swal({text:"Document Uploaded!", icon: "success",dangerMode: false,button:false,timer:2000,});
+                 change_page("patient_documents");
+               }else{
+                 swal({text:"Please try later!", icon: "warning",dangerMode: false,button:false,timer:2000,});
+               }
+
+           	}, error:function(){
+               swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
+           	}
+           });
+
+         }, function(error){
+           swal({text: JSON.stringify(error),icon:"warning", button:false,});
+         }, options);
+       }catch(e){
+
+         //test
+         var path = "000341a4bafbda93614213a278372cba.jpg";
+
 
          $.ajax({
-         	url:   base_url,
-         	data: {
-         		 action:   "add_doc",
+          url:   base_url,
+          data: {
+             action:   "add_doc",
              p_id:     current_pat_master_id,
              path:     path,
              title:    $(".new_doc_title").val(),
              category: $(".new_doc_category").val(),
              app_id:   current_appointment_id,
            },
-         	type: 'GET',
-         	dataType: 'html',
-         	beforeSend: function(xhr){
+          type: 'GET',
+          dataType: 'html',
+          beforeSend: function(xhr){
              swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
-         	},
-         	success: function(response){
+          },
+          success: function(response){
              var response = $.parseJSON(response);
              //console.log(response,"response");
 
@@ -1786,16 +1834,14 @@ function onDeviceReady() {
                swal({text:"Please try later!", icon: "warning",dangerMode: false,button:false,timer:2000,});
              }
 
-         	}, error:function(){
+          }, error:function(){
              swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
-         	}
+          }
          });
 
 
+       }
 
-       }, function(error){
-         swal({text: JSON.stringify(error),icon:"warning", button:false,});
-       }, options);
 
 
 
