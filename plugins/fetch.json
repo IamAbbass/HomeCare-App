@@ -23,14 +23,6 @@
     "is_top_level": false,
     "variables": {}
   },
-  "cordova-plugin-camera-stream": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-camera-stream@^0.1.4"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-splashscreen": {
     "source": {
       "type": "registry",

@@ -4,6 +4,9 @@ body, p, h1, h2, h3, h4, h5, h6, a{
   -ms-user-select: none;      /* IE 10+ */
   user-select: none;          /* Likely future */
 }
+.send_sms{
+  margin-right: 5px;
+}
 .attention{
   color: #dd5246 !important;
 }
@@ -320,11 +323,13 @@ select{
   color: #34a853 !important;
 }
 
-canvas, #live_call{
-  width: 150px;
-  height: 150px;
-  border: 1px solid #333;
-  display: none;
+canvas{
+  width: 100%;
+  height: 100%;
+  background: #333;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .app_page[page='video']{
   background: #000;

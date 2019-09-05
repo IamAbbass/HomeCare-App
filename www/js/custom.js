@@ -2,23 +2,18 @@ function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
-onDeviceReady();
+//onDeviceReady();
 
 function onDeviceReady() {
   document.addEventListener('backbutton', function (evt) {
     evt.preventDefault();
     go_back();
   }, false);
-  /*
-  var objCanvas = document.getElementById('canvas');
-  window.plugin.CanvasCamera.initialize(objCanvas);
-  var imageElement = document.getElementById('live_call');
-  cordova.plugins.CameraStream.capture = function(data){
-      //imageElement.src = data;
-  }
-  cordova.plugins.CameraStream.startCapture('front'); //back
-  */
 
+  try{
+    var objCanvas = document.getElementById('canvas');
+    window.plugin.CanvasCamera.initialize(objCanvas);
+  }catch(e){}
 
   function go_back(){
     var current_page = $(".app_page:visible").attr("page");
@@ -155,6 +150,11 @@ function onDeviceReady() {
     }
 
     if(new_page == "video"){
+
+      $(".calling_text").fadeIn();
+      $(".dialing").fadeIn();
+      $("canvas").hide();
+
       $(".app_calling").html("Calling");
 
       $(".dialing").fadeIn();
@@ -166,13 +166,36 @@ function onDeviceReady() {
       },10000);
       setTimeout(function(){
         $(".app_calling").html("Connecting to ");
+
+        $(".calling_text").hide();
+        $(".dialing").hide();
+        $("canvas").slideDown();
+
+        var options = {
+            cameraFacing: 'front',
+            width: $(window).height(),
+            height: $(window).width(),
+            canvas: {
+              width: $(window).height(),
+              height: $(window).width(),
+            },
+            capture: {
+              width: $(window).height(),
+              height: $(window).width(),
+            },
+        };
+        try{
+          window.plugin.CanvasCamera.start(options);
+        }catch(e){}
       },15000);
       setTimeout(function(){
         swal({text:chat_name+" is offline !", icon: "info",button:false,});
         $(".app_calling").html("Can not connect with ");
-      },21000);
 
-      //yahan
+      },30000);
+
+
+
     }
 
     //transition
@@ -183,7 +206,8 @@ function onDeviceReady() {
 
   }
 
-  var base_url  = "https://pahs.com.pk/app/?";
+  var base_url          = "https://pahs.com.pk/app/?";
+  var document_folder   = "https://pahs.com.pk/doc_uploads/";
   var user_data = [];
   var chat_id_pat   = null; //cache
   var chat_id_doc   = null;
@@ -691,6 +715,8 @@ function onDeviceReady() {
           if(response.success == true){
             try{swal.close();}catch(e){}
             change_page("schedule");
+
+            $(".schedule_here").empty();
             $(response.data).each(function(i,e){
               $(".schedule_here").append('<div id="'+(e.schedule_id)+'" class="col s4">'+
                 '<div class="contents text-center">'+
@@ -856,18 +882,28 @@ function onDeviceReady() {
               $(".app_count").html((response.data).length);
 
               $(response.data).each(function(i,e){
+                var remind_btn = "";
+                var color_class = "";
+                var sms_notification = "";
+
+
                 if(user_data['type'] == "patient"){
                   var display_name = e.doctor_name+' - '+e.doctor_speciality;
-                }else{
+                }else{ //doctor
                   var display_name = e.patient_name;
+
+
+                  if(e.status == "NEW"){
+                    sms_notification = '<button id="'+(e.id)+'" type="button" class="pull-right button button-black send_sms"><i class="fa fa-envelope"></i> SMS</button>';
+                  }
+
                 }
 
                 if(display_name == null){
                   display_name = "";
                 }
 
-                var remind_btn = "";
-                var color_class = "";
+
                 if(e.status == "NEW"){
                   remind_btn = '<button id="'+(e.id)+'" type="button" class="pull-right button z-depth-1 set_appointment_reminder"><i class="fa fa-bell"></i> Reminer</button>';
                   color_class = "text-success";
@@ -885,6 +921,7 @@ function onDeviceReady() {
                     '<p>'+
                     '<button id="'+(e.id)+'" type="button" class="pull-left button z-depth-1 get_appointment_detail"><i class="fa fa-eye"></i> View</button>'+
                     remind_btn+
+                    sms_notification+
                     '</p>'+
                   '</div>'+
         				'</div>');
@@ -962,33 +999,27 @@ function onDeviceReady() {
               $(".invoices_here_count").html((response.data).length);
 
               $(response.data).each(function(i,e){
-                if(user_data['type'] == "patient"){
-                  var display_name = e.doctor_name+' - '+e.doctor_speciality;
-                }else{
-                  var display_name = e.patient_name;
-                }
 
-                if(display_name == null){
-                  display_name = "";
-                }
-
-                var status = "";
-                if(e.status == "OLD"){
-                  status = "<i class='fa fa-check'></i> Processed";
-                }else{
-                  status = "<i class='fa fa-check'></i> New Invoice";
-                }
+                //e.billId
+                //e.ReservationID
+                //e.Payment_Status
+                //e.Payment_Token
+                //e.Net_Amount
+                //e.UserID
+                //e.PatientName
+                //e.DoctorName
+                //e.Token_No
+                //e.Day
+                //e.Date
 
 
                 $(".invoices_here").append('<div id="'+(e.id)+'" class="get_appointment_detail contents">'+
         					'<div class="list-text">'+
-        						'<h6>'+(display_name)+'</h6>'+
-        						'<p><i class="fa fa-money"></i> Rs. 1000</p>'+
-                    '<p>'+status+'</p>'+
+        						'<h6>'+(e.DoctorName)+' '+(e.Date)+'</h6>'+
+        						'<p><i class="fa fa-money"></i> Rs. '+(e.Net_Amount)+'</p>'+
+                    '<p><i class="fa fa-check"></i> '+(e.Payment_Status)+'</p>'+
                   '</div>'+
         				'</div>');
-
-
 
 
               });
@@ -1265,18 +1296,15 @@ function onDeviceReady() {
 
       if(msg.length > 0){
 
-        //test
-        //appointment_id: "3",
-
         $.ajax({
           url:   base_url,
           data: {
-            action:       "send_msg",
-            senderid:     senderid,
-            recipientid:  recipientid,
-            sender:       user_data['type'],
-            msg :         msg,
-            appointment_id: "3",
+            action:         "send_msg",
+            senderid:       senderid,
+            recipientid:    recipientid,
+            sender:         user_data['type'],
+            msg :           msg,
+            appointment_id: current_appointment_id,
           },
           type: 'GET',
           dataType: 'html',
@@ -1317,6 +1345,42 @@ function onDeviceReady() {
 
 
     });
+
+    $(document).delegate(".send_sms","click",function(){
+      var id = $(this).attr("id");
+
+      $.ajax({
+        url:   base_url,
+        data: {
+          action:  "send_sms",
+          app_id:   id,
+        },
+        type: 'GET',
+        dataType: 'html',
+        beforeSend: function(xhr){
+          swal({icon: "images/custom/load.gif",button:false,});
+        },
+        success: function(response){
+          var response = $.parseJSON(response);
+
+
+          if(response.success == true){
+            try{swal.close();}catch(e){}
+            var url = response.url;
+            $.get(url,function(){
+
+            });
+          }
+        }, error:function(){
+          swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
+        }
+      });
+
+
+
+      //Dear Patient xxxxxxx Your appointment with XXXXX will be started in few minutes, please login to APP. Thanks. PAHC TEAM
+    });
+
 
     function fetch_profile(token,chart){
       $.ajax({
@@ -1643,7 +1707,7 @@ function onDeviceReady() {
       change_page("patient_documents");
       $.ajax({
       	url:   base_url,
-      	data: {
+      	data:{
       		action:  "show_doc",
           p_id:     current_pat_master_id,
           app_id:   current_appointment_id,
@@ -1675,8 +1739,7 @@ function onDeviceReady() {
               "TitleName": "POC",
               "ReservationID": "9386",
               */
-              var DocFullPath = (e.DocFullPath).replace("http:", "https:");
-
+              var DocFullPath = document_folder+(e.DocFullPath);
 
               $(".documents_here").append('<div class="col s6">'+
                '<div class="contents">'+
@@ -1766,7 +1829,8 @@ function onDeviceReady() {
          var ft = new FileTransfer();
          ft.upload(new_doc_path, base_url, function(result){
 
-           var path = "https://pahs.com.pk/doc_uploads/"+result.response;
+           //var path = "https://pahs.com.pk/doc_uploads/"+result.response;
+           var path = result.response;
 
            $.ajax({
            	url:   base_url,
@@ -1803,49 +1867,8 @@ function onDeviceReady() {
            swal({text: JSON.stringify(error),icon:"warning", button:false,});
          }, options);
        }catch(e){
-
-         //test
-         var path = "000341a4bafbda93614213a278372cba.jpg";
-
-
-         $.ajax({
-          url:   base_url,
-          data: {
-             action:   "add_doc",
-             p_id:     current_pat_master_id,
-             path:     path,
-             title:    $(".new_doc_title").val(),
-             category: $(".new_doc_category").val(),
-             app_id:   current_appointment_id,
-           },
-          type: 'GET',
-          dataType: 'html',
-          beforeSend: function(xhr){
-             swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
-          },
-          success: function(response){
-             var response = $.parseJSON(response);
-             //console.log(response,"response");
-
-             if(response.success == true){
-               swal({text:"Document Uploaded!", icon: "success",dangerMode: false,button:false,timer:2000,});
-               change_page("patient_documents");
-             }else{
-               swal({text:"Please try later!", icon: "warning",dangerMode: false,button:false,timer:2000,});
-             }
-
-          }, error:function(){
-             swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
-          }
-         });
-
-
+         console.log("Document not uploaded");
        }
-
-
-
-
-
     })
 
 
