@@ -31,6 +31,9 @@
     "cordova-plugin-camera": {
       "ANDROID_SUPPORT_V4_VERSION": "27.+",
       "PACKAGE_NAME": "com.zed.homecareapp"
+    },
+    "cordova-call": {
+      "PACKAGE_NAME": "com.zed.homecareapp"
     }
   },
   "dependent_plugins": {

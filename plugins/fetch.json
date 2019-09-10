@@ -86,5 +86,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-call": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-call"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

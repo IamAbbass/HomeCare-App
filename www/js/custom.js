@@ -5,6 +5,24 @@ function onLoad() {
 //onDeviceReady();
 
 function onDeviceReady() {
+
+
+  /*
+  cordova.plugins.CordovaCall.setIcon('logo');
+  cordova.plugins.CordovaCall.setAppName('Home Care Appointment - 10 AM');
+  cordova.plugins.CordovaCall.setVideo(true);
+  cordova.plugins.CordovaCall.receiveCall('Dr. Sabir Hussain');
+  */
+
+
+
+
+  cordova.plugins.CordovaCall.sendCall('Dr. Sabir Hussain');
+  setTimeout(function(){
+    cordova.plugins.CordovaCall.connectCall();
+  }, 5000);
+
+
   document.addEventListener('backbutton', function (evt) {
     evt.preventDefault();
     go_back();

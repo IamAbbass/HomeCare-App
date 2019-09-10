@@ -10,14 +10,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-camera-stream.CameraStream",
-      "file": "plugins/cordova-plugin-camera-stream/www/CameraStream.js",
-      "pluginId": "cordova-plugin-camera-stream",
-      "clobbers": [
-        "cordova.plugins.CameraStream"
-      ]
-    },
-    {
       "id": "cordova-plugin-splashscreen.SplashScreen",
       "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
       "pluginId": "cordova-plugin-splashscreen",
@@ -348,12 +340,19 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "CameraPopoverHandle"
       ]
+    },
+    {
+      "id": "cordova-call.CordovaCall",
+      "file": "plugins/cordova-call/www/CordovaCall.js",
+      "pluginId": "cordova-call",
+      "clobbers": [
+        "cordova.plugins.CordovaCall"
+      ]
     }
   ];
   module.exports.metadata = {
     "cordova-plugin-whitelist": "1.3.4",
     "com.virtuoworks.cordova-plugin-canvascamera": "1.1.9",
-    "cordova-plugin-camera-stream": "0.1.4",
     "cordova-plugin-splashscreen": "5.0.3",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-media-capture": "3.0.3",
@@ -361,6 +360,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-app-event": "1.2.1",
     "cordova-plugin-local-notifications-mm": "1.0.13",
     "cordova-plugin-file-transfer": "1.7.1",
-    "cordova-plugin-camera": "4.1.0"
+    "cordova-plugin-camera": "4.1.0",
+    "cordova-call": "1.1.6"
   };
 });
