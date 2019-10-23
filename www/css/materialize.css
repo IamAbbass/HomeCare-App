@@ -5969,16 +5969,16 @@ label {
    ========================================================================== */
 /* Style Placeholders */
 ::-webkit-input-placeholder {
-  color: #d1d1d1;
+  color: #cccccc;
 }
 ::-moz-placeholder {
-  color: #d1d1d1;
+  color: #cccccc;
 }
 :-ms-input-placeholder {
-  color: #d1d1d1;
+  color: #cccccc;
 }
 ::placeholder {
-  color: #d1d1d1;
+  color: #cccccc;
 }
 
 /* Text inputs */

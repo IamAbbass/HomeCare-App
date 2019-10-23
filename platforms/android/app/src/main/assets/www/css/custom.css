@@ -1,14 +1,23 @@
+/*
 body, p, h1, h2, h3, h4, h5, h6, a{
-  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
-  user-select: none;          /* Likely future */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+*/
+.profile_form label{
+  font-size: 16px !important;
 }
 .send_sms{
   margin-right: 5px;
 }
 .attention{
   color: #dd5246 !important;
+}
+.initialization_link{
+  display: block;
+  text-align: center;
 }
 .get_invoices{
   display:none;

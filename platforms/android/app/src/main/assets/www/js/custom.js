@@ -6,22 +6,17 @@ function onLoad() {
 
 function onDeviceReady() {
 
-
   /*
   cordova.plugins.CordovaCall.setIcon('logo');
   cordova.plugins.CordovaCall.setAppName('Home Care Appointment - 10 AM');
   cordova.plugins.CordovaCall.setVideo(true);
   cordova.plugins.CordovaCall.receiveCall('Dr. Sabir Hussain');
-  */
-
-
-
 
   cordova.plugins.CordovaCall.sendCall('Dr. Sabir Hussain');
   setTimeout(function(){
     cordova.plugins.CordovaCall.connectCall();
   }, 5000);
-
+  */
 
   document.addEventListener('backbutton', function (evt) {
     evt.preventDefault();
@@ -248,6 +243,8 @@ function onDeviceReady() {
   var current_pat_master_id   = null;
 
   var new_doc_path = null;
+
+  var profile_complete = true;
 
 
   $(document).ready(function(){
@@ -490,15 +487,23 @@ function onDeviceReady() {
     });
 
     $(".goto_home").click(function(){
-      user_data = $.parseJSON(window.localStorage.getItem("active_settion"));
-      $(".app_page").hide();
-      if(user_data['type'] == "patient"){
-        $(".app_page[page='patient_dashboard']").fadeIn(1000);
-      }else if(user_data['type'] == "doctor"){
-        $(".app_page[page='doctor_dashboard']").fadeIn(1000);
+      if(profile_complete == true){
+        user_data = $.parseJSON(window.localStorage.getItem("active_settion"));
+        $(".app_page").hide();
+        if(user_data['type'] == "patient"){
+          $(".app_page[page='patient_dashboard']").fadeIn(1000);
+        }else if(user_data['type'] == "doctor"){
+          $(".app_page[page='doctor_dashboard']").fadeIn(1000);
+        }
+        $(".navbar-bottom .col").removeClass("col-active");
+        $(".navbar-bottom .goto_home").addClass("col-active");
+      }else{
+          swal({
+            title: "Please Complete Profile",
+            text: "Please fill all required fields in profile.",
+            icon: "warning",
+          })
       }
-      $(".navbar-bottom .col").removeClass("col-active");
-      $(".navbar-bottom .goto_home").addClass("col-active");
     });
 
     $(".btn_back").click(function(){
@@ -665,7 +670,7 @@ function onDeviceReady() {
       					'</div>'+
       					'<div class="list-text">'+
       						'<h6>'+(e.DoctorName)+' <span class="pull-right">'+(e.Consultingfee)+'</span></h6>'+
-      						'<p>Speciality: '+(e.Speciality)+' <button type="button" class="pull-right button z-depth-1">Book Now</button></p>'+
+      						'<p>'+(e.Speciality)+' <button type="button" class="pull-right button z-depth-1">Book Now</button></p>'+
       					'</div>'+
       				'</div>');
               //e.Sharing
@@ -692,9 +697,13 @@ function onDeviceReady() {
       }
     });
 
+    $(".booking_date").attr("min",new Date().getFullYear() + "-" +  parseInt(new Date().getMonth() + 1 ) + "-" + new Date().getDate());
+
     $(".booking_date").change(function(){
       $(".app_date_show").text($(this).val());
     });
+
+
 
     $(document).delegate(".pricing .col","click",function(){
       $(".pricing .col-active").removeClass("col-active");
@@ -819,11 +828,15 @@ function onDeviceReady() {
       change_page("schedule");
     });
 
-    $("input[name='height'], input[name='weight']").keyup(function(){
+    function calculate_bsa(){
       var height = $("input[name='height']").val() || 0;
       var weight = $("input[name='weight']").val() || 0;
-      var bsa    = (weight/height).toFixed(2);
+      var bsa    = Math.sqrt(((weight*height)/3600)).toFixed(3);
       $("input[name='bsa']").val(bsa);
+    }
+
+    $("input[name='height'], input[name='weight']").keyup(function(){
+        calculate_bsa();
     });
 
     $(".accept_and_book").click(function(){
@@ -908,7 +921,12 @@ function onDeviceReady() {
                 if(user_data['type'] == "patient"){
                   var display_name = e.doctor_name+' - '+e.doctor_speciality;
                 }else{ //doctor
-                  var display_name = e.patient_name;
+                  if(e.patient_name == null || e.patient_name == "null"){
+                    var display_name = "<kbd>No Name</kbd>"+' - (M'+e.PID+')';
+                  }else{
+                    var display_name = e.patient_name+' - (M'+e.PID+')';
+                  }
+
 
 
                   if(e.status == "NEW"){
@@ -933,6 +951,7 @@ function onDeviceReady() {
 
                 $(".appointments_here").append('<div a_id="'+(e.id)+'" class="contents">'+
         					'<div class="list-text">'+
+                    '<h5>ID: '+(e.id)+'</h5>'+
         						'<h6>'+(display_name)+'</h6>'+
         						'<p>'+(e.reason)+'</p>'+
                     '<p class="'+color_class+'"><i class="fa fa-calendar"></i> '+(e.date+' '+e.time)+'</p>'+
@@ -982,12 +1001,20 @@ function onDeviceReady() {
         });
     }
     $(".get_appointments").click(function(){
-      $(".navbar-bottom .col").removeClass("col-active");
-      $(".navbar-bottom .get_appointments").addClass("col-active");
+      if(profile_complete == true){
+        $(".navbar-bottom .col").removeClass("col-active");
+        $(".navbar-bottom .get_appointments").addClass("col-active");
 
-      change_page("appointments");
+        change_page("appointments");
 
-      get_appointments();
+        get_appointments();
+      }else{
+          swal({
+            title: "Please Complete Profile",
+            text: "Please fill all required fields in profile.",
+            icon: "warning",
+          })
+      }
     });
 
 
@@ -1417,6 +1444,8 @@ function onDeviceReady() {
           //console.log(response,"response");
           if(response.success == true){
 
+            profile_complete = true;
+
 
             //try{swal.close();}catch(e){}
 
@@ -1431,7 +1460,7 @@ function onDeviceReady() {
                     change_page("profile");
                   });
                   $(".profile_required").children("i").removeClass("fa-user").addClass("fa-exclamation-triangle attention");
-
+                  profile_complete = false;
                 }
               }catch(e){}
             }
@@ -1444,6 +1473,10 @@ function onDeviceReady() {
 
                   if(key == "name"){
                     $(".login_name").text(value);
+                  }
+
+                  if(key == "dob"){
+                    $(".profile_form input[name='"+(key)+"']").val(value.split(" ")[0]);
                   }
                 }else{
                   $(".chart").children("input."+key).val(value);
@@ -1495,7 +1528,7 @@ function onDeviceReady() {
           if(response.success == true){
             swal({icon: "success",button:false, timer: 3000});
             $(".profile_required").children("i").removeClass("fa-exclamation-triangle attention").addClass("fa-user");
-
+            fetch_profile(user_data['token'],false);
           }else{
             swal({icon: "warning", text: response.msg, dangerMode: true,button:false, timer: 3000});
           }
@@ -1628,9 +1661,37 @@ function onDeviceReady() {
     });
 
     $(".back_to").click(function(){
-      var page = $(this).attr("page");
+      if(profile_complete == true){
+        var page = $(this).attr("page");
+        change_page(page);
+      }else{
+          swal({
+            title: "Please Complete Profile",
+            text: "Please fill all required fields in profile.",
+            icon: "warning",
+          })
+      }
+    });
 
-      change_page(page);
+
+    //yahan
+    $(".initialize_call").click(function(){
+
+      $(".initialize_call").find("i").removeClass("fa-video-camera").addClass("fa-circle-o-notch fa-spin");
+
+      setTimeout(function(){
+        $(".initialize_call").find("i").removeClass("fa-circle-o-notch fa-spin").addClass("fa-check");
+        var join_call_msg = "Your appointment is just started now";
+        var call_id       = "AppointmentNo-"+current_appointment_id;
+        join_call_msg     += "<a class='initialization_link button button-1' href='https://appr.tc/r/"+(call_id)+"'>Join Call</a>";
+        $(".chat_message").val(join_call_msg);
+        $(".chat_form").submit();
+      },1000);
+
+      setTimeout(function(){
+        $(".initialize_call").find("i").removeClass("fa-check").addClass("fa-video-camera");
+      },2000);
+
     });
 
     $(quick_replies_title).each(function(key,value){

@@ -629,6 +629,10 @@
 
 					<div class="section-title">
 						<h3 class="booking_doc"></h3>
+					</div>
+
+					<div class="section-title">
+						<h4>Consultation Fee</h4>
 						<div class="line"></div>
 					</div>
 					<div class="row pricing">
@@ -653,12 +657,14 @@
 					</div>
 
 					<div class="section-title">
+						<h4>Available Days/Time</h4>
 						<div class="line"></div>
 					</div>
 
 					<div class="row schedule_here"></div>
 
 					<div class="section-title">
+						<h4>Select Desired Date</h4>
 						<div class="line"></div>
 					</div>
 
@@ -1011,7 +1017,7 @@
 						</div>
 						<div class="col s12 get_documents">
 							<div class="contents center">
-								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-file-o"></i> Documents</button>
+								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-file-o"></i> Uploaded Documents</button>
 							</div>
 						</div>
 						<div class="col s12 btn_patient_examination">
@@ -1019,14 +1025,16 @@
 								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-user-md"></i> Patient Examination</button>
 							</div>
 						</div>
+
+
 						<div class="col s12 btn_patient_doc">
 							<div class="contents center">
-								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-files-o"></i> Patient Documents</button>
+								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-files-o"></i> Patient Reports</button>
 							</div>
 						</div>
 						<div class="col s12 btn_chart">
 							<div class="contents center">
-								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-list"></i> Patient Chart</button>
+								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-list"></i> Patient Profile</button>
 							</div>
 						</div>
 						<div class="col s12 appointment_reschedule">
@@ -1231,17 +1239,17 @@
 			<div class="container">
 
 				<form class="profile_form">
-					<label>Name:</label>
+					<label>Name: <span class='text-danger'>*</span></label>
 					<input required name="name" type="text" />
 
-					<label>Gender:</label>
+					<label>Gender: <span class='text-danger'>*</span></label>
 					<select required name="gender">
 						<option value="">Select</option>
 						<option value="male">Male</option>
 						<option value="female">Female</option>
 					</select>
 
-					<label>Marital Status:</label>
+					<label>Marital Status: <span class='text-danger'>*</span></label>
 					<select required name="marital">
 						<option value="">Select</option>
 						<option value="single">Single</option>
@@ -1251,29 +1259,33 @@
 					<label>So/Do/Wo:</label>
 					<input name="sodowo" type="text" placeholder="" />
 
+					<!--
 					<label>Address Line 1:</label>
 					<input required name="address1" type="text" placeholder="" />
 
 					<label>Address Line 2:</label>
 					<input name="address2" type="text" placeholder="" />
+					-->
 
 					<label>City:</label>
-					<input required name="city" type="text" placeholder="" />
+					<input name="city" type="text" placeholder="" />
 
+					<!--
 					<label>PTCL:</label>
 					<input name="ptcl" type="number" placeholder="" />
+					-->
 
-					<label>Mobile Number 1:</label>
-					<input required name="cell1" type="number" placeholder="" />
+					<label>Mobile Number 1: <span class='text-danger'>*</span></label>
+					<input required name="cell1" type="number" placeholder="923XXXXXXXXX" />
 
 					<label>Mobile Number 2:</label>
-					<input name="cell2" type="number" placeholder="" />
+					<input name="cell2" type="number" placeholder="923XXXXXXXXX" />
 
-					<label>Age:</label>
-					<input required name="age" type="number" placeholder="" />
+					<label>Date of Birth: <span class='text-danger'>*</span></label>
+					<input required name="dob" type="date" placeholder="" />
 
-					<label>Date of Birth:</label>
-					<input name="dob" type="date" placeholder="" />
+					<label>Age: (Auto)</label>
+					<input readonly name="age" type="text" placeholder="" />
 
 					<label>Place of birth:</label>
 					<input name="placeofbirth" type="text" placeholder="" />
@@ -1281,17 +1293,17 @@
 					<label>Occupation:</label>
 					<input name="occupation" type="text" placeholder="" />
 
-					<label>Height:</label>
-					<input required name="height" type="number" placeholder="" />
+					<label>Height (cm): <span class='text-danger'>*</span></label>
+					<input required name="height" type="number" placeholder="cm" />
 
-					<label>Weight:</label>
-					<input required name="weight" type="number" placeholder="" />
+					<label>Weight (kg): <span class='text-danger'>*</span></label>
+					<input required name="weight" type="number" placeholder="kg" />
 
-					<label>BSA (weight/height):</label>
+					<label>BSA (AUTO):</label>
 					<input readonly name="bsa" type="number" placeholder="" />
 
-					<label>CNIC:</label>
-					<input name="cnic" type="number" placeholder="" />
+					<label>CNIC: <span class='text-danger'>*</span></label>
+					<input name="cnic" type="number" placeholder="XXXXX-XXXXXXX-X" />
 
 					<label>Passport:</label>
 					<input name="passport" type="text" placeholder="" />
@@ -1432,9 +1444,9 @@
 						<a href="javascript:;"><i class="fa fa-user-md"></i><span>Examination</span></a>
 					</div>
 				</div>
-				<div class="col s4 text-center back_to" page="video">
+				<div class="col s4 text-center initialize_call"> <!-- .back_to page="video" -->
 					<div class="content-right">
-						<a href="javascript:;"><i class="fa fa-user"></i><span>Video</span></a>
+						<a href="javascript:;"><i class="fa fa-video-camera"></i><span>Video</span></a>
 					</div>
 				</div>
 			</div>
@@ -1696,7 +1708,7 @@
 		</div>
 
 		<div class="segments-page">
-			<img src="images/custom/dialing.gif" class="dialing"/>			
+			<img src="images/custom/dialing.gif" class="dialing"/>
 			<canvas id="canvas"></canvas>
 			<p class="calling_text"><span class="app_calling"></span> <span class="chat_with"></span> ...</p>
 
@@ -1741,9 +1753,9 @@
 					<input class="new_doc_title" required placeholder="Document Name" />
 					<select class="new_doc_category" required>
 						<option>Select Category</option>
-						<option value="Pathalogy">Pathalogy</option>
-						<option value="Radiology">Radiology</option>
-						<option value="Prescription">Prescription</option>
+						<option value="HistoPathalogy Report">HistoPathalogy Report</option>
+						<option value="Radiology / X-Ray / Ct Scan / MRI / Ultrasound Report">Radiology / X-Ray / Ct Scan / MRI / Ultrasound Report</option>
+						<option value="Other Reports">Other Reports</option>
 					</select>
 
 					<div class="row">
