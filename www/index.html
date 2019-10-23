@@ -400,6 +400,7 @@
 				</li>
 
 				<li class="get_appointments"><a href="javascript:;"><i class="fa fa-user-md"></i>Appointments</a></li>
+				<li class="search_patient"><a href="javascript:;"><i class="fa fa-search"></i>Search</a></li>
 				<li class="btn_logout"><a href="javascript:;"><i class="fa fa-power-off"></i>Logout</a></li>
 
 
@@ -465,6 +466,52 @@
 
 			</div>
 		</div>
+	</div>
+
+
+	<div class="app_page" page="search_patient">
+		<!-- navbar -->
+		<div class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="col s1">
+						<div class="content-left">
+							<a class="back_to" page="patient_dashboard" href="javascript:;"><i class="fa fa-arrow-left"></i></a>
+						</div>
+					</div>
+					<div class="col s8">
+						<div class="content-center">
+							<a href="javascript:;"><h1>Search Patient</h1></a>
+						</div>
+					</div>
+					<div class="col s3">
+						<div class="content-right">
+							<a href="javascript:;"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="services segments">
+			<div class="container">
+
+				<br />
+				<input class="search patient_search" placeholder="Search name, phone or MRN here.." type="search" />
+
+				<div class="section-title">
+					<h3 class="patient_count"></h3>
+					<div class="line"></div>
+				</div>
+				<div class="row patient_here">
+
+				</div>
+			</div>
+		</div>
+
+		<br/><br/>
 	</div>
 
 	<div class="app_page" page="services">
@@ -1303,7 +1350,7 @@
 					<input readonly name="bsa" type="number" placeholder="" />
 
 					<label>CNIC: <span class='text-danger'>*</span></label>
-					<input name="cnic" type="number" placeholder="XXXXX-XXXXXXX-X" />
+					<input name="cnic" type="text" placeholder="XXXXX-XXXXXXX-X" />
 
 					<label>Passport:</label>
 					<input name="passport" type="text" placeholder="" />
@@ -1665,7 +1712,10 @@
 							</div>
 							-->
 							<div class="col s12">
-								<button type="submit" class="button button-full z-depth-1"><i class="fa fa-send"></i>Save</button>
+								<button type="submit" class="button button-full z-depth-1"><i class="fa fa-check"></i>Save</button>
+
+								<button type="button" class="share_report button button-full z-depth-1"><i class="fa fa-share-alt"></i>Share With Patient</button>
+
 							</div>
 						</div>
 					</div>

@@ -19,7 +19,7 @@ body, p, h1, h2, h3, h4, h5, h6, a{
   display: block;
   text-align: center;
 }
-.get_invoices{
+.get_invoices, .search_patient{
   display:none;
 }
 .chart input{
