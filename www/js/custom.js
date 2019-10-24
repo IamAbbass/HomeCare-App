@@ -2,7 +2,7 @@ function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
-onDeviceReady();
+//onDeviceReady();
 
 function onDeviceReady() {
 
@@ -78,7 +78,9 @@ function onDeviceReady() {
       change_page("patient_examination");
     }else if(current_page == "chat"){
       change_page("appointment_details");
-    }else if(current_page == "chat_more"){
+    }else if(current_page == "chat_more" ){
+      change_page("chat");
+    }else if(current_page == "video_call" ){
       change_page("chat");
     }else if(current_page == "profile"){
       change_page("patient_dashboard");
@@ -480,6 +482,12 @@ function onDeviceReady() {
     $(".goto_splash").click(function(){
       change_page("splash");
     });
+
+    $(".dial_call").click(function(){
+      change_page("video_call");
+    });
+
+
 
     $(".new_document").click(function(){
       change_page("new_document");
@@ -1620,12 +1628,18 @@ function onDeviceReady() {
         $(".app_page[page='patient_dashboard']").fadeIn(1000);
         $(".btn_patient_examination, .btn_patient_doc, .btn_chart").hide();
         $(".get_invoices").show();
+
+        //Patient
+  			$(".join__btn[value='206533']").click();
       }else if(user_data['type'] == "doctor"){
         $(".app_page[page='doctor_dashboard']").fadeIn(1000);
         $(".btn_patient_examination, .btn_patient_doc, .btn_chart").show();
         //$(".profile_nav_bar").hide();
 
         $(".search_patient").show();
+
+        //Doctor
+  			$(".join__btn[value='206534']").click();
       }
 
       get_appointments();

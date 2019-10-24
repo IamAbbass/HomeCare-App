@@ -34,12 +34,21 @@
     },
     "cordova-call": {
       "PACKAGE_NAME": "com.zed.homecareapp"
-    }
-  },
-  "dependent_plugins": {
+    },
+    "cordova-plugin-websocket": {
+      "PACKAGE_NAME": "com.pahs.homecareapp"
+    },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "com.zed.homecareapp"
     },
+    "cordova-custom-config": {
+      "PACKAGE_NAME": "com.pahs.homecareapp"
+    },
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.pahs.homecareapp"
+    }
+  },
+  "dependent_plugins": {
     "cordova-plugin-app-event": {
       "PACKAGE_NAME": "com.zed.homecareapp"
     }

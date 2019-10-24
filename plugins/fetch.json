@@ -58,9 +58,9 @@
   "cordova-plugin-device": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-device"
+      "id": "cordova-plugin-device@^2.0.3"
     },
-    "is_top_level": false,
+    "is_top_level": true,
     "variables": {}
   },
   "cordova-plugin-app-event": {
@@ -91,6 +91,30 @@
     "source": {
       "type": "registry",
       "id": "cordova-call"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-websocket": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-websocket"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-custom-config": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-custom-config"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-android-permissions": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-android-permissions"
     },
     "is_top_level": true,
     "variables": {}

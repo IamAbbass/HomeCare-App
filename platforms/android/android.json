@@ -51,6 +51,14 @@
             {
               "xml": "<feature name=\"CordovaCall\"><param name=\"android-package\" value=\"com.dmarc.cordovacall.CordovaCall\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"WebSocket\"><param name=\"android-package\" value=\"com.knowledgecode.cordova.websocket.WebSocket\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"Permissions\"><param name=\"android-package\" value=\"com.android.plugins.Permissions\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -145,6 +153,10 @@
             {
               "xml": "<uses-permission android:name=\"android.permission.MANAGE_OWN_CALLS\" />",
               "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
+              "count": 1
             }
           ],
           "application": [
@@ -191,6 +203,15 @@
     },
     "cordova-call": {
       "PACKAGE_NAME": "com.zed.homecareapp"
+    },
+    "cordova-plugin-websocket": {
+      "PACKAGE_NAME": "com.pahs.homecareapp"
+    },
+    "cordova-custom-config": {
+      "PACKAGE_NAME": "com.pahs.homecareapp"
+    },
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.pahs.homecareapp"
     }
   },
   "dependent_plugins": {},
@@ -543,6 +564,22 @@
       "clobbers": [
         "cordova.plugins.CordovaCall"
       ]
+    },
+    {
+      "id": "cordova-plugin-websocket.websocket",
+      "file": "plugins/cordova-plugin-websocket/www/websocket.js",
+      "pluginId": "cordova-plugin-websocket",
+      "clobbers": [
+        "WebSocket"
+      ]
+    },
+    {
+      "id": "cordova-plugin-android-permissions.Permissions",
+      "file": "plugins/cordova-plugin-android-permissions/www/permissions.js",
+      "pluginId": "cordova-plugin-android-permissions",
+      "clobbers": [
+        "cordova.plugins.permissions"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -556,6 +593,9 @@
     "cordova-plugin-local-notifications-mm": "1.0.13",
     "cordova-plugin-file-transfer": "1.7.1",
     "cordova-plugin-camera": "4.1.0",
-    "cordova-call": "1.1.6"
+    "cordova-call": "1.1.6",
+    "cordova-plugin-websocket": "0.12.2",
+    "cordova-custom-config": "5.1.0",
+    "cordova-plugin-android-permissions": "1.0.2"
   }
 }
