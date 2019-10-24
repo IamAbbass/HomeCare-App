@@ -348,6 +348,22 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "cordova.plugins.CordovaCall"
       ]
+    },
+    {
+      "id": "cordova-plugin-websocket.websocket",
+      "file": "plugins/cordova-plugin-websocket/www/websocket.js",
+      "pluginId": "cordova-plugin-websocket",
+      "clobbers": [
+        "WebSocket"
+      ]
+    },
+    {
+      "id": "cordova-plugin-android-permissions.Permissions",
+      "file": "plugins/cordova-plugin-android-permissions/www/permissions.js",
+      "pluginId": "cordova-plugin-android-permissions",
+      "clobbers": [
+        "cordova.plugins.permissions"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -361,6 +377,9 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-local-notifications-mm": "1.0.13",
     "cordova-plugin-file-transfer": "1.7.1",
     "cordova-plugin-camera": "4.1.0",
-    "cordova-call": "1.1.6"
+    "cordova-call": "1.1.6",
+    "cordova-plugin-websocket": "0.12.2",
+    "cordova-custom-config": "5.1.0",
+    "cordova-plugin-android-permissions": "1.0.2"
   };
 });

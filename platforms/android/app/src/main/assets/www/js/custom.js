@@ -54,6 +54,8 @@ function onDeviceReady() {
       change_page("patient_dashboard");
     }else if(current_page == "doctors"){
       change_page("patient_dashboard");
+    }else if(current_page == "search_patient"){
+      change_page("patient_dashboard");
     }else if(current_page == "schedule"){
       change_page("doctors");
     }else if(current_page == "terms_and_contitions"){
@@ -76,7 +78,9 @@ function onDeviceReady() {
       change_page("patient_examination");
     }else if(current_page == "chat"){
       change_page("appointment_details");
-    }else if(current_page == "chat_more"){
+    }else if(current_page == "chat_more" ){
+      change_page("chat");
+    }else if(current_page == "video_call" ){
       change_page("chat");
     }else if(current_page == "profile"){
       change_page("patient_dashboard");
@@ -137,6 +141,8 @@ function onDeviceReady() {
       setTimeout(function(){
         $(".terms_and_contitions_text").slideDown();
       },500);
+    }else if(new_page == "search_patient"){
+
     }
 
     if(new_page == "chat" || new_page == "patient_examination" || new_page == "video"){
@@ -477,6 +483,12 @@ function onDeviceReady() {
       change_page("splash");
     });
 
+    $(".dial_call").click(function(){
+      change_page("video_call");
+    });
+
+
+
     $(".new_document").click(function(){
       change_page("new_document");
       $(".document_preview").attr("src","").hide();
@@ -565,6 +577,52 @@ function onDeviceReady() {
       });
     }
 
+    //yahan
+    function get_patients(search){
+      $.ajax({
+      	url:   base_url,
+      	data: {
+      		action:  "patient",
+          search:  search,
+          doc_id:   user_data['UserID'],
+      	},
+      	type: 'GET',
+      	dataType: 'html',
+      	beforeSend: function(xhr){
+          swal({icon: "images/custom/load.gif",button:false,});
+      	},
+      	success: function(response){
+          var response = $.parseJSON(response);
+          //console.log(response,"response");
+          if(response.success == true){
+            try{swal.close();}catch(e){}
+
+            $(".patient_count").html('<div class="col s12">'+response.count+' Result(s)</div>');
+            $(".patient_here").empty();
+
+            $(response.data).each(function(i,e){
+              $(".patient_here").append('<div class="col s4">'+
+                '<div s_id="'+(e.mrn)+'" class="contents">'+
+                  '<i class="fa fa-user"></i>'+
+                  '<h4></h4>'+
+                  '<p>'+(e.name)+'</p>'+
+                '</div>'+
+              '</div>');
+
+              if((i+1)%3 == 0){
+                $(".patient_here").append('<div class="col s12"></div>');
+              }
+              ////console.log((i+1)%3);
+            });
+          }else{
+            swal({icon: "warning", text: response.msg, dangerMode: true,button:false, timer: 3000});
+          }
+      	}, error:function(){
+          swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
+      	}
+      });
+    }
+
     $(".get_services").click(function(){
       get_services("");
       $(".services_search").val("");
@@ -578,6 +636,16 @@ function onDeviceReady() {
         get_services(search);
       },500);
     });
+
+    var wait_a_bit;
+    $(".patient_search").keyup(function(){
+      try{clearTimeout(wait_a_bit)}catch(e){}
+      var search = $(this).val();
+      wait_a_bit = setTimeout(function(){
+        get_patients(search);
+      },500);
+    });
+
 
     function get_specialities(search){
       $.ajax({
@@ -1560,10 +1628,18 @@ function onDeviceReady() {
         $(".app_page[page='patient_dashboard']").fadeIn(1000);
         $(".btn_patient_examination, .btn_patient_doc, .btn_chart").hide();
         $(".get_invoices").show();
+
+        //Patient
+  			$(".join__btn[value='206533']").click();
       }else if(user_data['type'] == "doctor"){
         $(".app_page[page='doctor_dashboard']").fadeIn(1000);
         $(".btn_patient_examination, .btn_patient_doc, .btn_chart").show();
         //$(".profile_nav_bar").hide();
+
+        $(".search_patient").show();
+
+        //Doctor
+  			$(".join__btn[value='206534']").click();
       }
 
       get_appointments();
@@ -1650,6 +1726,13 @@ function onDeviceReady() {
     $(".chat_more").click(function(){
       change_page("chat_more");
     });
+
+    $(".search_patient").click(function(){
+      change_page("search_patient");
+    });
+
+
+
 
 
     $(".chat_message").focus(function(){
@@ -1988,6 +2071,31 @@ function onDeviceReady() {
       });
 
     });
+
+
+    $(".share_report").click(function(){
+
+      $.ajax({
+      	url:   base_url,
+      	data: {
+      		action:   "share_examination",
+          p_id:     current_pid,
+          d_id:     user_data['UserID'],
+        },
+      	type: 'GET',
+      	dataType: 'html',
+      	beforeSend: function(xhr){
+          swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
+      	},
+      	success: function(response){
+          var response = $.parseJSON(response);
+          //console.log(response,"response");
+          swal({text:"Report shared with patient", icon: "success",dangerMode: true,button:false,});
+      	}, error:function(){
+          swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
+      	}
+      });
+    })
 
   });
 
