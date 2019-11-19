@@ -451,7 +451,9 @@
         visibility: visible;
         opacity: 1;
     }
-
+#app {
+  display:none;
+}
 .board {
     position: relative;
     width: 100%;
@@ -501,8 +503,14 @@
         color: #fff;
     }
     .caller__ctrl_btn.hangup {
-        border-color: #ff2d55;
-        color: #ff2d55;
+      background: #ff2d55;
+      color: #fff;
+      border: none;
+      bottom: 65px;
+      left: 35%;
+      position: fixed;
+      width: 30%;
+      padding: 5px;
     }
     .caller__ctrl_btn.hangup:before {
         content: 'End Call'
@@ -531,6 +539,9 @@
 
 .caller__frames_acts {
     margin: 10px 0 0 0;
+  position: fixed;
+  bottom: 85px;
+  left: 0;
 }
 
 .caller__frames_acts_btn {

@@ -2,7 +2,7 @@ function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
-//onDeviceReady();
+onDeviceReady();
 
 function onDeviceReady() {
 
@@ -1847,6 +1847,9 @@ function onDeviceReady() {
           $(".patient_examination[name='data11_5']").val(response.data.data11[4]);
           $(".patient_examination[name='data11_6']").val(response.data.data11[5]);
 
+          $(".patient_examination[name='data12']").val(response.data.data12);
+          $(".patient_examination[name='data13']").val(response.data.data13);
+
       	}, error:function(){
           swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
       	}
@@ -2055,6 +2058,9 @@ function onDeviceReady() {
           data9:    $(".patient_examination[name='data9']").val(),
           data10:    $(".patient_examination[name='data10']").val(),
           data11:    $(".patient_examination[name='data11_1']").val()+","+$(".patient_examination[name='data11_2']").val()+","+$(".patient_examination[name='data11_3']").val()+","+$(".patient_examination[name='data11_4']").val()+","+$(".patient_examination[name='data11_5']").val()+","+$(".patient_examination[name='data11_6']").val()+",",
+          data12:    $(".patient_examination[name='data12']").val(),
+          data13:    $(".patient_examination[name='data13']").val(),
+
         },
       	type: 'GET',
       	dataType: 'html',
@@ -2080,6 +2086,7 @@ function onDeviceReady() {
       	data: {
       		action:   "share_examination",
           p_id:     current_pid,
+          type:   "complete",          
           d_id:     user_data['UserID'],
         },
       	type: 'GET',
@@ -2095,7 +2102,32 @@ function onDeviceReady() {
           swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
       	}
       });
-    })
+    });
+
+    $(".share_report_limited").click(function(){
+
+      $.ajax({
+      	url:   base_url,
+      	data: {
+          action:   "share_examination",
+          type:   "limited",
+          p_id:     current_pid,
+          d_id:     user_data['UserID'],
+        },
+      	type: 'GET',
+      	dataType: 'html',
+      	beforeSend: function(xhr){
+          swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
+      	},
+      	success: function(response){
+          var response = $.parseJSON(response);
+          //console.log(response,"response");
+          swal({text:"Report shared with patient", icon: "success",dangerMode: true,button:false,});
+      	}, error:function(){
+          swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
+      	}
+      });
+    });
 
   });
 

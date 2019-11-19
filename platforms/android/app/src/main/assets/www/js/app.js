@@ -351,7 +351,7 @@
                           notification_type: 'push',
                           user: {ids: pushRecipients},
                           environment: 'development', // environment, can be 'production' as well.
-                          message: ConnectyCube.pushnotifications.base64Encode(app.caller.login + ' is calling you')
+                          message: ConnectyCube.pushnotifications.base64Encode('Incoming call!')
                         };
                         //
                         ConnectyCube.pushnotifications.events.create(params, function(err, response) {
@@ -651,7 +651,7 @@
                 /** close previous modal */
                 $("#income_call").hide();
 
-                $('.j-ic_initiator').text(initiator.login);
+                //$('.j-ic_initiator').text(initiator.login);
 
                 // check the current session state
                 if (app.currentSession.state !== ConnectyCube.videochat.SessionConnectionState.CLOSED){
