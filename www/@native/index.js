@@ -28,6 +28,22 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+
+
+        // request grant for multiple permissions
+        var permissions =
+        [
+          'android.permission.RECORD_AUDIO',
+          'android.permission.CAMERA',
+          'android.permission.WRITE_EXTERNAL_STORAGE'
+        ]
+        Permission.request(permissions, function(results) {
+            //if (results['android.permission.RECORD_AUDIO']) {
+                // permission is granted
+            //}
+        }, alert)
+
+
     },
 
     // Update DOM on a Received Event

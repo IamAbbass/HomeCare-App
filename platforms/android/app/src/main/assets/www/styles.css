@@ -451,7 +451,9 @@
         visibility: visible;
         opacity: 1;
     }
-
+#app {
+  display:none;
+}
 .board {
     position: relative;
     width: 100%;
@@ -565,7 +567,7 @@
         transition: fill .3s ease;
     }
     .caller__frames_acts_btn.active .svg_icon {
-        
+        fill: #41cc44;
     }
 
 .caller__frames_fl {

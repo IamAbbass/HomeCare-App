@@ -59,6 +59,10 @@
             {
               "xml": "<feature name=\"Permissions\"><param name=\"android-package\" value=\"com.android.plugins.Permissions\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"Permission\"><param name=\"android-package\" value=\"com.adrianodigiovanni.permission.CDVPermission\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -211,6 +215,9 @@
       "PACKAGE_NAME": "com.pahs.homecareapp"
     },
     "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.pahs.homecareapp"
+    },
+    "cordova-plugin-permission": {
       "PACKAGE_NAME": "com.pahs.homecareapp"
     }
   },
@@ -580,6 +587,19 @@
       "clobbers": [
         "cordova.plugins.permissions"
       ]
+    },
+    {
+      "id": "cordova-plugin-permission.Permission",
+      "file": "plugins/cordova-plugin-permission/www/index.js",
+      "pluginId": "cordova-plugin-permission",
+      "clobbers": [
+        "window.plugins.Permission"
+      ]
+    },
+    {
+      "id": "cordova-plugin-permission.tests",
+      "file": "plugins/cordova-plugin-permission/tests/index.spec.js",
+      "pluginId": "cordova-plugin-permission"
     }
   ],
   "plugin_metadata": {
@@ -596,6 +616,7 @@
     "cordova-call": "1.1.6",
     "cordova-plugin-websocket": "0.12.2",
     "cordova-custom-config": "5.1.0",
-    "cordova-plugin-android-permissions": "1.0.2"
+    "cordova-plugin-android-permissions": "1.0.2",
+    "cordova-plugin-permission": "0.1.0"
   }
 }

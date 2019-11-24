@@ -46,6 +46,9 @@
     },
     "cordova-plugin-android-permissions": {
       "PACKAGE_NAME": "com.pahs.homecareapp"
+    },
+    "cordova-plugin-permission": {
+      "PACKAGE_NAME": "com.pahs.homecareapp"
     }
   },
   "dependent_plugins": {

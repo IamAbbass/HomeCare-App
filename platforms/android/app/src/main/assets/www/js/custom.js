@@ -2,9 +2,13 @@ function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
-onDeviceReady();
+//onDeviceReady();
 
 function onDeviceReady() {
+
+
+
+  
 
   /*
   cordova.plugins.CordovaCall.setIcon('logo');
@@ -2086,7 +2090,7 @@ function onDeviceReady() {
       	data: {
       		action:   "share_examination",
           p_id:     current_pid,
-          type:   "complete",          
+          type:   "complete",
           d_id:     user_data['UserID'],
         },
       	type: 'GET',

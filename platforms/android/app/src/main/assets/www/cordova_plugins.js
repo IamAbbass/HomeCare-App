@@ -364,6 +364,19 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "cordova.plugins.permissions"
       ]
+    },
+    {
+      "id": "cordova-plugin-permission.Permission",
+      "file": "plugins/cordova-plugin-permission/www/index.js",
+      "pluginId": "cordova-plugin-permission",
+      "clobbers": [
+        "window.plugins.Permission"
+      ]
+    },
+    {
+      "id": "cordova-plugin-permission.tests",
+      "file": "plugins/cordova-plugin-permission/tests/index.spec.js",
+      "pluginId": "cordova-plugin-permission"
     }
   ];
   module.exports.metadata = {
@@ -380,6 +393,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-call": "1.1.6",
     "cordova-plugin-websocket": "0.12.2",
     "cordova-custom-config": "5.1.0",
-    "cordova-plugin-android-permissions": "1.0.2"
+    "cordova-plugin-android-permissions": "1.0.2",
+    "cordova-plugin-permission": "0.1.0"
   };
 });
