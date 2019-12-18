@@ -11,7 +11,7 @@
 .cb-video {
     position: relative;
     padding: 0 0 75% 0; /* 4:3 */
-    background: #bfbfbf;
+    background: #000;
 }
 .cb-video_source {
     position: absolute;
@@ -457,12 +457,12 @@
     width: 100%;
     min-height: 300px;
     float: right;
-    padding: 0 0 0 14px;
+    padding: 0 0 0 0;
     box-sizing: border-box;
 }
 
 .frames {
-    padding: 0 150px 0 0;
+    padding: 0 !important;
 }
 
 .caller {
@@ -477,18 +477,18 @@
 }
 
 .caller__ctrl_btn {
-    width: 100%;
-    padding: 10px 20px;
-    margin: 0 0 10px 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: #025fca;
-
-    background: transparent;
-    border: 1px solid #025fca;
-    border-radius: 3px;
-
-    transition: all .3s ease;
+  width: 100%;
+  padding: 10px 20px;
+  display: block;
+  font-size: 18px;
+  color: #fff;
+  background: #42a5f5;
+  border: none;
+  border-radius: 3px;
+  transition: all .3s ease;
+  float: left;
+  box-shadow: 0 0 10px #000;
+  margin: 8px 0 0 -8px;
 }
     .caller__ctrl_btn.m-video_call:before {
         content: 'Video Call'
@@ -532,14 +532,16 @@
 }
 
 .caller__frames {
-    margin: 25px 0 0 0;
+  margin: 160px 0 0 0;
+  border: 4px solid #666;
+  background: #000;
 }
 
 .caller__frames_acts {
     margin: 10px 0 0 0;
   position: fixed;
   bottom: 85px;
-  left: 0;
+  left: 10px;
 }
 
 .caller__frames_acts_btn {

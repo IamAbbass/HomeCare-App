@@ -6,6 +6,10 @@ body, p, h1, h2, h3, h4, h5, h6, a{
   user-select: none;
 }
 */
+.join__btn, .users__item{
+  display: none !important;
+  opacity: 0 !important;
+}
 .chat_more, .dial_call{
   padding: 10px;
 }

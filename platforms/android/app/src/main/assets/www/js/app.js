@@ -10,7 +10,7 @@
 
         var isAudio = false;
         var ui = {
-            //'income_call': '#income_call',
+            'income_call': '#income_call',
             'filterSelect': '.j-filter',
             'bandwidthSelect': '.j-bandwidth',
             'insertOccupants': function() {
@@ -221,8 +221,8 @@
                 };
 
             if( $user.hasClass('active') ) {
-                delete app.callees[user.id];
-                $user.removeClass('active');
+                //delete app.callees[user.id];
+                //$user.removeClass('active');
             } else {
                 app.callees[user.id] = user.name;
                 $user.addClass('active');
@@ -262,8 +262,7 @@
 
                 /** Check callee */
                 if(_.isEmpty(app.callees)) {
-                    swal({icon:"warning", text:"Please choose at least one users to call!"});
-
+                    $('#error_no_calles').modal();
                     return false;
                 }
 
@@ -351,7 +350,7 @@
                           notification_type: 'push',
                           user: {ids: pushRecipients},
                           environment: 'development', // environment, can be 'production' as well.
-                          message: ConnectyCube.pushnotifications.base64Encode('Incoming call!')
+                          message: ConnectyCube.pushnotifications.base64Encode(app.caller.login + ' is calling you')
                         };
                         //
                         ConnectyCube.pushnotifications.events.create(params, function(err, response) {
@@ -651,7 +650,7 @@
                 /** close previous modal */
                 $("#income_call").hide();
 
-                //$('.j-ic_initiator').text(initiator.login);
+                $('.j-ic_initiator').text(initiator.login);
 
                 // check the current session state
                 if (app.currentSession.state !== ConnectyCube.videochat.SessionConnectionState.CLOSED){
