@@ -10,9 +10,9 @@
     if($action == "signup" || $action == "set_password" || $action == "forget"){
 
         //signup
-        $type   = $_GET['type'];
-        $name   = $_GET['name'];
-        $phone  = $_GET['phone'];
+        $type     = $_GET['type'];
+        $name     = $_GET['name'];
+        $phone    = $_GET['phone'];
         $token    = $_GET['token'];
         $password = $_GET['password'];
 
@@ -309,10 +309,12 @@
 
                         if(strlen($PatientID) > 0){
 
+
                             $row = sql($conn, "insert into tbl_Appointments_reservation
                             (doc_schedule_detail_id,DoctorID,UserID,PatientID,Date,Remarks,Booking_Status,videoid)
                             values (?,?,?,?,?,?,?,?)",
                             array($schedule_id,$doc_id,$UserID,$PatientID,date("d-M-Y",strtotime($date)),$reason,"booked",$videoid), "rows");
+
 
 
                             $msg                = "Appointment booked on ".date("D, d-M-Y",strtotime($date));
@@ -322,8 +324,6 @@
                             $row_users  = sql($conn, "select * from Users where CSRFToken = ?", array($token), "rows");
 
                             $row_doctor = sql($conn, "select DoctorName from Doctors where DoctorID = ?", array($doc_id), "rows");
-
-
 
 
 
@@ -338,10 +338,12 @@
                             $Day            = $day;
                             $Date           = $date;
 
+
                             $row = sql($conn, "insert into Appointment_bill
                             (ReservationID,Payment_Status,Payment_Token,Net_Amount,UserID,PatientName,DoctorName,Token_No,Day,Date)
                             values (?,?,?,?,?,?,?,?,?,?)",
                             array($ReservationID,$Payment_Status,$Payment_Token,$Net_Amount,$UserID,$PatientName,$DoctorName,$Token_No,$Day,$Date), "rows");
+
 
                             //die("->$row");
                             //[$PatientID]
@@ -411,8 +413,9 @@
             }
 
             //tbl users
-            $row_patient = sql($conn, "select * from Users where UserID = ?", array($P_ID), "rows");
-            $row_patient_name = $row_patient[0]['UserName'];
+            $row_patient = sql($conn, "select PatientName from PatientMaster where PID = ?", array($P_ID), "rows");
+            $row_patient_name = $row_patient[0]['PatientName'];
+
 
             $my_appointments[$i]['id']                  = $A_ID;
             $my_appointments[$i]['doctor_name']         = $row_doctor_name;
@@ -575,28 +578,22 @@
         $profile[]['occupation']  = $row_2[0]['Occuptaion'];
         $profile[]['height']      = $row_2[0]['Initial_Height'];
         $profile[]['weight']      = $row_2[0]['Initial_Weight'];
-        $profile[]['bsa']         = $row_2[0]['Initial_BSA'];
+        $profile[]['bsa']         = round($row_2[0]['Initial_BSA'],3);
         $profile[]['cnic']        = $row_2[0]['CNIC'];
         $profile[]['passport']    = $row_2[0]['Passport'];
 
-        if($row_2[0]['Gender'] == null || $row_2[0]['Gender'] == ""){
+        if($row_1[0]['UserName'] == null || $row_1[0]['UserName'] == ""){
+          $arr['msg_title']    = "Complete your profile";
+          $arr['msg_text']     = "Please enter your name!";
+        }else if($row_2[0]['Gender'] == null || $row_2[0]['Gender'] == ""){
           $arr['msg_title']    = "Complete your profile";
           $arr['msg_text']     = "Please select your gender!";
         }else if($row_2[0]['MaritalStatus'] == null || $row_2[0]['MaritalStatus'] == ""){
           $arr['msg_title']    = "Complete your profile";
           $arr['msg_text']     = "Please select your marital status!";
-        }else if($row_2[0]['AddressLine1'] == null || $row_2[0]['AddressLine1'] == ""){
-          $arr['msg_title']    = "Complete your profile";
-          $arr['msg_text']     = "Please update your address!";
-        }else if($row_2[0]['City'] == null || $row_2[0]['City'] == ""){
-          $arr['msg_title']    = "Complete your profile";
-          $arr['msg_text']     = "Please update your city!";
         }else if($row_2[0]['CellPhone1'] == null || $row_2[0]['CellPhone1'] == ""){
           $arr['msg_title']    = "Complete your profile";
           $arr['msg_text']     = "Please update your cell phone number!";
-        }else if($row_2[0]['Age'] == null || $row_2[0]['Age'] == ""){
-          $arr['msg_title']    = "Complete your profile";
-          $arr['msg_text']     = "Please update your age!";
         }else if($row_2[0]['Initial_Height'] == null || $row_2[0]['Initial_Height'] == ""){
           $arr['msg_title']    = "Complete your profile";
           $arr['msg_text']     = "Please update your height!";
@@ -640,7 +637,7 @@
             $dob    = "";
             $age    = "";
         }else{
-            $age    = ceil((time()-strtotime($dob))/(60*60*24*365));
+          $age    = floor((time()-strtotime($dob))/(60*60*24*365));
         }
         if($height == "" || $height == "null" || $height == null){
             $height = "";
@@ -667,6 +664,9 @@
         //update name
         $update_query[]  = sql($conn, "update Users set
         UserName = ? where UserID = ?", array($name,$UserID), "rows");
+
+        //sql($conn, "update PatientMaster set PatientName = ? where PID = ?", array($P_ID), "rows");
+        //$row_patient = sql($conn, "update PatientMaster set PatientName = ? where PID = ?", array($P_ID), "rows");
 
         $update_query[] = sql($conn, "update PatientMaster set
         Gender = ? where UserID = ?",array($gender,$UserID), "rows");
@@ -887,19 +887,24 @@
         $RAD    = $_GET['data10'];
         $TUM    = explode(",",$_GET['data11']);
 
+        $data12    = $_GET['data12'];
+        $data13    = $_GET['data13'];
+
 
         $row_1 = sql($conn, "update PatientDisease set
         PC = ?, HOPC = ?, PMSH = ?, SH = ?, SR_CONS = ?,
         SR_CNS = ?, SR_CVS = ?, SR_RESP = ?, SR_GASTRO = ?, SR_GENITO = ?,
         PHEX_HEADNECK = ?, PHEX_CHEST = ?, PHEX_HEART = ?, PHEX_ABDO = ?, PHEX_GENI = ?,
         PHEX_EXTR = ?, LABS_ = ?, Histopathalogy = ?, Radiology = ?,TumorValue = ?,
-        LymphNode = ?, Metastatis = ?, IPIScoring = ?, histologicgrade = ?, stage = ?
+        LymphNode = ?, Metastatis = ?, IPIScoring = ?, histologicgrade = ?, stage = ?,
+        AssesmentDX = ?, AssesmentNote = ?
         where PID = ?", array(
         $PC,$HOPC,$PMSH,$SH,$SR[0],
         $SR[1],$SR[2],$SR[3],$SR[4],$SR[5],
         $PHEX[0],$PHEX[1],$PHEX[2],$PHEX[3],$PHEX[4],
         $PHEX[5],$LAB,$HIS,$RAD,$TUM[0],
         $TUM[1],$TUM[2],$TUM[3],$TUM[4],$TUM[5],
+        $data12, $data13,
         $p_id), "count");
 
 
@@ -951,6 +956,8 @@
         $examination["data9"] = $row_1[0]['Histopathalogy'];
         $examination["data10"] = $row_1[0]['Radiology'];
         $examination["data11"] = array($row_1[0]['TumorValue'],$row_1[0]['LymphNode'],$row_1[0]['Metastatis'],$row_1[0]['IPIScoring'],$row_1[0]['histologicgrade'],$row_1[0]['stage']);
+        $examination["data12"] = $row_1[0]['AssesmentDX'];
+        $examination["data13"] = $row_1[0]['AssesmentNote'];
 
         /*"AssesmentDX": null,
         "AssesmentStaging": null,
@@ -961,6 +968,315 @@
 
         $arr['data'] = $examination;
     }
+    else if($action == "patient"){
+        $doc_id = $_GET['doc_id'];
+        $search = $_GET['search'];
+
+        $p_ids = array();
+        $row_list = sql($conn, "select distinct(PID) from PatientDisease where DiagnosedBy = ?", array($doc_id), "rows");
+        $i = 0;
+        foreach($row_list as $row){
+            if($row[0] != null && strlen($row[0]) > 0){
+                $row_pat_master = sql($conn, "select * from PatientMaster where UserID = ?", array($row[0]), "rows");
+                $row_user       = sql($conn, "select * from Users where UserID = ?", array($row[0]), "rows");
+
+                if(strlen($row_user[0]['UserName']) > 0){
+                  $name = $row_user[0]['UserName'];
+                }else{
+                  $name = $row_pat_master[0]['PatientName'];
+                }
+
+                if(strlen($row_pat_master[0]['PID']) > 0){
+                  if (strpos(strtolower($name), strtolower($search)) !== false) {
+                    $p_ids[$i]["name"]      = $name;
+                    $p_ids[$i]["mrn"]       = $row_pat_master[0]['PID'];
+                    $p_ids[$i]["phone"]     = $row_pat_master[0]['CellPhone1'];
+
+                    //$p_ids[$i]["sodowo"]    = $row_pat_master[0]['sodowo'];
+                    //$p_ids[$i]["gender"]    = $row_pat_master[0]['Gender'];
+                    //$p_ids[$i]["date"]      = $row_pat_master[0]['CNIC'];
+                    $i++;
+                  }
+                }
+            }
+        }
+        $arr['data'] = $p_ids;
+        $arr['success'] = true;
+        $arr['count'] = count($p_ids);
+    }
+
+
+    else if($action == "share_examination"){
+        //get
+        $p_id = $_GET['p_id'];
+        $d_id = $_GET['d_id'];//to show all patients
+        $type = $_GET['type'];
+
+        $row_1 = sql($conn, "select * from Users where UserID = ?", array($p_id), "rows");
+        $patient_name = $row_1[0]['UserName'];
+        $row_2 = sql($conn, "select * from PatientMaster where UserID = ?", array($p_id), "rows");
+        if($patient_name == ""){
+          $patient_name = $row_2[0]['PatientName'];
+        }
+        $PatientID = $row_2[0]['PatientID'];
+
+        $row_doctor = sql($conn, "select * from Doctors where DoctorID = ?", array($d_id), "rows");
+        $doc_name  = $row_doctor[0]['DoctorName'];
+
+
+        //pre-requisite
+        $row_1 = sql($conn, "select * from PatientDisease where PID = ?", array($p_id), "rows");
+        if(count($row_1) == 0){
+            sql($conn, "insert into PatientDisease (PID,UserID,DiagnosedBy) values (?,?,?)", array($p_id,$p_id,$d_id), "rows");
+            $row_1 = sql($conn, "select * from PatientDisease where PID = ?", array($p_id), "rows");
+        }
+
+        $p_ids = array();
+        $row_list = sql($conn, "select distinct(PID) from PatientDisease where DiagnosedBy = ?", array($d_id), "rows");
+        $i = 0;
+        foreach($row_list as $row){
+            if($row[0] != null && strlen($row[0]) > 0){
+
+                $row_pat_master = sql($conn, "select * from PatientMaster where UserID = ?", array($row[0]), "rows");
+                $row_user       = sql($conn, "select * from Users where UserID = ?", array($row[0]), "rows");
+                $p_ids[$i]["id"]        = $row[0];
+                $p_ids[$i]["name"]      = $row_user[0]['UserName'];
+                $p_ids[$i]["sodowo"]    = $row_pat_master[0]['sodowo'];
+                $p_ids[$i]["gender"]    = $row_pat_master[0]['Gender'];
+                $p_ids[$i]["date"]      = $row_pat_master[0]['CNIC'];
+                $i++;
+            }
+        }
+
+
+
+        /*"AssesmentDX": null,
+        "AssesmentStaging": null,
+        "AssesmentScore": null,
+        "AssesmentNote": null,
+        "DiagnosedBy": "6",*/
+
+        if($type == "complete"){
+          $fileName = md5(uniqid(rand(), true)).md5(uniqid(rand(), true));
+          $myFile = "../reports/$fileName.html";
+          $fh = fopen($myFile, 'w'); // or die("error");
+          $stringData = '
+          <html><head><title>Home Care Report</title><meta name="viewport" content="width=device-width, initial-scale=1"></head><body>
+          <style>body{font-family:sans-serif; padding:0 20px;} img{display:block; margin: 0 auto; width:200px;} .collapsible-header{font-size: 18px; margin-top:25px; font-weight:bold;border:1x solid #000; border-bottom: 1px solid #000;} h1{font-size: 24px;text-align: center;border-bottom: 1px solid #000;margin-bottom: 0;} .date_time{text-align:right; margin-top: 0;} table tr th{text-align: left;}</style>
+          <img src="https://pahs.com.pk/website/images/Logo_png.png" alt="Home Care" />
+		      <h1>Examination</h1>
+          <div class="collapsible-header text-bold active">
+              <i class="fa fa-comments"></i>Patient General Information
+          </div>
+          <div class="collapsible-body">
+              <table>
+        					<tr><th>Print Date:</th><td>'.date('d-M-Y H:i:s a').'</td></tr>
+        					<tr><th>Doctor:</th><td>'.$doc_name.'</td></tr>
+        					<tr><th>Patient ID:</th><td>'.$PatientID.'</td></tr>
+        					<tr><th>Patient Name:</th><td>'.$patient_name.'</td></tr>
+				      </table>
+         </div>
+
+              <div class="collapsible-header text-bold active">
+                <i class="fa fa-comments"></i>Presenting Complain:
+              </div>
+              <div class="collapsible-body">
+                '.$row_1[0]['PC'].'
+              </div>
+              <div class="collapsible-header text-bold">
+                <i class="fa fa-history"></i>History of Presenting Complains:
+              </div>
+              <div class="collapsible-body">
+                '.$row_1[0]['HOPC'].'
+              </div>
+              <div class="collapsible-header text-bold">
+                <i class="fa fa-heartbeat"></i>Past Medical/Surgical History:
+              </div>
+              <div class="collapsible-body">
+                '.$row_1[0]['PMSH'].'
+              </div>
+              <div class="collapsible-header text-bold">
+                <i class="fa fa-history"></i>Social History:
+              </div>
+              <div class="collapsible-body">
+                '.$row_1[0]['SH'].'
+              </div>
+              <div class="collapsible-header text-bold">
+                <i class="fa fa-user-md"></i>Systematic Review:
+              </div>
+              <div class="collapsible-body">
+                <label>Constitutional: </label>
+                '.$row_1[0]['SR_CONS'].'
+                <br/>
+
+                <label>CVS: </label>
+                '.$row_1[0]['SR_CNS'].'
+                <br/>
+
+                <label>Gastrointestinal: </label>
+                '.$row_1[0]['SR_CVS'].'
+                <br/>
+
+                <label>CNS: </label>
+                '.$row_1[0]['SR_RESP'].'
+                <br/>
+
+                <label>Respiratory: </label>
+                '.$row_1[0]['SR_GASTRO'].'
+                <br/>
+
+                <label>Genitourinary: </label>
+                '.$row_1[0]['SR_GENITO'].'
+
+              </div>
+              <div class="collapsible-header text-bold">
+                <i class="fa fa-male"></i>Phycial Examination:
+              </div>
+              <div class="collapsible-body">
+                <label>Head and Neck Examination: </label>
+                '.$row_1[0]['PHEX_HEADNECK'].'
+                <br/>
+
+                <label>Chest Examination: </label>
+                '.$row_1[0]['PHEX_CHEST'].'
+                <br/>
+
+                <label>Heart Examination: </label>
+                '.$row_1[0]['PHEX_HEART'].'
+                <br/>
+
+                <label>Abdominal Examination: </label>
+                '.$row_1[0]['PHEX_ABDO'].'
+                <br/>
+
+                <label>Genitourinary System Examination: </label>
+                '.$row_1[0]['PHEX_GENI'].'
+                <br/>
+
+                <label>Extremity Examination: </label>
+                '.$row_1[0]['PHEX_EXTR'].'
+
+              </div>
+              <div class="collapsible-header text-bold">
+                <i class="fa fa-medkit"></i>Labs:
+              </div>
+              <div class="collapsible-body">
+                '.$row_1[0]['LABS_'].'
+              </div>
+              <div class="collapsible-header text-bold">
+                <i class="fa fa-heart"></i>Histopathology:
+              </div>
+              <div class="collapsible-body">
+                '.$row_1[0]['Histopathalogy'].'
+              </div>
+              <div class="collapsible-header text-bold">
+                <i class="fa fa-dot-circle-o"></i>Radiology:
+              </div>
+              <div class="collapsible-body">
+                '.$row_1[0]['Radiology'].'
+              </div>
+              <div class="collapsible-header text-bold">
+                <i class="fa fa-database"></i>TNM Staging:
+              </div>
+              <div class="collapsible-body">
+                <label>Tumor (T)/Value: </label>
+                '.$row_1[0]['TumorValue'].'
+                <br/>
+
+                <label>Lymph Node (N): </label>
+                '.$row_1[0]['LymphNode'].'
+                <br/>
+
+                <label>Metastatis (M): </label>
+                '.$row_1[0]['Metastatis'].'
+                <br/>
+
+                <label>IPI Scoring: </label>
+                '.$row_1[0]['IPIScoring'].'
+                <br/>
+
+                <label>Histologic Grade: </label>
+                '.$row_1[0]['histologicgrade'].'
+                <br/>
+
+                <label>Stage: </label>
+                '.$row_1[0]['stage'].'
+              </div>
+              <div class="collapsible-header text-bold">
+                <i class="fa fa-heart"></i>Assesment (DX):
+              </div>
+              <div class="collapsible-body">
+                '.$row_1[0]['AssesmentDX'].'
+              </div>
+              <div class="collapsible-header text-bold">
+                <i class="fa fa-heart"></i>Assesment Note:
+              </div>
+              <div class="collapsible-body">
+                '.$row_1[0]['AssesmentNote'].'
+              </div>
+          </body></html>';
+        }else if($type == "limited"){
+          $fileName = md5(uniqid(rand(), true)).md5(uniqid(rand(), true));
+          $myFile = "../reports/$fileName.html";
+          $fh = fopen($myFile, 'w'); // or die("error");
+          $stringData = '
+          <html><head><title>Home Care Report</title><meta name="viewport" content="width=device-width, initial-scale=1"></head><body>
+          <style>body{font-family:sans-serif; padding:0 20px;} img{display:block; margin: 0 auto; width:200px;} .collapsible-header{font-size: 18px; margin-top:25px; font-weight:bold;border:1x solid #000; border-bottom: 1px solid #000;} h1{font-size: 24px;text-align: center;border-bottom: 1px solid #000;margin-bottom: 0;} .date_time{text-align:right; margin-top: 0;} table tr th{text-align: left;}</style>
+          <img src="https://pahs.com.pk/website/images/Logo_png.png" alt="Home Care" />
+		      <h1>Examination</h1>
+          <div class="collapsible-header text-bold active">
+              <i class="fa fa-comments"></i>Patient General Information
+          </div>
+          <div class="collapsible-body">
+              <table>
+        					<tr><th>Print Date:</th><td>'.date('d-M-Y H:i:s a').'</td></tr>
+        					<tr><th>Doctor:</th><td>'.$doc_name.'</td></tr>
+        					<tr><th>Patient ID:</th><td>'.$PatientID.'</td></tr>
+        					<tr><th>Patient Name:</th><td>'.$patient_name.'</td></tr>
+				      </table>
+         </div>
+              <div class="collapsible-header text-bold">
+                <i class="fa fa-heart"></i>Assesment (DX):
+              </div>
+              <div class="collapsible-body">
+                '.$row_1[0]['AssesmentDX'].'
+              </div>
+              <div class="collapsible-header text-bold">
+                <i class="fa fa-heart"></i>Assesment Note:
+              </div>
+              <div class="collapsible-body">
+                '.$row_1[0]['AssesmentNote'].'
+              </div>
+          </body></html>';
+        }
+
+        fwrite($fh, $stringData);
+        fclose($fh);
+
+        $report_path = "http://pahs.com.pk/reports/".$fileName.".html";
+
+        $arr['data'] = "Report Sent $report_path !";
+
+        //now send
+        $appointment_id = "";
+        $senderid     = $d_id;
+        $recipientid  = $p_ids;
+        $sender       = $d_id; //patient _ or _doc
+        $msg          = "Tap <a href='$report_path'>HERE</a> to see your latest report!";
+        $date_time    = time();
+        $chat_time    = date("Y-m-d H:m:s.000");
+        $appointment_id = $_GET['appointment_id'];
+
+        $row_1 = sql($conn, "insert into chat
+        (msg, doc_id, patient_id, chat_time, appointment_id, senderid)
+        values (?,?,?,?,?,?)",
+        array($msg, $d_id, $p_id, $chat_time, $appointment_id, $senderid),
+        "count");
+
+
+    }
+
+
     else if($action == "add_doc"){
       $p_id           = $_GET['p_id'];
       $DocDateTime    = "2019-09-01 00:05:54.000";

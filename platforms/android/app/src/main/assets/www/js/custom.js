@@ -2,7 +2,7 @@ function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
-// onDeviceReady();
+//onDeviceReady();
 
 function onDeviceReady() {
 
@@ -19,12 +19,6 @@ function onDeviceReady() {
   Permission.request(permissions, function(results) {
 
   }, alert);
-
-
-
-
-
-
 
 
   /*

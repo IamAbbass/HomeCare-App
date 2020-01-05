@@ -2,11 +2,11 @@ function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
-// onDeviceReady();
+onDeviceReady();
 
 function onDeviceReady() {
 
-
+/*
   // verify grant for multiple permissions
   var Permission = window.plugins.Permission;
   var permissions =
@@ -19,12 +19,7 @@ function onDeviceReady() {
   Permission.request(permissions, function(results) {
 
   }, alert);
-
-
-
-
-
-
+  */
 
 
   /*

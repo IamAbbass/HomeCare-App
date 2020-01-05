@@ -277,7 +277,8 @@
                         video: false
                     };
                     document.querySelector('.j-actions[data-call="video"]').setAttribute('hidden', true);
-                    document.querySelector('.j-caller__ctrl').setAttribute('hidden', true);
+                    // document.querySelector('.j-actions[data-call="audio"]').setAttribute('hidden', true);
+                    // document.querySelector('.j-caller__ctrl').setAttribute('hidden', true);
                 } else {
                     mediaParams = {
                         audio: true,
@@ -288,7 +289,9 @@
                             mirror: true
                         }
                     };
-                    document.querySelector('.j-actions[data-call="audio"]').setAttribute('hidden', true);
+                    // document.querySelector('.j-actions[data-call="audio"]').setAttribute('hidden', true);
+                    document.querySelector('.j-actions[data-call="video"]').setAttribute('hidden', true);
+                    // document.querySelector('.j-caller__ctrl').setAttribute('hidden', true);
                 }
 
                 console.log("before getUserMedia");
@@ -325,7 +328,7 @@
 
                                 app.helpers.stateBoard.update({'title': 'calling'});
 
-                                document.getElementById(sounds.call).play();
+                                //document.getElementById(sounds.call).play();
 
                                 Object.keys(app.callees).forEach(function(id, i, arr) {
                                     videoElems += compiled({
@@ -365,6 +368,7 @@
                     }
                 });
             }
+
         });
 
         /** DECLINE */
@@ -389,7 +393,8 @@
                     video: false
                 };
                 document.querySelector('.j-actions[data-call="video"]').setAttribute('hidden', true);
-                document.querySelector('.j-caller__ctrl').setAttribute('hidden', true);
+                // document.querySelector('.j-actions[data-call="audio"]').setAttribute('hidden', true);
+                // document.querySelector('.j-caller__ctrl').setAttribute('hidden', true);
             } else {
                 mediaParams = {
                     audio: true,
@@ -401,7 +406,9 @@
                     }
                 };
 
-                document.querySelector('.j-actions[data-call="audio"]').setAttribute('hidden', true);
+                // document.querySelector('.j-actions[data-call="audio"]').setAttribute('hidden', true);
+                document.querySelector('.j-actions[data-call="video"]').setAttribute('hidden', true);
+                // document.querySelector('.j-caller__ctrl').setAttribute('hidden', true);
             }
 
             var videoElems = '';
@@ -460,6 +467,11 @@
                     });
                     console.log("accept..");
                     app.currentSession.accept({});
+
+
+                    document.querySelector('.j-actions[data-call="video"]').setAttribute('hidden', true);
+                    // document.querySelector('.j-actions[data-call="audio"]').setAttribute('hidden', true);
+                    // document.querySelector('.j-caller__ctrl').setAttribute('hidden', true);
                 }
             });
         });

@@ -470,6 +470,7 @@
     right: 0;
     top: 0;
     width: 135px;
+    height: 60px;
 }
 
 .caller__ctrl{
@@ -538,27 +539,30 @@
 }
 
 .caller__frames_acts {
-    margin: 10px 0 0 0;
+  /*
+  margin: 10px 0 0 0;
   position: fixed;
   bottom: 85px;
   left: 10px;
+  */
 }
 
-.caller__frames_acts_btn {
-    display: inline-block;
-    vertical-align: top;
-    width: 20px;
-    height: 20px;
-
-    margin: 0 15px 0 0;
-
-    border: none;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: center;
-
-    outline: none;
+.caller__frames_acts_btn, .caller__frames_acts_btn:focus {
+  display: inline-block;
+  vertical-align: top;
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  outline: none;
+  background: #eee;
+  width: 63px;
+  float: left;
+  margin: 4px 0 0 0;
+  padding: 3px 0;
+  border: 1px solid #ddd;
 }
+
     .caller__frames_acts_btn:last-child {
         margin-right: 0;
     }

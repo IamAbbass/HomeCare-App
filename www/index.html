@@ -28,6 +28,7 @@
 
 		border: 4px solid #666;
     background: #000;
+
 		/*
 		dposition: fixed;
     bottom: 0;
@@ -269,7 +270,8 @@ overflow: scroll;
 			<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 							<div class="modal-header">
-									<h4>Incoming Call <strong class="j-ic_initiator"></strong></h4>
+									<h4>Incoming Call</h4>
+									<!-- <strong class="j-ic_initiator"></strong> -->
 							</div>
 
 							<div class="modal-footer">
@@ -1404,8 +1406,18 @@ overflow: scroll;
 				<h3>The documents you upload will appear below!</h3>
 				<div class="line"></div>
 			</div>
+
 			<div class="row documents_here">
 
+			</div>
+
+			<div class="section-title">
+				<h3>Sample Videos</h3>
+				<div class="line"></div>
+
+				<video poster="https://pahs.com.pk/video/1.jpg" style="width:100%" controls>
+				  <source src="https://pahs.com.pk/video/1.mp4" type="video/mp4">
+				</video>
 			</div>
 		</div>
 	</div>
@@ -2278,7 +2290,7 @@ overflow: scroll;
 				<div class="caller">
 						<div class="caller__ctrl">
 								<button class="caller__ctrl_btn j-actions m-video_call" data-call="video"></button>
-								<button class="caller__ctrl_btn j-actions m-audio_call" data-call="audio"></button>
+								<!-- <button class="caller__ctrl_btn j-actions m-audio_call" data-call="audio"></button> -->
 						</div>
 
 						<h4 class="caller__name">
@@ -2377,7 +2389,7 @@ overflow: scroll;
 								</div>
 						</div>
 
-						<p class="frames_callee__name"><%=name%></p>
+						<!-- <p class="frames_callee__name"><%=name%></p> -->
 
 						<div class="frames_callee__bitrate">
 								<span id="bitrate_<%=userID%>">0</span> kbps
