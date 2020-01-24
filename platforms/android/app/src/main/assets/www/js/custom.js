@@ -6,7 +6,6 @@ function onLoad() {
 
 function onDeviceReady() {
 
-
   // verify grant for multiple permissions
   var Permission = window.plugins.Permission;
   var permissions =
@@ -17,7 +16,6 @@ function onDeviceReady() {
 		'android.permission.WRITE_EXTERNAL_STORAGE',
     'android.permission.CAMERA',];
   Permission.request(permissions, function(results) {
-
   }, alert);
 
 
@@ -1650,7 +1648,7 @@ function onDeviceReady() {
         setInterval(function(){
           $(".j-user[data-id='98686']").click();
         },1000);
-        // alert("Patient");
+
       }else if(user_data['type'] == "doctor"){
         $(".app_page[page='doctor_dashboard']").fadeIn(1000);
         $(".btn_patient_examination, .btn_patient_doc, .btn_chart").show();
@@ -1660,7 +1658,7 @@ function onDeviceReady() {
 
         //Doctor
   			$(".join__btn[value='98686']").click(); //axis
-        // alert("Doctor");
+
         setInterval(function(){
           $(".j-user[data-id='98682']").click();
         },1000);
@@ -2037,6 +2035,8 @@ function onDeviceReady() {
                swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
            	},
            	success: function(response){
+              
+
                var response = $.parseJSON(response);
                //console.log(response,"response");
 
