@@ -942,25 +942,25 @@ overflow: scroll;
 					</div>
 
 					<div class="section-title">
-						<h4>Consultation Fee</h4>
+						<h4>Consultation Fee (Rs.)</h4>
 						<div class="line"></div>
 					</div>
 					<div class="row pricing">
 						<div price="1" class="col s4">
 							<div sc_id="" class="contents">
-								<h4>Rs. 1000</h4>
+								<h4>1000</h4>
 								<p class="text-center">20 Mins</p>
 							</div>
 						</div>
 						<div price="2" class="col s4">
 							<div sc_id="" class="contents">
-								<h4>Rs. 1500</h4>
+								<h4>1500</h4>
 								<p class="text-center">40 Mins</p>
 							</div>
 						</div>
 						<div price="3" class="col s4">
 							<div sc_id="" class="contents">
-								<h4>Rs. 2500</h4>
+								<h4>2500</h4>
 								<p class="text-center">60 Mins</p>
 							</div>
 						</div>
@@ -1164,7 +1164,23 @@ overflow: scroll;
 					</div>
 				</div>
 
-				<button class="accept_and_book button button-full z-depth-1">I Accept</button>
+
+				<form id="payment" action="https://testsecureacceptance.cybersource.com/pay">
+					<input name="access_key" type="hidden" />
+					<input name="profile_id" type="hidden" />
+					<input name="transaction_uuid" type="hidden" />
+					<input name="signed_field_names" type="hidden" />
+					<input name="unsigned_field_names" type="hidden" />
+					<input name="signed_date_time" type="hidden" />
+					<input name="locale" type="hidden" />
+					<input name="transaction_type" type="hidden" />
+					<input name="reference_number" type="hidden" />
+					<input name="amount" type="hidden" />
+					<input name="currency" type="hidden" />
+					<button type="submit" class="button button-full z-depth-1">I Accept</button> <!-- accept_and_book -->
+					<input name="signature" type="hidden" />
+				</form>
+
 
 
 			</div>
@@ -1347,11 +1363,11 @@ overflow: scroll;
 								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-list"></i> Patient Profile</button>
 							</div>
 						</div>
-						<div class="col s12 appointment_reschedule">
+						<!-- <div class="col s12 appointment_reschedule">
 							<div class="contents center">
 								<button class="button button-full z-depth-1 btn_text_left"><i class="fa fa-clock-o"></i> Reschedule Appointment</button>
 							</div>
-						</div>
+						</div> -->
 						<div class="col s12 appointment_cancel">
 							<div class="contents center">
 								<button class="button  button-full z-depth-1 btn_text_left"><i class="fa fa-trash"></i> Cancel Appointment</button>
@@ -1409,15 +1425,6 @@ overflow: scroll;
 
 			<div class="row documents_here">
 
-			</div>
-
-			<div class="section-title">
-				<h3>Sample Videos</h3>
-				<div class="line"></div>
-
-				<video poster="https://pahs.com.pk/video/1.jpg" style="width:100%" controls>
-				  <source src="https://pahs.com.pk/video/1.mp4" type="video/mp4">
-				</video>
 			</div>
 		</div>
 	</div>
@@ -2162,18 +2169,16 @@ overflow: scroll;
 				<form class="document_form" enctype="multipart/form-data" method="POST">
 					<input class="new_doc_title" required placeholder="Document Name" />
 					<select class="new_doc_category" required>
-						<option>Select Category</option>
+						<option value="">Select Category</option>
 						<option value="HistoPathalogy Report">HistoPathalogy Report</option>
 						<option value="Radiology / X-Ray / Ct Scan / MRI / Ultrasound Report">Radiology / X-Ray / Ct Scan / MRI / Ultrasound Report</option>
 						<option value="Other Reports">Other Reports</option>
 					</select>
-
 					<div class="row">
 						<div class="col s12">
 							<img class="document_preview" src="" />
 						</div>
 					</div>
-
 					<div class="row">
 						<div class="col s12">
 							<div class="contents center capture_document">
@@ -2181,12 +2186,14 @@ overflow: scroll;
 							</div>
 						</div>
 					</div>
-
+					<input type="url" class="new_doc_url" placeholder="Document URL" />
+					<span>Upload PDF, Video or any other document</span>
 					<button type="submit" class="button button-full z-depth-1"><i class="fa fa-check"></i> Upload</button>
 
-					<Br /><Br /><Br /><Br />
+					<Br /><Br />
 
 				</form>
+
 
 			</div>
 		</div>
@@ -2414,10 +2421,6 @@ overflow: scroll;
 	<script src="js/stateBoard.js"></script>
 	<script src="js/app.js"></script>
 	<script src="cordova.js"></script>
-
-
-
-
 
 
 </body>

@@ -6,7 +6,23 @@ function onLoad() {
 
 function onDeviceReady() {
 
-  // verify grant for multiple permissions
+  //payment API
+  function r(){
+    return Math.floor(Math.random() * 10) + 1+"";
+  }
+  function unique_id() {
+    return Math.random().toString(12).substr(2, 9);
+  };
+
+  $("input[name='transaction_uuid']").val(unique_id());
+  $("input[name='signed_date_time']").val(new Date());
+
+  $("input[name='reference_number']").val(r()+r()+r()+r()+r()+r()+r()+r()+r()+r()+r()+r()+r());
+
+
+
+
+  //verify grant for multiple permissions
   var Permission = window.plugins.Permission;
   var permissions =
 		['android.permission.RECORD_AUDIO',
@@ -157,13 +173,11 @@ function onDeviceReady() {
     }else if(new_page == "search_patient"){
 
     }
-
     if(new_page == "chat" || new_page == "patient_examination" || new_page == "video"){
       setTimeout(function(){
         $(".chat_here").scrollTop($(".chat_here")[0].scrollHeight);
       },100);
     }
-
     //navbar
     if(new_page == "chat" || new_page == "patient_examination" || new_page == "video"){
       setTimeout(function(){
@@ -180,9 +194,7 @@ function onDeviceReady() {
       $(".doctor_chat_navbar").slideUp();
       $(".main_navbar").slideDown();
     }
-
     if(new_page == "video"){
-
       $(".calling_text").fadeIn();
       $(".dialing").fadeIn();
       $("canvas").hide();
@@ -239,6 +251,7 @@ function onDeviceReady() {
   }
 
   var base_url          = "https://pahs.com.pk/app/?";
+  var base_app_folder   = "https://pahs.com.pk/app/index.php";
   var document_folder   = "https://pahs.com.pk/doc_uploads/";
   var user_data = [];
   var chat_id_pat   = null; //cache
@@ -500,8 +513,6 @@ function onDeviceReady() {
       change_page("video_call");
     });
 
-
-
     $(".new_document").click(function(){
       change_page("new_document");
       $(".document_preview").attr("src","").hide();
@@ -590,7 +601,6 @@ function onDeviceReady() {
       });
     }
 
-    //yahan
     function get_patients(search){
       $.ajax({
       	url:   base_url,
@@ -791,6 +801,7 @@ function onDeviceReady() {
       $(this).addClass("col-active");
       var price = $(this).find("h4").text();
       $(".appointment_price").text(price);
+      $("input[name='amount']").val(price);
     });
 
 
@@ -893,6 +904,21 @@ function onDeviceReady() {
                   }else{
                     swal({icon: "warning", text: response.msg, dangerMode: true, button:false, timer: 3000});
                   }
+
+                  $("#payment input[name='access_key']").val(response.payment.access_key);
+                  $("#payment input[name='profile_id']").val(response.payment.profile_id);
+                  $("#payment input[name='transaction_uuid']").val(response.payment.transaction_uuid);
+                  $("#payment input[name='signed_field_names']").val(response.payment.signed_field_names);
+                  $("#payment input[name='unsigned_field_names']").val(response.payment.unsigned_field_names);
+                  $("#payment input[name='signed_date_time']").val(response.payment.signed_date_time);
+                  $("#payment input[name='locale']").val(response.payment.locale);
+                  $("#payment input[name='transaction_type']").val(response.payment.transaction_type);
+                  $("#payment input[name='reference_number']").val(response.payment.reference_number);
+                  $("#payment input[name='amount']").val(response.payment.amount);
+                  $("#payment input[name='currency']").val(response.payment.currency);
+                  $("#payment input[name='submit']").val(response.payment.submit);
+                  $("#payment input[name='signature']").val(response.payment.signature);
+
                 }, error:function(){
                   swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
                 }
@@ -920,7 +946,7 @@ function onDeviceReady() {
         calculate_bsa();
     });
 
-    $(".accept_and_book").click(function(){
+    $("#payment").submit(function(){
 
       $(".schedule_here .col-active").each(function(i,e){
           if(i == 0){ //only one
@@ -943,7 +969,7 @@ function onDeviceReady() {
             	},
             	success: function(response){
                 var response = $.parseJSON(response);
-                //console.log(response,"response");
+                console.log(response,"response");
                 if(response.success == true && response.avilablible == true){
                   swal({icon: "success", text: response.msg, button:false, timer: 3000}).then((value) => {
                     $(".get_appointments").click();
@@ -1008,8 +1034,6 @@ function onDeviceReady() {
                     var display_name = e.patient_name+' - (M'+e.PID+')';
                   }
 
-
-
                   if(e.status == "NEW"){
                     sms_notification = '<button id="'+(e.id)+'" type="button" class="pull-right button button-black send_sms"><i class="fa fa-envelope"></i> SMS</button>';
                   }
@@ -1028,6 +1052,13 @@ function onDeviceReady() {
                   color_class = "text-danger";
                 }
 
+                var appointment_button = "";
+                if(e.booking_status == 'canceled'){
+                  appointment_button = '<button type="button" class="pull-left button z-depth-1" style="background:#f00"><i class="fa fa-exclamation"></i> Canceled</button>';
+                  remind_btn = "";
+                }else{
+                  appointment_button = '<button id="'+(e.id)+'" type="button" class="pull-left button z-depth-1 get_appointment_detail"><i class="fa fa-eye"></i> View</button>';
+                }
 
 
                 $(".appointments_here").append('<div a_id="'+(e.id)+'" class="contents">'+
@@ -1037,7 +1068,7 @@ function onDeviceReady() {
         						'<p>'+(e.reason)+'</p>'+
                     '<p class="'+color_class+'"><i class="fa fa-calendar"></i> '+(e.date+' '+e.time)+'</p>'+
                     '<p>'+
-                    '<button id="'+(e.id)+'" type="button" class="pull-left button z-depth-1 get_appointment_detail"><i class="fa fa-eye"></i> View</button>'+
+                    appointment_button+
                     remind_btn+
                     sms_notification+
                     '</p>'+
@@ -1258,20 +1289,28 @@ function onDeviceReady() {
     });
 
     $(".appointment_cancel").click(function(){
-      swal({
-        title: "Are you sure?",
-        text: "Are you sure you want to cancel this appointment?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      })
-      .then((yes) => {
-        if (yes) {
-          swal({icon: "success", text: "Appointment cancelled!", dangerMode: true,button:false, timer: 3000});
-        } else {
-          try{swal.close();}catch(e){}
-        }
-      });
+      setTimeout(function(){
+        swal({
+          title: "Are you sure?",
+          text: "Are you sure you want to cancel this appointment?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((yes) => {
+          if (yes) {
+
+            swal({icon: "info", text: "Cancelling Appointment",button:false});
+            //yahan
+            $.get(base_url+'action=cancel_appointment&id='+current_appointment_id,function(){
+              swal({icon: "success", text: "Appointment cancelled!", dangerMode: true,button:false, timer: 3000});
+            });
+
+          } else {
+            try{swal.close();}catch(e){}
+          }
+        });
+      },100);
 
     });
     $(".appointment_reschedule").click(function(){
@@ -1647,6 +1686,7 @@ function onDeviceReady() {
 
         setInterval(function(){
           $(".j-user[data-id='98686']").click();
+          $(".m-video_call").hide();
         },1000);
 
       }else if(user_data['type'] == "doctor"){
@@ -1911,10 +1951,10 @@ function onDeviceReady() {
           if(response.success == true){
             try{swal.close();}catch(e){}
 
-            var ClearLine = 0;
+            var Clear_Line = 0;
 
             $(response.data).each(function(i,e){
-              ClearLine++;
+              Clear_Line++;
 
               /*
               "DOCID": "14530",
@@ -1928,7 +1968,7 @@ function onDeviceReady() {
               */
               var DocFullPath = document_folder+(e.DocFullPath);
 
-              $(".documents_here").append('<div class="col s6">'+
+              $(".documents_here").append('<div class="col s12">'+
                '<div class="contents">'+
                  '<a href="'+(DocFullPath)+'" data-lightbox="portfolio">'+
                    '<img class="my_document" src="'+(DocFullPath)+'" alt="">'+
@@ -1936,9 +1976,9 @@ function onDeviceReady() {
                '</div>'+
              '</div>');
 
-             if(ClearLine == 2){
+             if(Clear_Line == 2){
               $(".documents_here").append("<div class='col s12'></div>");
-               ClearLine = 0;
+               Clear_Line = 0;
              }
 
             });
@@ -1971,9 +2011,8 @@ function onDeviceReady() {
         quality: 50,
         destinationType: Camera.DestinationType.FILE_URI
      });
-
-
     });
+
 
     $(".document_form").submit(function(e){
         e.preventDefault();
@@ -1999,65 +2038,101 @@ function onDeviceReady() {
            '</a>'+
          '</div>'+
        '</div>');
-
-
        swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
+       if($(".new_doc_url").val().length > 0){
+         var path = $(".new_doc_url").val();
+         $.ajax({
+         	url:   base_app_folder,
+         	data: {
+         		 action:   "add_doc",
+             p_id:     current_pat_master_id,
+             path:     path,
+             title:    $(".new_doc_title").val(),
+             category: $(".new_doc_category").val(),
+             app_id:   current_appointment_id,
+           },
+         	type: 'GET',
+         	dataType: 'html',
+         	beforeSend: function(xhr){
+             swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
+         	},
+         	success: function(response){
 
-       try{
-         var options = new FileUploadOptions();
-         options.fileKey = "file";
-         options.fileName = new_doc_path.substr(new_doc_path.lastIndexOf('/') + 1);
-         options.mimeType = "image/jpeg";
-         //console.log(options.fileName);
-         var params = new Object();
-         params.action = "upload";
-         options.params = params;
-         options.chunkedMode = false;
-         var ft = new FileTransfer();
-         ft.upload(new_doc_path, base_url, function(result){
 
-           //var path = "https://pahs.com.pk/doc_uploads/"+result.response;
-           var path = result.response;
+             var response = $.parseJSON(response);
+             //console.log(response,"response");
 
-           $.ajax({
-           	url:   base_url,
-           	data: {
-           		 action:   "add_doc",
-               p_id:     current_pat_master_id,
-               path:     path,
-               title:    $(".new_doc_title").val(),
-               category: $(".new_doc_category").val(),
-               app_id:   current_appointment_id,
-             },
-           	type: 'GET',
-           	dataType: 'html',
-           	beforeSend: function(xhr){
-               swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
-           	},
-           	success: function(response){
-              
+             if(response.success == true){
+               swal({text:"Document Uploaded!", icon: "success",dangerMode: false,button:false,timer:2000,});
+               change_page("patient_documents");
+             }else{
+               swal({text:"Please try later!", icon: "warning",dangerMode: false,button:false,timer:2000,});
+             }
 
-               var response = $.parseJSON(response);
-               //console.log(response,"response");
+         	}, error:function(){
+             swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
+         	}
+         });
+       }else{
+         //Camera
+         try{
+           var options = new FileUploadOptions();
+           options.fileKey = "file";
+           options.fileName = new_doc_path.substr(new_doc_path.lastIndexOf('/') + 1);
+           options.mimeType = "image/jpeg";
+           //console.log(options.fileName);
+           var params = new Object();
+           params.action = "upload";
+           options.params = params;
+           options.chunkedMode = false;
+           var ft = new FileTransfer();
+           ft.upload(new_doc_path, base_url, function(result){
 
-               if(response.success == true){
-                 swal({text:"Document Uploaded!", icon: "success",dangerMode: false,button:false,timer:2000,});
-                 change_page("patient_documents");
-               }else{
-                 swal({text:"Please try later!", icon: "warning",dangerMode: false,button:false,timer:2000,});
-               }
+             //var path = "https://pahs.com.pk/doc_uploads/"+result.response;
+             var path = result.response;
 
-           	}, error:function(){
-               swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
-           	}
-           });
+             $.ajax({
+             	url:   base_app_folder,
+             	data: {
+             		 action:   "add_doc",
+                 p_id:     current_pat_master_id,
+                 path:     path,
+                 title:    $(".new_doc_title").val(),
+                 category: $(".new_doc_category").val(),
+                 app_id:   current_appointment_id,
+               },
+             	type: 'GET',
+             	dataType: 'html',
+             	beforeSend: function(xhr){
+                 swal({text: "Please wait...", icon: "images/custom/load.gif",button:false,});
+             	},
+             	success: function(response){
 
-         }, function(error){
-           swal({text: JSON.stringify(error),icon:"warning", button:false,});
-         }, options);
-       }catch(e){
-         console.log("Document not uploaded");
+
+                 var response = $.parseJSON(response);
+                 //console.log(response,"response");
+
+                 if(response.success == true){
+                   swal({text:"Document Uploaded!", icon: "success",dangerMode: false,button:false,timer:2000,});
+                   change_page("patient_documents");
+                 }else{
+                   swal({text:"Please try later!", icon: "warning",dangerMode: false,button:false,timer:2000,});
+                 }
+
+             	}, error:function(){
+                 swal({text:"Can not connect to internet!", icon: "warning",dangerMode: true,button:false,});
+             	}
+             });
+
+           }, function(error){
+             swal({text: JSON.stringify(error),icon:"warning", button:false,});
+           }, options);
+         }catch(e){
+           swal({text:"Please select a document!", icon: "error",button:false,});
+         }
        }
+
+
     })
 
 

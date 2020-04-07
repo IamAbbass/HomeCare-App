@@ -667,6 +667,8 @@
                 // check the current session state
                 if (app.currentSession.state !== ConnectyCube.videochat.SessionConnectionState.CLOSED){
                     $("#income_call").show();
+                    //navidate to call page
+                    $(".dial_call").click();
                     document.getElementById(sounds.rington).play();
                 }
             });
