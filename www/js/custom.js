@@ -2,7 +2,7 @@ function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
-//onDeviceReady();
+onDeviceReady();
 
 function onDeviceReady() {
 
@@ -23,16 +23,16 @@ function onDeviceReady() {
 
 
   //verify grant for multiple permissions
-  var Permission = window.plugins.Permission;
-  var permissions =
-		['android.permission.RECORD_AUDIO',
-    'android.permission.ACCESS_NETWORK_STATE',
-		'android.permission.READ_PHONE_STATE',
-		'android.permission.READ_EXTERNAL_STORAGE',
-		'android.permission.WRITE_EXTERNAL_STORAGE',
-    'android.permission.CAMERA',];
-  Permission.request(permissions, function(results) {
-  }, alert);
+  // var Permission = window.plugins.Permission;
+  // var permissions =
+	// 	['android.permission.RECORD_AUDIO',
+  //   'android.permission.ACCESS_NETWORK_STATE',
+	// 	'android.permission.READ_PHONE_STATE',
+	// 	'android.permission.READ_EXTERNAL_STORAGE',
+	// 	'android.permission.WRITE_EXTERNAL_STORAGE',
+  //   'android.permission.CAMERA',];
+  // Permission.request(permissions, function(results) {
+  // }, alert);
 
 
   /*
