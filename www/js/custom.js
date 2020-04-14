@@ -760,7 +760,7 @@ function onDeviceReady() {
       						'<img class="doc_avatar" src="images/custom/doc_avatar.jpg" alt="">'+
       					'</div>'+
       					'<div class="list-text">'+
-      						'<h6>'+(e.DoctorName)+' <span class="pull-right">'+(e.Consultingfee)+'</span></h6>'+
+      						'<h6>'+(e.DoctorName)+' <span class="pull-right">'+(e.isBilling + " - "+e.Consultingfee)+'</span></h6>'+
       						'<p>'+(e.Speciality)+' <button type="button" class="pull-right button z-depth-1">Book Now</button></p>'+
       					'</div>'+
       				'</div>');
@@ -1054,7 +1054,7 @@ function onDeviceReady() {
 
                 var appointment_button = "";
                 if(e.booking_status == 'canceled'){
-                  appointment_button = '<button type="button" class="pull-left button z-depth-1" style="background:#f00"><i class="fa fa-exclamation"></i> Canceled</button>';
+                  appointment_button = '<button id="'+(e.id)+'" type="button" class="pull-left button z-depth-1 get_appointment_detail" style="background:#f00"><i class="fa fa-exclamation"></i> Canceled</button>';
                   remind_btn = "";
                 }else{
                   appointment_button = '<button id="'+(e.id)+'" type="button" class="pull-left button z-depth-1 get_appointment_detail"><i class="fa fa-eye"></i> View</button>';
